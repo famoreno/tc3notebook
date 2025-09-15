@@ -686,8 +686,214 @@ blockquote.quote-large {
 	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
 }
 	
-</style></head><body><article id="203dc82f-49f8-8075-8dc4-c8cbbafd7ab6" class="page sans"><header><img class="page-cover-image" src="https://www.notion.so/images/page-cover/solid_red.png" style="object-position:center 40%"/><div class="page-header-icon page-header-icon-with-cover"><img class="icon" src="https://www.notion.so/icons/hand_gray.svg"/></div><h1 class="page-title">Nivel 1: Manual</h1><p class="page-description"></p></header><div class="page-body"><ul id="203dc82f-49f8-803b-87b9-dbbb989a124e" class="block-color-teal_background toggle"><li><details open=""><summary><strong>Objetivos</strong></summary><ul id="203dc82f-49f8-805f-8273-dd97993feccc" class="bulleted-list"><li style="list-style-type:disc">Disponer de una interfaz gráfica para controlar manualmente la estación</li></ul><ul id="203dc82f-49f8-8037-9467-cbde6063070a" class="bulleted-list"><li style="list-style-type:disc">Verificar el correcto funcionamiento de cada dispositivo de la estación</li></ul><ul id="203dc82f-49f8-80f2-83dc-de5785f2b9dd" class="bulleted-list"><li style="list-style-type:disc">Comprender el funcionamiento de cada dispositivo de la estación</li></ul><ul id="203dc82f-49f8-801e-876f-f764ff15a911" class="bulleted-list"><li style="list-style-type:disc">Comprender el funcionamiento de la estación en su conjunto</li></ul></details></li></ul><ul id="203dc82f-49f8-80da-890d-ec806d2c7bb6" class="block-color-purple_background bulleted-list"><li style="list-style-type:disc"><strong>Duración estimada: 1 - 2 sesiones</strong></li></ul><details open=""><summary style="font-weight:600;font-size:1.25em;line-height:1.3;margin:0">Guía de resolución</summary><div class="indented"><figure id="206dc82f-49f8-8042-9ef4-c37d66655fd1" class="image"><a href="image.png"><img style="width:653.9725341796875px" src="image.png"/></a><figcaption>Resumen de la estructura manual</figcaption></figure><ul id="203dc82f-49f8-80bd-924c-ee33dbd767dc" class="bulleted-list"><li style="list-style-type:disc">Crear un nuevo <code>TwinCAT Project</code><ul id="203dc82f-49f8-80d6-8e1b-d43b8f5a1a0e" class="bulleted-list"><li style="list-style-type:circle">Nombre: <code>XXX_TC3_GYY</code> donde <code>XXX</code> es el grado (<code>AIE</code>, <code>AIM</code>, <code>SR</code>, etc.) y <code>GYY</code> es el número de grupo (<code>G01</code>, <code>G02</code>, etc.)</li></ul></li></ul><ul id="203dc82f-49f8-8096-80c2-d670ee91278d" class="bulleted-list"><li style="list-style-type:disc">Crear un <code>PLC Project</code><ul id="203dc82f-49f8-8014-bc0d-cc6bb8003c8d" class="bulleted-list"><li style="list-style-type:circle">Nombre: <code>FMSXXX_Manual</code> donde <code>XXX</code> es el número de la estación (<code>201</code>, <code>202</code>, etc.).</li></ul></li></ul><ul id="203dc82f-49f8-80ca-89d4-d174259edf0c" class="toggle"><li><details open=""><summary>Crear un <strong>único </strong>bloque funcional</summary><ul id="203dc82f-49f8-806a-9844-ded98850bffc" class="bulleted-list"><li style="list-style-type:disc">Nombre: <code>FB_Estacion</code></li></ul><ul id="203dc82f-49f8-8063-843b-d3038bf53301" class="bulleted-list"><li style="list-style-type:disc">Lenguaje: <code>SFC</code></li></ul><ul id="203dc82f-49f8-809d-8df1-d484604123bb" class="bulleted-list"><li style="list-style-type:disc">Variables: Declarar las variables de la tabla de E/S en las imágenes de E y S</li></ul><ul id="203dc82f-49f8-803d-8bd0-e64dbc34d855" class="bulleted-list"><li style="list-style-type:disc">Implementación: No hay código que implementar, se deja por defecto.</li></ul></details></li></ul><ul id="203dc82f-49f8-8045-8649-e8165a63cf19" class="bulleted-list"><li style="list-style-type:disc">Crear una instancia del <code>FB_Estacion</code> en el programa <code>MAIN</code> y ejecutar su código.<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="203dc82f-49f8-807d-b6f6-f3a66aed614d" class="code code-wrap"><code class="language-Plain Text" style="white-space:pre-wrap;word-break:break-all">VAR
+</style>
+</head>
+
+<body>
+	<article id="203dc82f-49f8-8075-8dc4-c8cbbafd7ab6" class="page sans">
+		<header><img class="page-cover-image" src="https://www.notion.so/images/page-cover/solid_red.png"
+				style="object-position:center 40%" />
+			<div class="page-header-icon page-header-icon-with-cover"><img class="icon"
+					src="https://www.notion.so/icons/hand_gray.svg" /></div>
+			<h1 class="page-title">Nivel 1: Manual</h1>
+			<p class="page-description"></p>
+		</header>
+		<div class="page-body">
+			<ul id="203dc82f-49f8-803b-87b9-dbbb989a124e" class="block-color-teal_background toggle">
+				<li>
+					<details open="">
+						<summary><strong>Objetivos</strong></summary>
+						<ul id="203dc82f-49f8-805f-8273-dd97993feccc" class="bulleted-list">
+							<li style="list-style-type:disc">Disponer de una interfaz gráfica para controlar manualmente
+								la estación</li>
+						</ul>
+						<ul id="203dc82f-49f8-8037-9467-cbde6063070a" class="bulleted-list">
+							<li style="list-style-type:disc">Verificar el correcto funcionamiento de cada dispositivo de
+								la estación</li>
+						</ul>
+						<ul id="203dc82f-49f8-80f2-83dc-de5785f2b9dd" class="bulleted-list">
+							<li style="list-style-type:disc">Comprender el funcionamiento de cada dispositivo de la
+								estación</li>
+						</ul>
+						<ul id="203dc82f-49f8-801e-876f-f764ff15a911" class="bulleted-list">
+							<li style="list-style-type:disc">Comprender el funcionamiento de la estación en su conjunto
+							</li>
+						</ul>
+					</details>
+				</li>
+			</ul>
+			<ul id="203dc82f-49f8-80da-890d-ec806d2c7bb6" class="block-color-purple_background bulleted-list">
+				<li style="list-style-type:disc"><strong>Duración estimada: 1 - 2 sesiones</strong></li>
+			</ul>
+			<details open="">
+				<summary style="font-weight:600;font-size:1.25em;line-height:1.3;margin:0">Guía de resolución</summary>
+				<div class="indented">
+					<figure id="206dc82f-49f8-8042-9ef4-c37d66655fd1" class="image"><a href="image.png"><img
+								style="width:653.9725341796875px" src="image.png" /></a>
+						<figcaption>Resumen de la estructura manual</figcaption>
+					</figure>
+					<ul id="203dc82f-49f8-80bd-924c-ee33dbd767dc" class="bulleted-list">
+						<li style="list-style-type:disc">Crear un nuevo <code>TwinCAT Project</code>
+							<ul id="203dc82f-49f8-80d6-8e1b-d43b8f5a1a0e" class="bulleted-list">
+								<li style="list-style-type:circle">Nombre: <code>XXX_TC3_GYY</code> donde
+									<code>XXX</code> es el grado (<code>AIE</code>, <code>AIM</code>, <code>SR</code>,
+									etc.) y <code>GYY</code> es el número de grupo (<code>G01</code>, <code>G02</code>,
+									etc.)</li>
+							</ul>
+						</li>
+					</ul>
+					<ul id="203dc82f-49f8-8096-80c2-d670ee91278d" class="bulleted-list">
+						<li style="list-style-type:disc">Crear un <code>PLC Project</code>
+							<ul id="203dc82f-49f8-8014-bc0d-cc6bb8003c8d" class="bulleted-list">
+								<li style="list-style-type:circle">Nombre: <code>FMSXXX_Manual</code> donde
+									<code>XXX</code> es el número de la estación (<code>201</code>, <code>202</code>,
+									etc.).</li>
+							</ul>
+						</li>
+					</ul>
+					<ul id="203dc82f-49f8-80ca-89d4-d174259edf0c" class="toggle">
+						<li>
+							<details open="">
+								<summary>Crear un <strong>único </strong>bloque funcional</summary>
+								<ul id="203dc82f-49f8-806a-9844-ded98850bffc" class="bulleted-list">
+									<li style="list-style-type:disc">Nombre: <code>FB_Estacion</code></li>
+								</ul>
+								<ul id="203dc82f-49f8-8063-843b-d3038bf53301" class="bulleted-list">
+									<li style="list-style-type:disc">Lenguaje: <code>SFC</code></li>
+								</ul>
+								<ul id="203dc82f-49f8-809d-8df1-d484604123bb" class="bulleted-list">
+									<li style="list-style-type:disc">Variables: Declarar las variables de la tabla de
+										E/S en las imágenes de E y S</li>
+								</ul>
+								<ul id="203dc82f-49f8-803d-8bd0-e64dbc34d855" class="bulleted-list">
+									<li style="list-style-type:disc">Implementación: No hay código que implementar, se
+										deja por defecto.</li>
+								</ul>
+							</details>
+						</li>
+					</ul>
+					<ul id="203dc82f-49f8-8045-8649-e8165a63cf19" class="bulleted-list">
+						<li style="list-style-type:disc">Crear una instancia del <code>FB_Estacion</code> en el programa
+							<code>MAIN</code> y ejecutar su código.
+							<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"
+								integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg=="
+								crossorigin="anonymous" referrerPolicy="no-referrer"></script>
+							<link rel="stylesheet"
+								href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css"
+								integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ=="
+								crossorigin="anonymous" referrerPolicy="no-referrer" />
+							<pre id="203dc82f-49f8-807d-b6f6-f3a66aed614d" class="code code-wrap"><code class="language-Plain Text" style="white-space:pre-wrap;word-break:break-all">VAR
 	Estacion: FB_Estacion;
 END_VAR
 --------------------------------------------------------
-Estación();</code></pre></li></ul><ul id="203dc82f-49f8-8066-9cab-f6745841beb3" class="toggle"><li><details open=""><summary>Realizar una visualización para el programa</summary><figure id="203dc82f-49f8-809d-b0ff-d1d7f967e211" class="image"><a href="image%201.png"><img style="width:384px" src="image%201.png"/></a><figcaption>Visualización del ejemplo de la FMS203</figcaption></figure><ul id="203dc82f-49f8-80a9-a66a-e5296b90e57f" class="bulleted-list"><li style="list-style-type:disc"><strong>Todas </strong>las señales deben estar representadas</li></ul><ul id="203dc82f-49f8-8078-8888-e65a7af2cecf" class="bulleted-list"><li style="list-style-type:disc">Decidir si los botones deben ser <em>Tap </em>o <em>Toggle</em></li></ul></details></li></ul><ul id="203dc82f-49f8-8040-a8b6-ffdf3648fff0" class="bulleted-list"><li style="list-style-type:disc">Compilar el proyecto y comprobar que no tiene errores</li></ul><ul id="203dc82f-49f8-809a-8243-f26f01c43ea0" class="block-color-yellow_background toggle"><li><details open=""><summary>Si se tiene acceso a la estación</summary><ul id="203dc82f-49f8-80a4-903b-dbc31aaa215c" class="bulleted-list"><li style="list-style-type:disc">Buscar la estación en la red y conectarse</li></ul><ul id="203dc82f-49f8-8049-a39d-fbec66c437fa" class="bulleted-list"><li style="list-style-type:disc">Buscar los terminales de E/S con TwinCAT3</li></ul><ul id="203dc82f-49f8-8049-9f70-cee1e92211b0" class="bulleted-list"><li style="list-style-type:disc">Renombrar los terminales de E/S según la tabla</li></ul><ul id="203dc82f-49f8-8053-942a-e1315acb9a3e" class="bulleted-list"><li style="list-style-type:disc">Enlazar las variables del programa con los terminales de E/S</li></ul><ul id="203dc82f-49f8-8002-ac0e-c7f740f34bdc" class="bulleted-list"><li style="list-style-type:disc">Activar la configuración en la estación</li></ul><ul id="203dc82f-49f8-803f-a36a-fde16a952daf" class="bulleted-list"><li style="list-style-type:disc">Descargar el programa en la estación (<em>Log in</em>)</li></ul><ul id="203dc82f-49f8-804d-b763-e61a5345809e" class="bulleted-list"><li style="list-style-type:disc">Ejecutar el programa (<em>Start</em>)</li></ul><ul id="203dc82f-49f8-80f4-9011-e3871ab938eb" class="bulleted-list"><li style="list-style-type:disc">Probar el funcionamiento</li></ul></details></li></ul><ul id="203dc82f-49f8-802e-987d-fa5882d08f49" class="block-color-gray_background toggle"><li><details open=""><summary>Si no se tiene acceso a la estación</summary><ul id="203dc82f-49f8-80aa-8b67-d25b97867ca1" class="bulleted-list"><li style="list-style-type:disc">Activar la configuración en el equipo local</li></ul><ul id="203dc82f-49f8-8033-afa7-d0202a3752f1" class="bulleted-list"><li style="list-style-type:disc">Descargar el programa en el equipo local (<em>Log in</em>)</li></ul><ul id="203dc82f-49f8-8071-b85b-d676b8084bec" class="bulleted-list"><li style="list-style-type:disc">Ejecutar el programa (<em>Start</em>)</li></ul><ul id="203dc82f-49f8-80cb-95ba-dd61fa1f4076" class="bulleted-list"><li style="list-style-type:disc">Comprobar que la visualización cambia los valores de las variables correctas</li></ul></details></li></ul></div></details><details open=""><summary style="font-weight:600;font-size:1.25em;line-height:1.3;margin:0">Conocimientos previos</summary><div class="indented"><ul id="203dc82f-49f8-80f3-9ba3-f140cb4807d4" class="bulleted-list"><li style="list-style-type:disc">Creación de proyectos y soluciones</li></ul><ul id="203dc82f-49f8-802d-9599-dbe9a5d8fadd" class="bulleted-list"><li style="list-style-type:disc">Creación e instanciación de bloques funcionales</li></ul><ul id="203dc82f-49f8-8068-83ca-f0c07324c5bf" class="bulleted-list"><li style="list-style-type:disc">Declaración de variables</li></ul><ul id="203dc82f-49f8-8058-becf-fe4529361b0c" class="bulleted-list"><li style="list-style-type:disc">Creación de visualizaciones</li></ul><ul id="203dc82f-49f8-802f-8d2f-e462fec8f042" class="bulleted-list"><li style="list-style-type:disc">Búsqueda de terminales de E/S en equipos remotos y enlace de variables con terminales</li></ul><ul id="203dc82f-49f8-8026-a374-d2b79efd6fe6" class="bulleted-list"><li style="list-style-type:disc">Puesta en marcha de un proyecto de TwinCAT3</li></ul></div></details></div></article><span class="sans" style="font-size:14px;padding-top:2em"></span></body></html>
+Estación();</code></pre>
+						</li>
+					</ul>
+					<ul id="203dc82f-49f8-8066-9cab-f6745841beb3" class="toggle">
+						<li>
+							<details open="">
+								<summary>Realizar una visualización para el programa</summary>
+								<figure id="203dc82f-49f8-809d-b0ff-d1d7f967e211" class="image"><a
+										href="image%201.png"><img style="width:384px" src="image%201.png" /></a>
+									<figcaption>Visualización del ejemplo de la FMS203</figcaption>
+								</figure>
+								<ul id="203dc82f-49f8-80a9-a66a-e5296b90e57f" class="bulleted-list">
+									<li style="list-style-type:disc"><strong>Todas </strong>las señales deben estar
+										representadas</li>
+								</ul>
+								<ul id="203dc82f-49f8-8078-8888-e65a7af2cecf" class="bulleted-list">
+									<li style="list-style-type:disc">Decidir si los botones deben ser <em>Tap </em>o
+										<em>Toggle</em></li>
+								</ul>
+							</details>
+						</li>
+					</ul>
+					<ul id="203dc82f-49f8-8040-a8b6-ffdf3648fff0" class="bulleted-list">
+						<li style="list-style-type:disc">Compilar el proyecto y comprobar que no tiene errores</li>
+					</ul>
+					<ul id="203dc82f-49f8-809a-8243-f26f01c43ea0" class="block-color-yellow_background toggle">
+						<li>
+							<details open="">
+								<summary>Si se tiene acceso a la estación</summary>
+								<ul id="203dc82f-49f8-80a4-903b-dbc31aaa215c" class="bulleted-list">
+									<li style="list-style-type:disc">Buscar la estación en la red y conectarse</li>
+								</ul>
+								<ul id="203dc82f-49f8-8049-a39d-fbec66c437fa" class="bulleted-list">
+									<li style="list-style-type:disc">Buscar los terminales de E/S con TwinCAT3</li>
+								</ul>
+								<ul id="203dc82f-49f8-8049-9f70-cee1e92211b0" class="bulleted-list">
+									<li style="list-style-type:disc">Renombrar los terminales de E/S según la tabla</li>
+								</ul>
+								<ul id="203dc82f-49f8-8053-942a-e1315acb9a3e" class="bulleted-list">
+									<li style="list-style-type:disc">Enlazar las variables del programa con los
+										terminales de E/S</li>
+								</ul>
+								<ul id="203dc82f-49f8-8002-ac0e-c7f740f34bdc" class="bulleted-list">
+									<li style="list-style-type:disc">Activar la configuración en la estación</li>
+								</ul>
+								<ul id="203dc82f-49f8-803f-a36a-fde16a952daf" class="bulleted-list">
+									<li style="list-style-type:disc">Descargar el programa en la estación (<em>Log
+											in</em>)</li>
+								</ul>
+								<ul id="203dc82f-49f8-804d-b763-e61a5345809e" class="bulleted-list">
+									<li style="list-style-type:disc">Ejecutar el programa (<em>Start</em>)</li>
+								</ul>
+								<ul id="203dc82f-49f8-80f4-9011-e3871ab938eb" class="bulleted-list">
+									<li style="list-style-type:disc">Probar el funcionamiento</li>
+								</ul>
+							</details>
+						</li>
+					</ul>
+					<ul id="203dc82f-49f8-802e-987d-fa5882d08f49" class="block-color-gray_background toggle">
+						<li>
+							<details open="">
+								<summary>Si no se tiene acceso a la estación</summary>
+								<ul id="203dc82f-49f8-80aa-8b67-d25b97867ca1" class="bulleted-list">
+									<li style="list-style-type:disc">Activar la configuración en el equipo local</li>
+								</ul>
+								<ul id="203dc82f-49f8-8033-afa7-d0202a3752f1" class="bulleted-list">
+									<li style="list-style-type:disc">Descargar el programa en el equipo local (<em>Log
+											in</em>)</li>
+								</ul>
+								<ul id="203dc82f-49f8-8071-b85b-d676b8084bec" class="bulleted-list">
+									<li style="list-style-type:disc">Ejecutar el programa (<em>Start</em>)</li>
+								</ul>
+								<ul id="203dc82f-49f8-80cb-95ba-dd61fa1f4076" class="bulleted-list">
+									<li style="list-style-type:disc">Comprobar que la visualización cambia los valores
+										de las variables correctas</li>
+								</ul>
+							</details>
+						</li>
+					</ul>
+				</div>
+			</details>
+			<details open="">
+				<summary style="font-weight:600;font-size:1.25em;line-height:1.3;margin:0">Conocimientos previos
+				</summary>
+				<div class="indented">
+					<ul id="203dc82f-49f8-80f3-9ba3-f140cb4807d4" class="bulleted-list">
+						<li style="list-style-type:disc">Creación de proyectos y soluciones</li>
+					</ul>
+					<ul id="203dc82f-49f8-802d-9599-dbe9a5d8fadd" class="bulleted-list">
+						<li style="list-style-type:disc">Creación e instanciación de bloques funcionales</li>
+					</ul>
+					<ul id="203dc82f-49f8-8068-83ca-f0c07324c5bf" class="bulleted-list">
+						<li style="list-style-type:disc">Declaración de variables</li>
+					</ul>
+					<ul id="203dc82f-49f8-8058-becf-fe4529361b0c" class="bulleted-list">
+						<li style="list-style-type:disc">Creación de visualizaciones</li>
+					</ul>
+					<ul id="203dc82f-49f8-802f-8d2f-e462fec8f042" class="bulleted-list">
+						<li style="list-style-type:disc">Búsqueda de terminales de E/S en equipos remotos y enlace de
+							variables con terminales</li>
+					</ul>
+					<ul id="203dc82f-49f8-8026-a374-d2b79efd6fe6" class="bulleted-list">
+						<li style="list-style-type:disc">Puesta en marcha de un proyecto de TwinCAT3</li>
+					</ul>
+				</div>
+			</details>
+		</div>
+	</article><span class="sans" style="font-size:14px;padding-top:2em"></span>
+</body>
+
+</html>
