@@ -1,0 +1,657 @@
+<html>
+
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<title>Nivel 2: Monolítico</title>
+	<link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+	<article id="203dc82f-49f8-80bb-95e0-d00d0e7adc97" class="page sans">
+		<header><img class="page-cover-image" src="https://www.notion.so/images/page-cover/solid_blue.png"
+				style="object-position:center 40%" />
+			<div class="page-header-icon page-header-icon-with-cover"><img class="icon"
+					src="https://www.notion.so/icons/downward_gray.svg" /></div>
+			<h1 class="page-title">Nivel 2: Monolítico</h1>
+			<p class="page-description"></p>
+		</header>
+		<div class="page-body">
+			<details open="">
+				<summary style="font-weight:600;font-size:1.25em;line-height:1.3;margin:0">Introducción y objetivos
+				</summary>
+				<div class="indented">
+					<ul id="206dc82f-49f8-8053-a125-e1c82b6967d9" class="block-color-teal_background toggle">
+						<li>
+							<details open="">
+								<summary><strong>Introducción (TODO)</strong></summary>
+								<ul id="206dc82f-49f8-8097-a8ba-e679fa8e91ef" class="bulleted-list">
+									<li style="list-style-type:disc">Esta sección describe un enfoque modular para
+										estructurar proyectos de automatización en TwinCAT 3, utilizando <em>Function
+											Blocks</em> (FBs) basados en <em>Sequential Function Chart</em> (SFC). </li>
+								</ul>
+								<ul id="206dc82f-49f8-8078-81c3-d34e9085785e" class="bulleted-list">
+									<li style="list-style-type:disc">Tomaremos como ejemplo el control de una estación
+										SMC FMS203, pasando de una implementación monolítica (toda la lógica de control
+										en un único FB) a una estructura modular.</li>
+								</ul>
+								<ul id="206dc82f-49f8-804e-b399-d09e55031862" class="bulleted-list">
+									<li style="list-style-type:disc">En proyectos iniciales o más simples, es común
+										implementar toda la lógica de control dentro de un único POU (<em>Program
+											Organization Unit</em>), a menudo un solo <em>Function Block</em> grande.
+									</li>
+								</ul>
+								<ul id="206dc82f-49f8-8036-9980-ff8ff9c8b6fe" class="toggle">
+									<li>
+										<details open="">
+											<summary>Si bien esto puede parecer directo al principio, presenta
+												desventajas a medida que el proyecto crece:</summary>
+											<ul id="206dc82f-49f8-8047-96b3-c5b8a3ee0df9" class="bulleted-list">
+												<li style="list-style-type:disc"><strong>Baja Legibilidad:</strong> Un
+													FB grande con muchas responsabilidades se vuelve difícil de entender
+													y seguir.</li>
+											</ul>
+											<ul id="206dc82f-49f8-80b4-8f3d-fe723b18bd5a" class="bulleted-list">
+												<li style="list-style-type:disc"><strong>Difícil
+														Mantenimiento:</strong> Modificar una parte puede afectar
+													inesperadamente a otras. La depuración es compleja.</li>
+											</ul>
+											<ul id="206dc82f-49f8-80e9-a801-db4a72736d5b" class="bulleted-list">
+												<li style="list-style-type:disc"><strong>Poca Reutilización:</strong> Es
+													complicado extraer partes específicas para usarlas en otros
+													proyectos o estaciones.</li>
+											</ul>
+											<ul id="206dc82f-49f8-800a-9e08-dd22b35e2c9c" class="bulleted-list">
+												<li style="list-style-type:disc"><strong>Complejidad en
+														Pruebas:</strong> Probar funcionalidades específicas de forma
+													aislada es casi imposible.</li>
+											</ul>
+										</details>
+									</li>
+								</ul>
+								<ul id="206dc82f-49f8-8018-9840-cc38139247c2" class="bulleted-list">
+									<li style="list-style-type:disc">La <strong>estructuración modular</strong>, como la
+										implementada en los FBs proporcionados, aborda estos problemas dividiendo la
+										funcionalidad en bloques más pequeños y manejables, cada uno con una
+										responsabilidad clara.</li>
+								</ul>
+								<ul id="206dc82f-49f8-80eb-875e-e284f9d872c7" class="toggle">
+									<li>
+										<details open="">
+											<summary><strong>Beneficios del Enfoque Modular:</strong></summary>
+											<ul id="206dc82f-49f8-8011-8dc2-ca369aadb121" class="bulleted-list">
+												<li style="list-style-type:disc"><strong>Claridad:</strong> Cada FB
+													realiza una tarea específica (ej. Cargar Base, Prensar Rodamiento).
+												</li>
+											</ul>
+											<ul id="206dc82f-49f8-8026-9a7b-c8f1b29be5f5" class="bulleted-list">
+												<li style="list-style-type:disc"><strong>Reutilización:</strong> Los FBs
+													de tareas pueden ser reutilizados en otras estaciones o proyectos
+													con lógica similar.</li>
+											</ul>
+											<ul id="206dc82f-49f8-80d5-9cc1-f8e0f3671277" class="bulleted-list">
+												<li style="list-style-type:disc"><strong>Mantenimiento:</strong> Los
+													cambios se localizan en FBs específicos, reduciendo el riesgo de
+													efectos secundarios.</li>
+											</ul>
+											<ul id="206dc82f-49f8-8021-859a-f98143da68f0" class="bulleted-list">
+												<li style="list-style-type:disc"><strong>Testabilidad:</strong> Cada FB
+													puede probarse individualmente (si se diseña adecuadamente).</li>
+											</ul>
+											<ul id="206dc82f-49f8-80a1-be9b-c43d8e0c5d76" class="bulleted-list">
+												<li style="list-style-type:disc">
+													<strong>Colaboración:</strong> Diferentes desarrolladores pueden
+													trabajar en distintos FBs simultáneamente.</li>
+											</ul>
+										</details>
+									</li>
+								</ul>
+							</details>
+						</li>
+					</ul>
+					<ul id="203dc82f-49f8-8010-8481-c752951d8f66" class="block-color-teal_background toggle">
+						<li>
+							<details open="">
+								<summary><strong>Objetivos</strong></summary>
+								<ul id="203dc82f-49f8-800e-9f1b-dcbcd0e178a6" class="bulleted-list">
+									<li style="list-style-type:disc">Crear un proyecto de automatización para el
+										funcionamiento completo de la estación</li>
+								</ul>
+								<ul id="203dc82f-49f8-803c-b3f6-e21f7f786d8a" class="bulleted-list">
+									<li style="list-style-type:disc">Implementar la producción por lotes </li>
+								</ul>
+								<ul id="203dc82f-49f8-80ab-8e65-c5f65b8ba5c3" class="bulleted-list">
+									<li style="list-style-type:disc">Adaptar la visualización manual</li>
+								</ul>
+								<ul id="203dc82f-49f8-80a9-a25b-caec8a6c09f8" class="bulleted-list">
+									<li style="list-style-type:disc">Conocer cómo funcionan y cómo se usan las señales
+										<code>SFCReset</code> y <code>SFCPause</code></li>
+								</ul>
+								<ul id="203dc82f-49f8-80b4-9c03-c63a1fa9002b" class="bulleted-list">
+									<li style="list-style-type:disc">Determinar las condiciones iniciales de la estación
+									</li>
+								</ul>
+							</details>
+						</li>
+					</ul>
+					<ul id="206dc82f-49f8-80af-b885-d6d51ccd3051" class="block-color-red_background toggle">
+						<li>
+							<details open="">
+								<summary><strong>Requisitos</strong></summary>
+								<ul id="206dc82f-49f8-80d1-bb73-c35416a7c9da" class="bulleted-list">
+									<li style="list-style-type:disc">El <strong>programa </strong>debe mantener todas
+										las funcionalidades del nivel anterior (<code>Manual</code>)</li>
+								</ul>
+								<ul id="206dc82f-49f8-80d5-8e0a-ee9e43f23b66" class="bulleted-list">
+									<li style="list-style-type:disc">El <strong>programa </strong>debe incluir:<ul
+											id="206dc82f-49f8-805d-a432-d76aee3e5d75" class="bulleted-list">
+											<li style="list-style-type:circle">Un pograma <code>MAIN</code> en
+												<code>ST</code></li>
+										</ul>
+										<ul id="206dc82f-49f8-80fc-9fbf-f945f6268cbb" class="bulleted-list">
+											<li style="list-style-type:circle">Un FB <strong>Estación</strong> en
+												<code>SFC</code> </li>
+										</ul>
+										<ul id="206dc82f-49f8-80d4-b69f-dc8fcd395ae1" class="bulleted-list">
+											<li style="list-style-type:circle">Una <strong>Visualización</strong></li>
+										</ul>
+									</li>
+								</ul>
+								<ul id="206dc82f-49f8-80d1-9068-c384761a0b6f" class="bulleted-list">
+									<li style="list-style-type:disc">El <strong>programa </strong>debe permitir conmutar
+										entre modo <strong>manual </strong>(se puede actuar sobre la estación desde la
+										visualización) y modo <strong>automático </strong>(el programa produce) mediante
+										el conmutador del <strong>Panel del Operador</strong> en el frente de la
+										estación.</li>
+								</ul>
+								<ul id="206dc82f-49f8-806b-97b5-c29cac7c078e" class="bulleted-list">
+									<li style="list-style-type:disc">El <strong>programa </strong>debe considerar las
+										<strong>Condiciones Iniciales</strong> y la <strong>Condición de Marcha</strong>
+										antes de permitir que la estación comience a producir.</li>
+								</ul>
+								<ul id="206dc82f-49f8-80e6-90b7-d6ba0df76878" class="toggle">
+									<li>
+										<details open="">
+											<summary>La <strong>visualización</strong> debe mostrar el valor de las
+												siguientes variables de la tarea:</summary>
+											<figure id="206dc82f-49f8-8040-943f-e1b76c8e3b78" class="image"
+												style="text-align:center"><a href="images/n2/image.png"><img style="width:192px"
+														src="images/n2/image.png" /></a>
+												<figcaption>Panel de la tarea</figcaption>
+											</figure>
+											<ul id="206dc82f-49f8-808b-a90b-ea19f210baac" class="bulleted-list">
+												<li style="list-style-type:disc"><code>UnidadesSolicitadas</code>:
+													Variable que contiene el número de piezas que se quieren producir en
+													un lote. <strong>Debe poder ser editada desde la
+														visualización</strong>.<strong> </strong>El programa debe ser
+													capaz de, tras pulsar el <strong>Pulsador de Marcha</strong>,
+													producir el número de piezas especificado en esta variable. Esto se
+													denomina <strong>Producción por Lotes</strong>.</li>
+											</ul>
+											<ul id="206dc82f-49f8-8054-a204-c5ad41514d1f" class="bulleted-list">
+												<li style="list-style-type:disc"><code>UnidadesPendientes</code>:
+													Contador que toma inicialmente el valor de
+													<code>UnidadesSolicitadas </code>y se decrementa cada vez que se
+													produce una pieza. Se reinicia cada vez que se acaba el lote.</li>
+											</ul>
+											<ul id="206dc82f-49f8-806c-8de2-dcca9e4baa89" class="bulleted-list">
+												<li style="list-style-type:disc"><code>UnidadesRealizadas</code>:
+													Contador que empieza en cero y se incrementa cada vez que se produce
+													una pieza. No se reincia cada vez que acaba el lote.</li>
+											</ul>
+											<ul id="206dc82f-49f8-8064-aa18-e59ae27345d1" class="bulleted-list">
+												<li style="list-style-type:disc"><code>UnidadesRechazadas</code>: (si
+													aplica). Contador que empieza en cero y se incrementa cada vez que
+													se rechaza una pieza. No se reinicia cada vez que acaba el lote.
+												</li>
+											</ul>
+											<ul id="206dc82f-49f8-801c-a25b-f8812499c3dc" class="bulleted-list">
+												<li style="list-style-type:disc">Definición de las piezas a producir
+													(ejemplo: rodamiento alto o bajo).</li>
+											</ul>
+										</details>
+									</li>
+								</ul>
+								<ul id="206dc82f-49f8-8084-a6fb-eb7b54c95a83" class="toggle">
+									<li>
+										<details open="">
+											<summary>La <strong>visualización </strong>debe incluir, en su parte
+												inferior, una serie de indicadores y botones que permiten conocer el
+												estado de las condiciones de la estación y modificar su comportamiento:
+											</summary>
+											<figure id="206dc82f-49f8-8084-9fc8-f17ae7cc3bdd" class="image"
+												style="text-align:center"><a href="images/n2/image 1.png"><img
+														style="width:288px" src="images/n2/image 1.png" /></a></figure>
+											<ul id="206dc82f-49f8-80af-95c9-c50947e39591" class="bulleted-list">
+												<li style="list-style-type:disc"><code>CI</code>: Indicador que muestra
+													si se cumplen o no las condiciones iniciales.</li>
+											</ul>
+											<ul id="206dc82f-49f8-8041-b101-fbe93c9af58a" class="bulleted-list">
+												<li style="list-style-type:disc"><code>CM</code>: Indicador que muestra
+													si se cumple o no la condición de marcha.</li>
+											</ul>
+											<ul id="206dc82f-49f8-803a-a7e7-c9b98684ac18" class="bulleted-list">
+												<li style="list-style-type:disc"><code>Ciclo</code> [<mark
+														class="highlight-blue">toggle</mark>]: Botón que indica que la
+													estación debe operar <strong>Ciclo a Ciclo</strong>, esto es, debe
+													parar entre cada iteración del lote hasta que se pulse el
+													<strong>Pulsador de Marcha</strong>. Debe seguir produciendo el
+													número de piezas que se especificó para el lote.</li>
+											</ul>
+											<ul id="206dc82f-49f8-8098-93ab-c63adab825b7" class="bulleted-list">
+												<li style="list-style-type:disc"><code>Pause</code> [<mark
+														class="highlight-blue">toggle</mark>]: Botón que pausa la
+													estación en su estado actual. Relacionado con SFCPause.</li>
+											</ul>
+											<ul id="206dc82f-49f8-80ab-9ce9-da87511927d7" class="bulleted-list">
+												<li style="list-style-type:disc"><code>Reset</code> [<mark
+														class="highlight-teal">tap</mark>]: Botón que reinicia la
+													estación y la devuelve a su estado inicial. Relacionado con
+													SFCReset. </li>
+											</ul>
+										</details>
+									</li>
+								</ul>
+								<ul id="206dc82f-49f8-8016-bbee-f4e4600db47a" class="toggle">
+									<li>
+										<details open="">
+											<summary>La <strong>visualización </strong>debe permitir, en la sección
+												<code>PARÁMETROS</code>, introducir los valores de los <strong>tiempos
+												</strong>utilizados en todos los FBs del programa, con el formato de las
+												variables de tipo <code>TIME</code></summary>
+											<figure id="206dc82f-49f8-80af-824c-c57a9e742392" class="image"
+												style="text-align:center"><a href="images/n2/image 2.png"><img
+														style="width:144px" src="images/n2/image 2.png" /></a></figure>
+										</details>
+									</li>
+								</ul>
+							</details>
+						</li>
+					</ul>
+					<ul id="203dc82f-49f8-80c3-9a36-eb44761dcc23" class="block-color-purple_background bulleted-list">
+						<li style="list-style-type:disc"><strong>Duración estimada: 6 - 8 sesiones</strong></li>
+					</ul>
+				</div>
+			</details>
+			<details open="">
+				<summary style="font-weight:600;font-size:1.25em;line-height:1.3;margin:0">Guía de resolución</summary>
+				<div class="indented">
+					<figure id="206dc82f-49f8-802e-8b58-f60c2f07c1d5" class="image"><a href="images/n2/image 3.png"><img
+								style="width:681.9942626953125px" src="images/n2/image 3.png" /></a>
+						<figcaption>Resumen de la estructura monolítica</figcaption>
+					</figure>
+					<ul id="203dc82f-49f8-8013-a7db-f8b1d9c928c5" class="bulleted-list">
+						<li style="list-style-type:disc">Crear un nuevo <code>TwinCAT Project</code>
+							<ul id="206dc82f-49f8-80db-bdf7-d4b91968adf3" class="bulleted-list">
+								<li style="list-style-type:circle">Nombre: <code>XXX_TC3_GYY</code> donde
+									<code>XXX</code> es el grado (<code>AIE</code>, <code>AIM</code>, <code>SR</code>,
+									etc.) y <code>GYY</code> es el número de grupo (<code>G01</code>, <code>G02</code>,
+									etc.).</li>
+							</ul>
+						</li>
+					</ul>
+					<ul id="206dc82f-49f8-806e-bf67-fc4c1d7b4a3c" class="bulleted-list">
+						<li style="list-style-type:disc">Crear un <code>PLC Project</code>
+							<ul id="206dc82f-49f8-8074-8b22-f1427426ec18" class="bulleted-list">
+								<li style="list-style-type:circle">Nombre: <code>FMSXXX_Monolitico</code> donde
+									<code>XXX</code> es el número de la estación (<code>201</code>, <code>202</code>,
+									etc.).</li>
+							</ul>
+						</li>
+					</ul>
+					<ul id="203dc82f-49f8-806c-969d-d036917fd5ef" class="toggle">
+						<li>
+							<details open="">
+								<summary>Crear un <strong>único </strong>bloque funcional</summary>
+								<ul id="203dc82f-49f8-805a-b89a-da998c7787e2" class="bulleted-list">
+									<li style="list-style-type:disc">Nombre: <code>FB_Estacion</code></li>
+								</ul>
+								<ul id="203dc82f-49f8-80b4-b39f-ead77175b0bd" class="bulleted-list">
+									<li style="list-style-type:disc">Lenguaje: <code>SFC</code></li>
+								</ul>
+								<ul id="203dc82f-49f8-8048-94ec-ef22d5e319ab" class="bulleted-list">
+									<li style="list-style-type:disc">Variables:<ul
+											id="23bdc82f-49f8-803a-b45e-de90f47a1418" class="bulleted-list">
+											<li style="list-style-type:circle">Declarar las variables de la tabla de E/S
+												en las imágenes de E y S.</li>
+										</ul>
+									</li>
+								</ul>
+								<ul id="203dc82f-49f8-8001-8b6a-dc75f1414341" class="bulleted-list">
+									<li style="list-style-type:disc">Implementación: Implentar el código correspondiente
+										a la lógica de control de la estación completa.</li>
+								</ul>
+							</details>
+						</li>
+					</ul>
+					<ul id="203dc82f-49f8-8011-bc43-d7ee4746a85c" class="bulleted-list">
+						<li style="list-style-type:disc">Crear una instancia del <code>FB_Estacion</code> en el programa
+							<code>MAIN</code>.
+							<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"
+								integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg=="
+								crossorigin="anonymous" referrerPolicy="no-referrer"></script>
+							<link rel="stylesheet"
+								href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css"
+								integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ=="
+								crossorigin="anonymous" referrerPolicy="no-referrer" />
+							<pre id="206dc82f-49f8-803b-90ab-c8965015b722" class="code code-wrap"><code class="language-Plain Text" style="white-space:pre-wrap;word-break:break-all">VAR
+    // Variables locales
+    CodigoPale: BYTE;
+    
+    // Bloques funcionales
+    Estacion: FB_Estacion;
+END_VAR
+--------------------------------------------------------
+IF NOT Estacion.SelectorManual THEN
+    Estacion();
+    CodigoPale := Estacion.CodigoPale;
+ELSE
+	  CodigoPale.0 := Estacion.CodigoPaleBit0;
+    CodigoPale.1 := Estacion.CodigoPaleBit1;
+    CodigoPale.2 := Estacion.CodigoPaleBit2;    
+END_IF</code></pre>
+						</li>
+					</ul>
+					<ul id="203dc82f-49f8-80a3-8363-c8d5dcbfecfc" class="toggle">
+						<li>
+							<details open="">
+								<summary>Realizar una visualización para el programa</summary>
+								<figure id="203dc82f-49f8-803e-9cd5-de0de2621808" class="image"><a
+										href="images/n2/image 4.png"><img style="width:480px" src="images/n2/image 4.png" /></a>
+									<figcaption>Ejemplo de visualización de la estación FMS203</figcaption>
+								</figure>
+								<ul id="203dc82f-49f8-80c8-a4a7-c34bfbbd520e" class="bulleted-list">
+									<li style="list-style-type:disc">Todas las señales de E/S deben estar representadas.
+									</li>
+								</ul>
+								<ul id="203dc82f-49f8-80f3-815c-f0a1831c810a" class="bulleted-list">
+									<li style="list-style-type:disc">Decidir si los botones deben ser <em>Tap </em>o
+										<em>Toggle.</em></li>
+								</ul>
+								<ul id="203dc82f-49f8-803a-a2e7-d9a156d34595" class="bulleted-list">
+									<li style="list-style-type:disc">Se añaden las variables de la tarea:
+										<strong>unidades solicitadas, pendientes, realizadas y rechazadas</strong> (si
+										aplica).</li>
+								</ul>
+								<ul id="203dc82f-49f8-805c-99f7-d14a6891b76e" class="bulleted-list">
+									<li style="list-style-type:disc">Los tiempos utilizados en los bloques funcionales
+										deben ser configurables en la visualización (sección <code>PARÁMETROS</code>).
+									</li>
+								</ul>
+								<ul id="206dc82f-49f8-8011-9952-dfd232a2b9bb" class="bulleted-list">
+									<li style="list-style-type:disc">Debe tener una barra inferior con información sobre
+										las condiciones iniciales, la condición de marcha, y controles para
+										<strong>Pausar</strong>, <strong>Reiniciar </strong>y ejecutar la tarea
+										<strong>Ciclo a Ciclo.</strong></li>
+								</ul>
+								<ul id="203dc82f-49f8-80e4-a683-e9f62d28c406" class="bulleted-list">
+									<li style="list-style-type:disc">Añadir cualquier otra información que sea
+										interesante mostrar.</li>
+								</ul>
+							</details>
+						</li>
+					</ul>
+					<ul id="203dc82f-49f8-8010-84b7-ed407bbbccf9" class="bulleted-list">
+						<li style="list-style-type:disc">Compilar el proyecto y comprobar que no tiene errores.</li>
+					</ul>
+					<ul id="203dc82f-49f8-80f7-8334-d8071e4fbdbb" class="block-color-yellow_background toggle">
+						<li>
+							<details open="">
+								<summary>Si se tiene acceso a la estación</summary>
+								<ul id="203dc82f-49f8-803f-9440-d4842a41b371" class="bulleted-list">
+									<li style="list-style-type:disc">Buscar la estación en la red y conectarse</li>
+								</ul>
+								<ul id="203dc82f-49f8-80b3-b0d6-c4b92445666d" class="bulleted-list">
+									<li style="list-style-type:disc">Buscar los terminales de E/S con TwinCAT3</li>
+								</ul>
+								<ul id="203dc82f-49f8-801e-bea1-ddca46095ab3" class="bulleted-list">
+									<li style="list-style-type:disc">Renombrar los terminales de E/S según la tabla</li>
+								</ul>
+								<ul id="203dc82f-49f8-8041-8b74-c3893d71838e" class="bulleted-list">
+									<li style="list-style-type:disc">Enlazar las variables del programa con los
+										terminales de E/S</li>
+								</ul>
+								<ul id="203dc82f-49f8-804c-8046-dbc1f884f1f3" class="bulleted-list">
+									<li style="list-style-type:disc">Activar la configuración en la estación</li>
+								</ul>
+								<ul id="203dc82f-49f8-8027-99fc-c89aae89d586" class="bulleted-list">
+									<li style="list-style-type:disc">Descargar el programa en la estación (<em>Log
+											in</em>)</li>
+								</ul>
+								<ul id="203dc82f-49f8-8055-944a-f3d2d5da852c" class="bulleted-list">
+									<li style="list-style-type:disc">Ejecutar el programa (<em>Start</em>)</li>
+								</ul>
+								<ul id="203dc82f-49f8-80d2-8bc7-cafcf2e74d81" class="bulleted-list">
+									<li style="list-style-type:disc">Probar el funcionamiento</li>
+								</ul>
+							</details>
+						</li>
+					</ul>
+					<ul id="203dc82f-49f8-8073-9e26-e4f361c78b98" class="block-color-gray_background toggle">
+						<li>
+							<details open="">
+								<summary>Si no se tiene acceso a la estación</summary>
+								<ul id="203dc82f-49f8-807f-acf4-c2355ecdcc0e" class="bulleted-list">
+									<li style="list-style-type:disc">Activar la configuración en el equipo local</li>
+								</ul>
+								<ul id="203dc82f-49f8-8064-b3a9-e07791e1d725" class="bulleted-list">
+									<li style="list-style-type:disc">Descargar el programa en el equipo local (<em>Log
+											in</em>)</li>
+								</ul>
+								<ul id="203dc82f-49f8-8058-bf74-e0e9e6efbfa0" class="bulleted-list">
+									<li style="list-style-type:disc">Ejecutar el programa (<em>Start</em>)</li>
+								</ul>
+								<ul id="203dc82f-49f8-80e0-a5ce-caea7fed08f7" class="bulleted-list">
+									<li style="list-style-type:disc">Comprobar que la visualización cambia los valores
+										de las variables correctas</li>
+								</ul>
+							</details>
+						</li>
+					</ul>
+				</div>
+			</details>
+			<details open="">
+				<summary style="font-weight:600;font-size:1.25em;line-height:1.3;margin:0"><strong>Gestión
+						de </strong><code><strong>SFCReset</strong></code><strong> y </strong><code><strong>SFCPause</strong></code>
+				</summary>
+				<div class="indented">
+					<ul id="203dc82f-49f8-8000-8bb4-d1860a398139" class="bulleted-list">
+						<li style="list-style-type:disc">Estas son <strong>entradas especiales </strong>proporcionadas
+							por TwinCAT para FBs basados en SFC (se les denomina <code>SFC-Flags</code>). Permiten un
+							control externo sobre la ejecución del código SFC.</li>
+					</ul>
+					<ul id="203dc82f-49f8-8059-ba27-e38cf0470dad" class="toggle">
+						<li>
+							<details open="">
+								<summary>
+									<code><strong>SFCPause</strong></code><strong> (</strong><code><strong>BOOL</strong></code><strong>):</strong>
+								</summary>
+								<ul id="203dc82f-49f8-8028-9c32-da48ee20ebac" class="bulleted-list">
+									<li style="list-style-type:disc">Si se pone a <code>TRUE</code>, el
+										SFC <strong>congela</strong> su estado actual.</li>
+								</ul>
+								<ul id="203dc82f-49f8-8090-b90c-f3013350216a" class="bulleted-list">
+									<li style="list-style-type:disc">Los temporizadores de los pasos activos
+										(<code>S1.t</code>,<code>S2.t</code>, etc.) dejan de contar.</li>
+								</ul>
+								<ul id="203dc82f-49f8-80e0-af89-d7012386cfcf" class="bulleted-list">
+									<li style="list-style-type:disc">Las acciones
+										activas <strong>continúan</strong> ejecutándose.</li>
+								</ul>
+								<ul id="203dc82f-49f8-80ca-854f-e0cbdda55c05" class="bulleted-list">
+									<li style="list-style-type:disc">Las transiciones <strong>no</strong> se evalúan. El
+										SFC no avanzará a pasos siguientes.</li>
+								</ul>
+								<ul id="203dc82f-49f8-807e-9ed5-f19778909c19" class="bulleted-list">
+									<li style="list-style-type:disc">Cuando <code>SFCPause</code> vuelve
+										a <code>FALSE</code>, el SFC reanuda la ejecución desde donde se quedó (los
+										temporizadores continúan, las transiciones se evalúan).</li>
+								</ul>
+							</details>
+						</li>
+					</ul>
+					<ul id="203dc82f-49f8-8012-bcc5-e7d9cbc95be8" class="toggle">
+						<li>
+							<details open="">
+								<summary>
+									<code><strong>SFCReset</strong></code><strong> (</strong><code><strong>BOOL</strong></code><strong>):</strong>
+								</summary>
+								<ul id="203dc82f-49f8-808d-ab6e-dc68d93fb523" class="bulleted-list">
+									<li style="list-style-type:disc">Si se pone a <code>TRUE</code>, el
+										SFC <strong>fuerza</strong> el retorno al paso inicial (<code>Initial</code>).
+									</li>
+								</ul>
+								<ul id="203dc82f-49f8-8036-b5ee-fc8c74377d32" class="bulleted-list">
+									<li style="list-style-type:disc">Todas las acciones se desactivan (como si se
+										saliera de los pasos activos).</li>
+								</ul>
+								<ul id="203dc82f-49f8-80f8-aa63-c3d033bcd214" class="bulleted-list">
+									<li style="list-style-type:disc">Las variables internas del SFC
+										(como <code>S1.x</code> o <code>S1.t</code>) se reinician.</li>
+								</ul>
+								<ul id="203dc82f-49f8-80a0-9fbe-c45f300c26ca" class="bulleted-list">
+									<li style="list-style-type:disc">El SFC permanecerá en el
+										paso <code>Initial</code> mientras <code>SFCReset</code> esté
+										a <code>TRUE</code>.</li>
+								</ul>
+								<ul id="203dc82f-49f8-809d-8a98-fa1f0b1c6579" class="bulleted-list">
+									<li style="list-style-type:disc">Normalmente, <code>SFCReset</code> se activa con un
+										pulso (<em>tap</em>) o se mantiene activo durante la condición de reinicio.</li>
+								</ul>
+							</details>
+						</li>
+					</ul>
+					<ul id="203dc82f-49f8-80de-9fd6-ca2fbca00ef8" class="bulleted-list">
+						<li style="list-style-type:disc">En nuestra implementación de ejemplo de la estación 203,
+							<code>PausaEstado</code> y <code>ReiniciaEstado</code> están controlados por dos botones
+							situados abajo a la derecha en la visualización.</li>
+					</ul>
+					<ul id="206dc82f-49f8-80d5-8705-d7299be4b9b9" class="toggle">
+						<li>
+							<details open="">
+								<summary><strong>Implementación Típica:</strong></summary>
+								<ul id="206dc82f-49f8-805f-8601-f3ca0171b20a" class="bulleted-list">
+									<li style="list-style-type:disc">En este nivel, estas variables están asociadas
+										directamente con los botones de la visualización<figure
+											id="206dc82f-49f8-805d-84c2-df0d7e01806e" class="image"><a
+												href="images/n2/image 5.png"><img style="width:528px" src="images/n2/image 5.png" /></a>
+											<figcaption>Ejemplo de asociación de SFCPause al botón de la visualización
+											</figcaption>
+										</figure>
+									</li>
+								</ul>
+							</details>
+						</li>
+					</ul>
+					<ul id="206dc82f-49f8-806a-9902-c8c6967fba7d" class="bulleted-list">
+						<li style="list-style-type:disc">Importante: Por defecto, TC3 te permite declarar esas
+							variables pero no utilizarlas. Para que TC3 tenga en cuenta estas funcionalidades es
+							necesario darle permiso de uso en el proyecto:</li>
+					</ul>
+					<ul id="206dc82f-49f8-8063-9c66-c06d7a8c58a2" class="bulleted-list">
+						<li style="list-style-type:disc">CD sobre la línea
+							<code>&lt;nombre&gt; Project</code> → <code>Properties</code>
+							<figure id="206dc82f-49f8-806a-9902-c8c6967fba7d" class="image"><a
+									href="images/n2/image 6.png"><img style="width:384px" src="images/n2/image 6.png" /></a>
+							</figure>
+						</li>
+					</ul>
+					<ul id="206dc82f-49f8-80f9-a69d-e1933e2792ff" class="bulleted-list">
+						<li style="list-style-type:disc">Selecciona la pestaña <code>SFC</code></li>
+					</ul>
+					<ul id="206dc82f-49f8-807b-a7e0-c7a8b3aea426" class="bulleted-list">
+						<li style="list-style-type:disc">Activa las casillas de <code>SFCPause</code> y
+							<code>SFCReset</code> en la columna de <code>Use</code>.<figure
+								id="206dc82f-49f8-8001-8832-c389f75fa34b" class="image"><a
+									href="images/n2/image 7.png"><img style="width:528px" src="images/n2/image 7.png" /></a>
+							</figure>
+						</li>
+					</ul>
+				</div>
+			</details>
+			<details open="">
+				<summary style="font-weight:600;font-size:1.25em;line-height:1.3;margin:0">Producción por lotes
+				</summary>
+				<div class="indented">
+					<ul id="203dc82f-49f8-80e4-94af-cdb208dc283d" class="bulleted-list">
+						<li style="list-style-type:disc">El programa debe ser capaz de realizar un número de ciclos
+							determinado (lote) con una sola pulsación del botón de marcha.</li>
+					</ul>
+					<ul id="203dc82f-49f8-805f-9a7b-d69667429d06" class="bulleted-list">
+						<li style="list-style-type:disc">Un ciclo se inicia al traer un palé hasta la posición de
+							producción y termina cuando una pieza ha sido completada y sale el palé hacia la siguiente
+							estación.</li>
+					</ul>
+					<ul id="203dc82f-49f8-80b3-a063-cf21de4c7bf7" class="bulleted-list">
+						<li style="list-style-type:disc">Se van a utilizar cuatro variables numéricas para gestionar el
+							lote:<ul id="203dc82f-49f8-8093-a822-e8becc1be884" class="bulleted-list">
+								<li style="list-style-type:circle"><code>UnidadesSolicitadas</code>. Especifica el
+									número total de ciclos que queremos realizar.</li>
+							</ul>
+							<ul id="203dc82f-49f8-802c-a839-d22436d2f3de" class="bulleted-list">
+								<li style="list-style-type:circle"><code>UnidadesPendientes</code>. Indica el número de
+									ciclos restantes para terminar el lote.</li>
+							</ul>
+							<ul id="203dc82f-49f8-8060-94b4-ca3d0b0b7b94" class="bulleted-list">
+								<li style="list-style-type:circle"><code>UnidadesRealizadas</code>. Indica el número
+									total de unidades completadas, sumando todos los lotes, es decir, no se resetea cada
+									vez que realizamos un nuevo ciclo.</li>
+							</ul>
+							<ul id="203dc82f-49f8-80ca-a3f6-d0a3a6b07e44" class="bulleted-list">
+								<li style="list-style-type:circle"><code>UnidadesRechazadas</code> (opcional, depende de
+									la estación). Indica el número total de unidades que se han rechazado por no cumplir
+									las condiciones necesarias para ser realizadas.</li>
+							</ul>
+						</li>
+					</ul>
+					<ul id="203dc82f-49f8-80da-b593-ededa4a103ea" class="bulleted-list">
+						<li style="list-style-type:disc">En la primera etapa se inicializa la variable
+							<code>UnidadesPendientes</code> con el valor de <code>UnidadesSolicitadas</code>. Esto se
+							realiza dentro de una acción con activación a la salida <code>[X]</code>.<figure
+								id="203dc82f-49f8-80e0-9c40-cefb13b6404c" class="image"><a href="images/n2/image 8.png"><img
+										style="width:432px" src="images/n2/image 8.png" /></a></figure>
+							<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"
+								integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg=="
+								crossorigin="anonymous" referrerPolicy="no-referrer"></script>
+							<link rel="stylesheet"
+								href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css"
+								integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ=="
+								crossorigin="anonymous" referrerPolicy="no-referrer" />
+							<pre id="203dc82f-49f8-8091-9c1c-fa28fcd6918a" class="code code-wrap"><code class="language-Plain Text" style="white-space:pre-wrap;word-break:break-all">IF (UnidadesPendientes = 0) THEN
+    UnidadesPendientes := UnidadesSolicitadas;
+END_IF</code></pre>
+						</li>
+					</ul>
+					<ul id="203dc82f-49f8-80ea-9b7f-e460905138c3" class="bulleted-list">
+						<li style="list-style-type:disc">A lo largo de la lógica de control se actualizarán las
+							variables <code>UnidadesRealizadas</code> y <code>UnidadesRechazadas</code> cuando
+							corresponda.</li>
+					</ul>
+					<ul id="203dc82f-49f8-807e-9ae8-f11e51b4aba8" class="bulleted-list">
+						<li style="list-style-type:disc">Al finalizar el ciclo se debe actualizar el valor de la
+							variable <code>UnidadesPendientes</code> y comprobar si ha llegado a cero. En tal caso se
+							vuelve a la etapa inicial <code>S0</code> y, si no, se vuelve a una etapa posterior para
+							evitar la necesidad de pulsar el pulsador de marcha.<figure
+								id="203dc82f-49f8-806c-80f3-caa3a75406c4" class="image"><a href="images/n2/image 9.png"><img
+										style="width:528px" src="images/n2/image 9.png" /></a></figure>
+							<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"
+								integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg=="
+								crossorigin="anonymous" referrerPolicy="no-referrer"></script>
+							<link rel="stylesheet"
+								href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css"
+								integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ=="
+								crossorigin="anonymous" referrerPolicy="no-referrer" />
+							<pre id="203dc82f-49f8-8067-9c8f-cb4dbb0e3e85" class="code code-wrap"><code class="language-Plain Text" style="white-space:pre-wrap;word-break:break-all">// Código dentro de la acción con activación a la entrada en S27
+IF (UnidadesPendientes &gt; 0) THEN
+    UnidadesPendientes := UnidadesPendientes - 1;
+END_IF</code></pre>
+						</li>
+					</ul>
+					<p id="203dc82f-49f8-8041-b8ce-e52c1e70731f" class="">
+					</p>
+				</div>
+			</details>
+		</div>
+	</article><span class="sans" style="font-size:14px;padding-top:2em"></span>
+</body>
+
+</html>
