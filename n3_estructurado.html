@@ -28,6 +28,7 @@
 					<li><a href="#estructura-fb-tarea">Estructura estándar de un FB de Tarea en SFC</a></li>
 					<li><a href="#acceso-hardware">Acceso a señales de hardware</a></li>
 					<li><a href="#gestion-sfcreset-sfcpause">Gestión de SFCReset y SFCPause</a></li>
+					<li><a href="#guia-resolucion">Guía de resolución</a></li>
 				</ol>
 			</nav>
 		</header>
@@ -495,7 +496,7 @@
 									<pre id="245dc82f-49f8-80dd-9ee6-ee6d464c962d" class="code code-wrap"><code class="language-Plain Text" style="white-space:pre-wrap;word-break:break-all">CLK: FB_Clock;
 -------------------------------------------------------
 LamparaMarcha := CondicionInicial AND CLK.Q;
-CLK();</code></pre>
+CLK();</code></pre> <small>En este código, la <strong>LamparaMarcha</strong> se encenderá intermitentemente cuando se cumpla la <strong>CondicionInicial</strong></small>
 								</li>
 							</ul>
 						</li>
@@ -649,7 +650,7 @@ END_VAR</code></pre>
 										<pre id="203dc82f-49f8-803e-baff-e9e2e7ff8d01" class="code code-wrap"><code class="language-Plain Text" style="white-space:pre-wrap;word-break:break-all">// En FB_CargarBase_SFC
 VAR_OUTPUT
 	ManipuladorSucciona: BOOL; // señal sin acceso directo a la salida
-END_VAR</code></pre>
+END_VAR</code></pre> <small><strong>IMPORTANTE</strong>: Nótese que debemos declarar esta variable en <code>VAR_OUTPUT</code> ya que queremos que el valor que tome dentro de <code>FB_CargarBase_SFC</code> sea visible desde fuera del FB.</small>
 									</li>
 								</ul>
 								<ul id="203dc82f-49f8-803c-8f51-dad66249f82e" class="bulleted-list">
@@ -665,7 +666,7 @@ END_VAR</code></pre>
 											integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ=="
 											crossorigin="anonymous" referrerPolicy="no-referrer" />
 										<pre id="203dc82f-49f8-80e3-894c-c085d1fa578a" class="code code-wrap"><code class="language-Plain Text" style="white-space:pre-wrap;word-break:break-all">// En la implementación ST de FB_Estacion
-ManipuladorSucciona := CargarBase.ManipuladorSucciona;</code></pre>
+ManipuladorSucciona := CargarBase.ManipuladorSucciona;</code></pre> <small>En este código, la variable <code>ManipuladorSucciona</code> de la izquierda pertenece a <code>FB_Estacion</code> y tiene acceso al actuador, mientras que la de la derecha es simplemente una señal booleana que se activa por el FB de la tarea en cuestión. De esta forma, cuando <code>FB_CargarBase_SFC</code> pone su salida <code>ManipuladorSucciona</code> a <code>TRUE</code>, este valor se propaga a la variable <code>ManipuladorSucciona</code> de <code>FB_Estacion</code>, que está directamente mapeada a la salida física <code>%Q*</code>.</small>
 									</li>
 								</ul>
 							</details>
@@ -708,7 +709,7 @@ END_VAR</code></pre>
 										<pre id="203dc82f-49f8-8083-9813-db774ad779e1" class="code code-wrap"><code class="language-Plain Text" style="white-space:pre-wrap;word-break:break-all">// En FB_CargarBase_SFC
 VAR_INPUT
 	ManipuladorVacio: BOOL; // señal sin acceso directo a la entrada
-END_VAR</code></pre>
+END_VAR</code></pre> <small><strong>IMPORTANTE</strong>: Nótese que hay que declarar esta variable en <code>VAR_INPUT</code> ya que queremos obtener el valor del sensor proporcionado por <code>FB_Estacion</code>, que debe introducirlo desde fuera de <code>FB_CargarBase_SFC</code>.</small>
 									</li>
 								</ul>
 								<ul id="203dc82f-49f8-8075-a3c7-d08d41912e41" class="bulleted-list">
@@ -727,7 +728,7 @@ CargarBase(
     // ...
     ManipuladorVacio := ManipuladorVacio, // pasamos el valor del sensor
     // ...
-);</code></pre>
+);</code></pre> <small>En este código, la variable <code>ManipuladorVacio</code> de la izquierda pertenece al <code>FB_CargarBase_SFC</code> mientras que la de la derecha pertenece a <code>FB_Estacion</code> y es la que tiene acceso al hardware. Es decir, estamos pasando la información del sensor <code>ManipuladorVacio</code> al FB de la tarea.</small>
 									</li>
 								</ul>
 							</details>
@@ -855,8 +856,48 @@ SituarPale(
 							</details>
 						</li>
 					</ul>
-					<ul id="203dc82f-49f8-8039-817b-cea9d26f0a54" class="toggle">
+					<ul id="203dc82f-49f8-8008-a57b-cc13028b2b00" class="toggle">
 						<li>
+							<details open="">
+								<summary><strong>Importante</strong>: Por defecto, TC3 te permite declarar esas variables pero no
+									utilizarlas. Para que TC3 tenga en cuenta estas funcionalidades es necesario darle permiso de uso en el
+									proyecto:</summary>
+								<ul id="203dc82f-49f8-800a-9aea-fc637717a984" class="bulleted-list">
+									<li style="list-style-type:disc">CD sobre la línea <code>&lt;nombre&gt; Project</code> →
+										<code>Properties</code>
+										<figure id="203dc82f-49f8-8044-ae6d-ea7f9c9f73a2" class="image"><a href="images/n3/image 4.png"><img
+													style="width:384px" src="images/n3/image 4.png" /></a></figure>
+									</li>
+								</ul>
+								<ul id="203dc82f-49f8-8002-896d-e302c3ed3935" class="bulleted-list">
+									<li style="list-style-type:disc">Selecciona la pestaña <code>SFC</code></li>
+								</ul>
+								<ul id="203dc82f-49f8-8026-a80a-f43682cb5c8d" class="bulleted-list">
+									<li style="list-style-type:disc">Activa las casillas de <code>SFCPause</code> y <code>SFCReset</code> en
+										la columna de <code>Use</code>.<figure id="203dc82f-49f8-80cb-8c2e-d4ba50d2afb4" class="image"><a
+												href="images/n3/image 5.png"><img style="width:528px" src="images/n3/image 5.png" /></a></figure>
+									</li>
+								</ul>
+							</details>
+						</li>
+					</ul>
+					</div>
+					</details>
+					<details open="" id="guia-resolucion">
+						<summary style="font-weight:600;font-size:1.25em;line-height:1.3;margin:0">Guía de resolución</summary>
+						<div class="indented">
+							<ul id="203dc82f-49f8-805a-a018-eee23037f921" class="bulleted-list">
+								<li style="list-style-type:disc">Crear un nuevo <strong>TwinCAT Project</strong>, con nombre:
+									<code>XXX_TC3_GYY</code> donde <code>XXX</code> es el grado (<code>AIE</code>, <code>AIM</code>,
+									<code>SR</code>, etc.) y <code>GYY</code> es el número de grupo (<code>G01</code>, <code>G02</code>,
+									etc.)</li>
+							</ul>
+							<ul id="203dc82f-49f8-8087-b299-c6eb3fbd70e0" class="bulleted-list">
+								<li style="list-style-type:disc">Crear un <strong>PLC Project</strong>, con nombre:
+									<code>FMSXXX_Estructurado</code> donde <code>XXX</code> es el número de la estación (<code>201</code>,
+									<code>202</code>, etc.).</li>
+							</ul>
+							<ul id="203dc82f-49f8-8039-817b-cea9d26f0a54" class="toggle">				<li>
 							<details open="">
 								<summary>Crear un bloque funcional para la <strong>Estación</strong></summary>
 								<ul id="203dc82f-49f8-8021-ba03-d6b4fa56322e" class="bulleted-list">
@@ -909,11 +950,9 @@ END_IF</code></pre>
 													<ul id="203dc82f-49f8-8035-b03b-caef6d0a75d1" class="bulleted-list">
 														<li style="list-style-type:disc">Instanciar el
 															<code>FB_Coordinador_SFC</code>, pasándole como entrada las
-															señales <code>Done</code> de las tareas (<mark
-																class="highlight-purple">morado</mark>) y las variables
+															señales <code>Done</code> de las tareas (ej. <code>SituarPale.Done</code>) y las variables
 															declaradas en <code>FB_Estacion</code> que vayan a
-															utilizarse en el coordinador (<mark
-																class="highlight-orange">naranja</mark>). Presta
+															utilizarse en el coordinador (ej. <code>PulsadorMarcha</code>). Presta
 															especial atención a las condiciones que manejan su señal de
 															<code>Execute</code>.
 															<script
@@ -950,11 +989,9 @@ END_IF</code></pre>
 													<ul id="203dc82f-49f8-8059-8346-f1bdf34a4205" class="bulleted-list">
 														<li style="list-style-type:disc">Instanciar cada una de los FBs
 															de Tareas pasándole como entrada los valores de los sensores
-															necesarios para cada FB (<mark
-																class="highlight-purple">morado</mark>) y otras
+															necesarios para cada FB (ej. <code>PresenciaPale</code>) y otras
 															variables declaradas en <code>FB_Estacion</code> que vayan a
-															utilizarse en el FB (<mark
-																class="highlight-orange">naranja</mark>).
+															utilizarse en el FB (ej. <code>TpoPaleEntrada</code>).
 															<script
 																src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"
 																integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg=="
@@ -1009,9 +1046,12 @@ ManipuladorAvanza := CargarBase.ManipuladorAdelante
         OR DescargarBase.ManipuladorAdelante;
 
 // ...
-        
-CodigoPale := SituarPale.CodigoPale;</code></pre>
-														</li>
+
+CodigoPale := SituarPale.CodigoPale;</code></pre><small>Fíjate que la salida <code>CintaActiva</code> está siendo compartida por dos
+	FBs de tareas:
+	<code>SituarPale</code> y <code>TransferirPale</code>, de manera que se activará cuando alguno de los dos FBs active
+	su señal <code>CintaActiva</code> correspondiente.</small>
+</li>
 													</ul>
 												</details>
 											</li>
@@ -1065,8 +1105,8 @@ CondicionInicial := EstacionConectada
     AND IntroductorDetras 
     AND ExtractorDetras 
     AND PrensadorArriba;
-    
-CondicionMarcha := (UnidadesSolicitadas &gt; 0);</code></pre>
+
+CondicionMarcha := (UnidadesSolicitadas &gt; 0);</code></pre><small>La variable <code>CondicionInicial</code> debe aglutinar todas aquellas señales que necesitamos que estén activas inicialmente para garantizar que la estación puede funcionar sin problemas.</small>
 														</li>
 													</ul>
 												</details>
@@ -1075,6 +1115,29 @@ CondicionMarcha := (UnidadesSolicitadas &gt; 0);</code></pre>
 									</li>
 								</ul>
 							</details>
+						</li>
+					</ul>
+					<ul id="203dc82f-49f8-80b6-88f1-df3aa10aad46" class="bulleted-list">
+						<li style="list-style-type:disc">Crear una variable del FB <code>FB_Estacion</code> en el programa <code>MAIN</code>
+							e instanciarlo.
+							<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"
+								integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg=="
+								crossorigin="anonymous" referrerPolicy="no-referrer"></script>
+							<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css"
+								integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ=="
+								crossorigin="anonymous" referrerPolicy="no-referrer" />
+							<pre id="203dc82f-49f8-8060-a2d3-d1df6ed56fb4" class="code code-wrap"><code class="language-Plain Text" style="white-space:pre-wrap;word-break:break-all">// Declaración de variables en el programa MAIN
+VAR
+	Estacion: FB_Estacion;
+END_VAR</code></pre>
+							<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"
+								integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg=="
+								crossorigin="anonymous" referrerPolicy="no-referrer"></script>
+							<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css"
+								integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ=="
+								crossorigin="anonymous" referrerPolicy="no-referrer" />
+							<pre id="203dc82f-49f8-8032-a17f-e3d2941616f6" class="code code-wrap"><code class="language-Plain Text" style="white-space:pre-wrap;word-break:break-all">// Implementación del programa MAIN
+Estacion();</code></pre>
 						</li>
 					</ul>
 					<ul id="203dc82f-49f8-80a4-af48-cee26b9d0101" class="toggle">
