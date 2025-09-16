@@ -6,22 +6,39 @@
 	<link rel="stylesheet" href="style.css">
 </head>
 <body>
+	<a href="index.html" class="volver-btn">Volver</a>
 	<article id="203dc82f-49f8-80b6-859e-e3a86f879d8c" class="page sans">
 		<header><img class="page-cover-image" src="https://www.notion.so/images/page-cover/solid_yellow.png"
 				style="object-position:center 40%" />
 			<div class="page-header-icon page-header-icon-with-cover"><img class="icon"
 					src="https://www.notion.so/icons/subtask_gray.svg" /></div>
 			<h1 class="page-title">Nivel 3: Estructurado</h1>
-			<p class="page-description"></p>
+			<!-- Índice de Contenidos (movido aquí) -->
+			<nav class="sans toc" style="margin: 2em 0 2em 0; padding: 1em; background: #fffbe6; border: 1px solid #ffe58f; border-radius: 6px;">
+				<strong>Índice de Contenidos</strong>
+				<ol style="margin-top: 0.5em;">
+					<li><a href="#introduccion-objetivos">Introducción y Objetivos</a>
+						<ul>
+							<li><a href="#introduccion">Introducción</a></li>
+							<li><a href="#objetivos">Objetivos</a></li>
+							<li><a href="#requisitos">Requisitos</a></li>
+						</ul>
+					</li>
+					<li><a href="#jerarquia-proyecto">Jerarquía del Proyecto Estructurado</a></li>
+					<li><a href="#estructura-fb-tarea">Estructura estándar de un FB de Tarea en SFC</a></li>
+					<li><a href="#acceso-hardware">Acceso a señales de hardware</a></li>
+					<li><a href="#gestion-sfcreset-sfcpause">Gestión de SFCReset y SFCPause</a></li>
+				</ol>
+			</nav>
 		</header>
 		<div class="page-body">
-			<details open="">
+			<details open="" id="introduccion-objetivos">
 				<summary style="font-weight:600;font-size:1.25em;line-height:1.3;margin:0">Introducción y Objetivos
 				</summary>
 				<div class="indented">
 					<ul id="203dc82f-49f8-80a4-a737-c9f48042ac16" class="block-color-teal_background toggle">
 						<li>
-							<details open="">
+							<details open="" id="introduccion">
 								<summary><strong>Introducción</strong></summary>
 								<ul id="203dc82f-49f8-801c-b29b-ead2abba3638" class="bulleted-list">
 									<li style="list-style-type:disc">Esta sección describe un enfoque modular para
@@ -109,7 +126,7 @@
 					</ul>
 					<ul id="203dc82f-49f8-80e1-abfb-e4ed919e45ff" class="block-color-teal_background toggle">
 						<li>
-							<details open="">
+							<details open="" id="objetivos">
 								<summary><strong>Objetivos</strong></summary>
 								<ul id="203dc82f-49f8-80a1-bc43-e694c62b1982" class="bulleted-list">
 									<li style="list-style-type:disc">Implementar la secuencia completa de funcionamiento
@@ -141,7 +158,7 @@
 					</ul>
 					<ul id="203dc82f-49f8-806e-9506-edf94760d6f4" class="block-color-default_background toggle">
 						<li>
-							<details open="">
+							<details open="" id="requisitos">
 								<summary><strong>Requisitos</strong></summary>
 								<ul id="203dc82f-49f8-8072-a194-e989d6a4d41e" class="bulleted-list">
 									<li style="list-style-type:disc">El <strong>programa </strong>debe mantener todas
@@ -336,7 +353,7 @@
 					</ul>
 				</div>
 			</details>
-			<details open="">
+			<details open="" id="jerarquia-proyecto">
 				<summary style="font-weight:600;font-size:1.25em;line-height:1.3;margin:0">Jerarquía del Proyecto
 					Estructurado</summary>
 				<div class="indented">
@@ -485,7 +502,7 @@ CLK();</code></pre>
 					</ol>
 				</div>
 			</details>
-			<details open="">
+			<details open="" id="estructura-fb-tarea">
 				<summary style="font-weight:600;font-size:1.25em;line-height:1.3;margin:0">Estructura estándar de un FB
 					de Tarea en SFC</summary>
 				<div class="indented">
@@ -571,7 +588,7 @@ CLK();</code></pre>
 					</ul>
 				</div>
 			</details>
-			<details open="">
+			<details open="" id="acceso-hardware">
 				<summary style="font-weight:600;font-size:1.25em;line-height:1.3;margin:0">Acceso a señales de
 					<em>hardware</em></summary>
 				<div class="indented">
@@ -583,7 +600,7 @@ CLK();</code></pre>
 					</ul>
 					<ul id="203dc82f-49f8-8046-bde1-d0337233642b" class="bulleted-list">
 						<li style="list-style-type:disc">Un punto clave es cómo un FB de un tarea
-							(ej. <code>FB_CargarBase_SFC</code>) puede acceder al <em>hardware </em>de la estación si la
+							(ej. <code>FB_CargarBase_SFC</code>) puede acceder al <em>hardware</em> de la estación si la
 							declaración de las variables que tienen dicho acceso está situada
 							en <code>FB_Estacion</code>. </li>
 					</ul>
@@ -718,7 +735,7 @@ CargarBase(
 					</ul>
 				</div>
 			</details>
-			<details open="">
+			<details open="" id="gestion-sfcreset-sfcpause">
 				<summary style="font-weight:600;font-size:1.25em;line-height:1.3;margin:0">Gestión
 					de <code>SFCReset</code> y <code>SFCPause</code></summary>
 				<div class="indented">

@@ -7,102 +7,114 @@
 </head>
 
 <body>
+	<a href="index.html" class="volver-btn">Volver</a>
 	<article id="203dc82f-49f8-80bb-95e0-d00d0e7adc97" class="page sans">
 		<header><img class="page-cover-image" src="https://www.notion.so/images/page-cover/solid_blue.png"
 				style="object-position:center 40%" />
 			<div class="page-header-icon page-header-icon-with-cover"><img class="icon"
 					src="https://www.notion.so/icons/downward_gray.svg" /></div>
 			<h1 class="page-title">Nivel 2: Monolítico</h1>
-			<p class="page-description"></p>
+			<!-- Índice de Contenidos (añadido) -->
+			<nav class="sans toc"
+				style="margin: 2em 0 2em 0; padding: 1em; background: #fffbe6; border: 1px solid #ffe58f; border-radius: 6px;">
+				<strong>Índice de Contenidos</strong>
+				<ol style="margin-top: 0.5em;">
+					<li><a href="#introduccion-objetivos">Introducción y objetivos</a></li>
+					<li><a href="#requisitos">Requisitos</a></li>
+					<li><a href="#guia-resolucion">Guía de resolución</a></li>
+					<li><a href="#gestion-sfcreset-sfcpause">Gestión de SFCReset y SFCPause</a></li>
+					<li><a href="#produccion-lotes">Producción por lotes</a></li>
+				</ol>
+			</nav>
 		</header>
 		<div class="page-body">
-			<details open="">
+			<details open="" id="introduccion-objetivos">
 				<summary style="font-weight:600;font-size:1.25em;line-height:1.3;margin:0">Introducción y objetivos
 				</summary>
 				<div class="indented">
 					<ul id="206dc82f-49f8-8053-a125-e1c82b6967d9" class="block-color-teal_background toggle">
 						<li>
 							<details open="">
-								<summary><strong>Introducción (TODO)</strong></summary>
-								<ul id="206dc82f-49f8-8097-a8ba-e679fa8e91ef" class="bulleted-list">
-									<li style="list-style-type:disc">Esta sección describe un enfoque modular para
-										estructurar proyectos de automatización en TwinCAT 3, utilizando <em>Function
-											Blocks</em> (FBs) basados en <em>Sequential Function Chart</em> (SFC). </li>
+								<summary><strong>Introducción</strong></summary>
+								<ul id="270dc82f-49f8-80d6-84f2-db6278f62dd8" class="bulleted-list">
+									<li style="list-style-type:disc">Esta sección describe un enfoque
+										<strong>monolítico</strong> para estructurar proyectos de automatización en
+										TwinCAT 3, en el cual toda la lógica de control se concentra en un único
+										<em>Program Organization Unit</em> (POU), típicamente un solo <em>Function
+											Block</em> grande.</li>
 								</ul>
-								<ul id="206dc82f-49f8-8078-81c3-d34e9085785e" class="bulleted-list">
-									<li style="list-style-type:disc">Tomaremos como ejemplo el control de una estación
-										SMC FMS203, pasando de una implementación monolítica (toda la lógica de control
-										en un único FB) a una estructura modular.</li>
+								<ul id="270dc82f-49f8-8069-9618-df1f690fca05" class="bulleted-list">
+									<li style="list-style-type:disc">Este planteamiento suele encontrarse en proyectos
+										educativos, prototipos o sistemas de baja complejidad (por ejemplo, estaciones
+										con pocas operaciones y transiciones).</li>
 								</ul>
-								<ul id="206dc82f-49f8-804e-b399-d09e55031862" class="bulleted-list">
-									<li style="list-style-type:disc">En proyectos iniciales o más simples, es común
-										implementar toda la lógica de control dentro de un único POU (<em>Program
-											Organization Unit</em>), a menudo un solo <em>Function Block</em> grande.
+								<ul id="270dc82f-49f8-8063-87be-f169e1a0bb06" class="bulleted-list">
+									<li style="list-style-type:disc">La implementación monolítica ofrece algunas
+										ventajas iniciales:<ul id="270dc82f-49f8-8055-9c12-daf61f5a8845"
+											class="bulleted-list">
+											<li style="list-style-type:circle"><strong>Simplicidad inicial:</strong> El
+												desarrollador no necesita diseñar una arquitectura modular ni pensar en
+												interfaces entre bloques.</li>
+										</ul>
+										<ul id="270dc82f-49f8-8092-895e-d08cfc8507f9" class="bulleted-list">
+											<li style="list-style-type:circle"><strong>Rapidez en proyectos
+													pequeños:</strong> Permite obtener resultados funcionales de forma
+												rápida cuando el alcance del sistema es limitado.</li>
+										</ul>
+										<ul id="270dc82f-49f8-8072-95c9-e2c1fa1983ef" class="bulleted-list">
+											<li style="list-style-type:circle"><strong>Menor sobrecarga
+													conceptual:</strong> Es más fácil de comprender para principiantes
+												que están empezando en programación de PLCs.</li>
+										</ul>
 									</li>
 								</ul>
-								<ul id="206dc82f-49f8-8036-9980-ff8ff9c8b6fe" class="toggle">
-									<li>
-										<details open="">
-											<summary>Si bien esto puede parecer directo al principio, presenta
-												desventajas a medida que el proyecto crece:</summary>
-											<ul id="206dc82f-49f8-8047-96b3-c5b8a3ee0df9" class="bulleted-list">
-												<li style="list-style-type:disc"><strong>Baja Legibilidad:</strong> Un
-													FB grande con muchas responsabilidades se vuelve difícil de entender
-													y seguir.</li>
-											</ul>
-											<ul id="206dc82f-49f8-80b4-8f3d-fe723b18bd5a" class="bulleted-list">
-												<li style="list-style-type:disc"><strong>Difícil
-														Mantenimiento:</strong> Modificar una parte puede afectar
-													inesperadamente a otras. La depuración es compleja.</li>
-											</ul>
-											<ul id="206dc82f-49f8-80e9-a801-db4a72736d5b" class="bulleted-list">
-												<li style="list-style-type:disc"><strong>Poca Reutilización:</strong> Es
-													complicado extraer partes específicas para usarlas en otros
-													proyectos o estaciones.</li>
-											</ul>
-											<ul id="206dc82f-49f8-800a-9e08-dd22b35e2c9c" class="bulleted-list">
-												<li style="list-style-type:disc"><strong>Complejidad en
-														Pruebas:</strong> Probar funcionalidades específicas de forma
-													aislada es casi imposible.</li>
-											</ul>
-										</details>
+								<ul id="270dc82f-49f8-801f-a39e-cd8500759cc4" class="bulleted-list">
+									<li style="list-style-type:disc">Sin embargo, también presenta inconvenientes
+										importantes a medida que el sistema crece:<ul
+											id="270dc82f-49f8-80cf-b067-fb2327b80f9a" class="bulleted-list">
+											<li style="list-style-type:circle"><strong>Escalabilidad reducida:</strong>
+												El bloque de control se vuelve demasiado grande y difícil de mantener.
+											</li>
+										</ul>
+										<ul id="270dc82f-49f8-8078-acd5-e45fcd372e05" class="bulleted-list">
+											<li style="list-style-type:circle"><strong>Poco control de alto
+													nivel</strong>: Una implementación monolítica dificulta el control
+												de alto nivel del sistema (gestión de problemas, paradas completas,
+												etc.).</li>
+										</ul>
+										<ul id="270dc82f-49f8-80a1-9b13-fb0ff5387f8a" class="bulleted-list">
+											<li style="list-style-type:circle"><strong>Menor flexibilidad:</strong> No
+												es sencillo reutilizar partes de la lógica en otros proyectos.</li>
+										</ul>
+										<ul id="270dc82f-49f8-807b-af61-d0beecd8cb3b" class="bulleted-list">
+											<li style="list-style-type:circle"><strong>Dificultad en depuración y
+													pruebas:</strong> Los errores afectan a todo el sistema, y no pueden
+												aislarse fácilmente.</li>
+										</ul>
+										<ul id="270dc82f-49f8-8094-8647-ec9a6b36a094" class="bulleted-list">
+											<li style="list-style-type:circle"><strong>Riesgo de errores
+													encadenados:</strong> Un cambio en una sección del código puede
+												impactar de forma inesperada en otras.</li>
+										</ul>
 									</li>
 								</ul>
-								<ul id="206dc82f-49f8-8018-9840-cc38139247c2" class="bulleted-list">
-									<li style="list-style-type:disc">La <strong>estructuración modular</strong>, como la
-										implementada en los FBs proporcionados, aborda estos problemas dividiendo la
-										funcionalidad en bloques más pequeños y manejables, cada uno con una
-										responsabilidad clara.</li>
-								</ul>
-								<ul id="206dc82f-49f8-80eb-875e-e284f9d872c7" class="toggle">
-									<li>
-										<details open="">
-											<summary><strong>Beneficios del Enfoque Modular:</strong></summary>
-											<ul id="206dc82f-49f8-8011-8dc2-ca369aadb121" class="bulleted-list">
-												<li style="list-style-type:disc"><strong>Claridad:</strong> Cada FB
-													realiza una tarea específica (ej. Cargar Base, Prensar Rodamiento).
-												</li>
-											</ul>
-											<ul id="206dc82f-49f8-8026-9a7b-c8f1b29be5f5" class="bulleted-list">
-												<li style="list-style-type:disc"><strong>Reutilización:</strong> Los FBs
-													de tareas pueden ser reutilizados en otras estaciones o proyectos
-													con lógica similar.</li>
-											</ul>
-											<ul id="206dc82f-49f8-80d5-9cc1-f8e0f3671277" class="bulleted-list">
-												<li style="list-style-type:disc"><strong>Mantenimiento:</strong> Los
-													cambios se localizan en FBs específicos, reduciendo el riesgo de
-													efectos secundarios.</li>
-											</ul>
-											<ul id="206dc82f-49f8-8021-859a-f98143da68f0" class="bulleted-list">
-												<li style="list-style-type:disc"><strong>Testabilidad:</strong> Cada FB
-													puede probarse individualmente (si se diseña adecuadamente).</li>
-											</ul>
-											<ul id="206dc82f-49f8-80a1-be9b-c43d8e0c5d76" class="bulleted-list">
-												<li style="list-style-type:disc">
-													<strong>Colaboración:</strong> Diferentes desarrolladores pueden
-													trabajar en distintos FBs simultáneamente.</li>
-											</ul>
-										</details>
+								<ul id="270dc82f-49f8-80fb-beaa-f35def2c653f" class="bulleted-list">
+									<li style="list-style-type:disc"><strong>Cuándo es adecuado un enfoque
+											monolítico:</strong>
+										<ul id="270dc82f-49f8-807d-97a2-e7e24265de8c" class="bulleted-list">
+											<li style="list-style-type:circle">En <strong>proyectos educativos</strong>
+												o de laboratorio, donde la claridad del flujo completo es más importante
+												que la mantenibilidad a largo plazo.</li>
+										</ul>
+										<ul id="270dc82f-49f8-8064-99ba-f44cd0ebddfe" class="bulleted-list">
+											<li style="list-style-type:circle">En <strong>sistemas muy simples</strong>
+												con pocas operaciones y sin expectativas de expansión futura.</li>
+										</ul>
+										<ul id="270dc82f-49f8-801f-aab4-c17e9b5f7c6b" class="bulleted-list">
+											<li style="list-style-type:circle">En <strong>prototipos rápidos</strong>,
+												donde se prioriza validar una idea en poco tiempo antes de diseñar una
+												arquitectura más robusta.</li>
+										</ul>
 									</li>
 								</ul>
 							</details>
@@ -160,7 +172,7 @@
 									<li style="list-style-type:disc">El <strong>programa </strong>debe permitir conmutar
 										entre modo <strong>manual </strong>(se puede actuar sobre la estación desde la
 										visualización) y modo <strong>automático </strong>(el programa produce) mediante
-										el conmutador del <strong>Panel del Operador</strong> en el frente de la
+										el conmutador <code>AUTO/MAN</code> del <strong>Panel del Operador</strong> en el frente de la
 										estación.</li>
 								</ul>
 								<ul id="206dc82f-49f8-806b-97b5-c29cac7c078e" class="bulleted-list">
@@ -199,8 +211,8 @@
 													una pieza. No se reincia cada vez que acaba el lote.</li>
 											</ul>
 											<ul id="206dc82f-49f8-8064-aa18-e59ae27345d1" class="bulleted-list">
-												<li style="list-style-type:disc"><code>UnidadesRechazadas</code>: (si
-													aplica). Contador que empieza en cero y se incrementa cada vez que
+												<li style="list-style-type:disc"><code>UnidadesRechazadas</code> (si
+													aplica): Contador que empieza en cero y se incrementa cada vez que
 													se rechaza una pieza. No se reinicia cada vez que acaba el lote.
 												</li>
 											</ul>
@@ -231,7 +243,7 @@
 											</ul>
 											<ul id="206dc82f-49f8-803a-a7e7-c9b98684ac18" class="bulleted-list">
 												<li style="list-style-type:disc"><code>Ciclo</code> [<mark
-														class="highlight-blue">toggle</mark>]: Botón que indica que la
+														class="highlight-blue">toggle</mark>]: <strong>Botón</strong> que indica que la
 													estación debe operar <strong>Ciclo a Ciclo</strong>, esto es, debe
 													parar entre cada iteración del lote hasta que se pulse el
 													<strong>Pulsador de Marcha</strong>. Debe seguir produciendo el
@@ -239,14 +251,14 @@
 											</ul>
 											<ul id="206dc82f-49f8-8098-93ab-c63adab825b7" class="bulleted-list">
 												<li style="list-style-type:disc"><code>Pause</code> [<mark
-														class="highlight-blue">toggle</mark>]: Botón que pausa la
-													estación en su estado actual. Relacionado con SFCPause.</li>
+														class="highlight-blue">toggle</mark>]: <strong>Botón</strong> que pausa la
+													estación en su estado actual. Relacionado con <code>SFCPause</code>.</li>
 											</ul>
 											<ul id="206dc82f-49f8-80ab-9ce9-da87511927d7" class="bulleted-list">
 												<li style="list-style-type:disc"><code>Reset</code> [<mark
-														class="highlight-teal">tap</mark>]: Botón que reinicia la
+														class="highlight-teal">tap</mark>]: <strong>Botón</strong> que reinicia la
 													estación y la devuelve a su estado inicial. Relacionado con
-													SFCReset. </li>
+													<code>SFCReset</code>. </li>
 											</ul>
 										</details>
 									</li>
