@@ -1,0 +1,1943 @@
+<html>
+
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<title>Nivel 4: Estructurado + GEMMA</title>
+	<link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+	<a href="index.html" class="volver-btn">Volver</a>
+	<article id="203dc82f-49f8-80e1-8eeb-e951d35ca9b0" class="page sans">
+		<header><img class="page-cover-image" src="https://www.notion.so/images/page-cover/solid_beige.png"
+				style="object-position:center 40%" />
+			<div class="page-header-icon page-header-icon-with-cover"><img class="icon"
+					src="https://www.notion.so/icons/chess-king_gray.svg" /></div>
+			<h1 class="page-title">Nivel 4: Estructurado + GEMMA</h1>
+			<nav class="sans toc" style="margin: 2em 0 2em 0; padding: 1em; background: #fffbe6; border: 1px solid #ffe58f; border-radius: 6px;">
+				<strong>Índice de contenidos</strong>
+				<ol style="margin-top:0.5em;">
+					<li><a href="#introduccion-objetivos">Introducción y Objetivos</a></li>
+					<li><a href="#gdmma">GDMMA</a></li>
+					<li><a href="#jerarquia-proyecto">Jerarquía del Proyecto Estructurado + GEMMA</a></li>
+					<li><a href="#estructura-fb-tarea">Estructura Estándar de un FB de Tarea en SFC</a></li>
+					<li><a href="#acceso-hardware">Acceso a señales de hardware</a></li>
+					<li><a href="#gestion-sfcreset-sfcpause">Gestión de SFCReset y SFCPause</a></li>
+					<li><a href="#guia-resolucion">Guía de resolución</a></li>
+				</ol>
+			</nav>
+			<p class="page-description"></p>
+		</header>
+		<div class="page-body">
+			<details open="" id="introduccion-objetivos">
+				<summary style="font-weight:600;font-size:1.25em;line-height:1.3;margin:0">Introducción y Objetivos
+				</summary>
+				<div class="indented">
+					<ul id="203dc82f-49f8-806a-b97e-f8cbdb10520d" class="block-color-teal_background toggle">
+						<li>
+							<details open="">
+								<summary><strong>Introducción</strong></summary>
+								<ul id="203dc82f-49f8-8055-ad92-f6133cb14cdd" class="bulleted-list">
+									<li style="list-style-type:disc">Esta sección describe un enfoque modular para
+										estructurar proyectos de automatización en TwinCAT 3 utilizando Lenguaje
+										Estructurado (ST) y Diagrama de Flujo Secuencial (SFC), que sigue parcialmente
+										la <strong>guía GEMMA</strong> (<em>Guide d&#x27;Etude des Modes de Marche et
+											d&#x27;Arrêt</em>) para la gestión de los modos de funcionamiento y parada
+										de la máquina.</li>
+								</ul>
+								<ul id="20adc82f-49f8-80a9-8ed8-e83369e8369b" class="bulleted-list">
+									<li style="list-style-type:disc">La guía <strong>GEMMA </strong>es una herramienta
+										metodológica que permite analizar los modos de funcionamiento de un sistemas de
+										automatización.</li>
+								</ul>
+								<ul id="20adc82f-49f8-802f-abea-f3eaffd70fc9" class="bulleted-list">
+									<li style="list-style-type:disc">EL <strong>GDMMA </strong>(Gráfico Descriptivo de
+										los Modos de Marcha y Parada) resulta de aplicar la guía GEMMA a un sistema
+										concreto. El GDMMA resultante es una máquina de estados que describe el
+										funcionamiento general de un sistemas de automatización.</li>
+								</ul>
+								<ul id="203dc82f-49f8-8067-8526-ed69b07215f3" class="bulleted-list">
+									<li style="list-style-type:disc">En el ejemplo de la estación FMS203,
+										específicamente, se han implementado los modos GEMMA: <code>A1</code>,
+										<code>A2</code>, <code>A6</code> (Parada), <code>F1</code>, <code>F2</code>,
+										<code>F3</code>, <code>F4</code> (Funcionamiento) y <code>D1</code>
+										(Defecto/Emergencia). </li>
+								</ul>
+								<ul id="203dc82f-49f8-806f-9308-d382b328beba" class="toggle">
+									<li>
+										<details open="">
+											<summary><strong>Beneficios del uso de la guía GEMMA:</strong></summary>
+											<ul id="203dc82f-49f8-802e-81c1-db3b03917c6a" class="bulleted-list">
+												<li style="list-style-type:disc"><strong>Estandarización y Lenguaje
+														Común</strong>: La guía GEMMA proporciona un marco estandarizado
+													y reconocido para los modos de marcha y paro. Esto significa que
+													diferentes ingenieros, técnicos de mantenimiento y operadores pueden
+													entender rápidamente el comportamiento de la máquina, incluso si no
+													participaron en su diseño original.</li>
+											</ul>
+											<ul id="203dc82f-49f8-8042-917e-eab857c40edc" class="bulleted-list">
+												<li style="list-style-type:disc"><strong>Claridad en la Operación y
+														Mantenimiento</strong>: Define explícitamente estados como
+													&quot;Parada en estado inicial&quot; (<code>A1</code>),
+													&quot;Producción normal&quot; (<code>F1</code>), &quot;Parada de
+													emergencia&quot; (<code>D1</code>), etc. Estos estados son
+													intuitivos para los operadores y facilitan la capacitación. Para
+													mantenimiento, saber que la máquina está en un modo específico (ej.
+													&quot;Verificación sin orden&quot; - <code>F4</code>) ayuda a
+													diagnosticar problemas.</li>
+											</ul>
+											<ul id="203dc82f-49f8-8088-8fef-dee5b540e3dc" class="bulleted-list">
+												<li style="list-style-type:disc"><strong>Integración de la Seguridad
+														desde el Diseño: </strong>Los modos de defecto (<code>D</code>)
+													y parada (<code>A</code>) están intrínsecamente ligados a la
+													seguridad. El modo <code>D1</code> (Emergencia) es un pilar. La guía
+													fuerza a pensar en cómo la máquina debe comportarse en situaciones
+													anómalas y cómo volver a un estado seguro (<code>A6</code> - Puesta
+													en estado inicial).</li>
+											</ul>
+											<ul id="203dc82f-49f8-806a-8bf6-e2d7bdc98a70" class="bulleted-list">
+												<li style="list-style-type:disc"><strong>Gestión Completa del Ciclo de
+														Vida de la Operación: </strong>La guía GEMMA no solo define los
+													estados de producción, sino también los de preparación
+													(<code>F2</code>), finalización (<code>F3</code>), y los diferentes
+													tipos de paradas (<code>A1</code>, <code>A2</code>,
+													<code>A4</code>). Esto cubre todo el espectro de cómo una máquina
+													opera, desde el arranque hasta la parada completa.</li>
+											</ul>
+											<ul id="203dc82f-49f8-806e-9e52-fd5777856634" class="bulleted-list">
+												<li style="list-style-type:disc"><strong>Facilita el Diseño de la
+														Interfaz Hombre-Máquina (HMI): </strong>Los modos GEMMA pueden
+													mapearse directamente a la HMI, proporcionando al operador una
+													visión clara y coherente del estado de la máquina y de las acciones
+													permitidas en cada modo.</li>
+											</ul>
+											<ul id="203dc82f-49f8-80ca-aaff-f92eb658735d" class="bulleted-list">
+												<li style="list-style-type:disc"><strong>Mejora la Modularidad y
+														Reutilización del Código: </strong>Al definir claramente las
+													responsabilidades de cada modo, se fomenta un diseño de <em>software
+													</em>más modular. Las lógicas específicas de cada modo (ej. la
+													secuencia de producción en <code>F1</code>, la secuencia de reinicio
+													en <code>A6</code>) pueden encapsularse en bloques de función
+													separados.</li>
+											</ul>
+											<ul id="203dc82f-49f8-80ba-82b2-eec453931031" class="bulleted-list">
+												<li style="list-style-type:disc"><strong>Análisis y Especificación
+														Funcional más Rigurosos: </strong>El uso del diagrama GEMMA en
+													la fase de diseño obliga a un análisis exhaustivo de todos los
+													posibles modos de operación y las transiciones entre ellos. Esto
+													ayuda a identificar omisiones o comportamientos no deseados antes de
+													la implementación.</li>
+											</ul>
+										</details>
+									</li>
+								</ul>
+							</details>
+						</li>
+					</ul>
+					<ul id="203dc82f-49f8-8084-aeee-d3772c7d9087" class="block-color-teal_background toggle">
+						<li>
+							<details open="">
+								<summary><strong>Objetivos</strong></summary>
+								<ul id="203dc82f-49f8-80e9-9f63-c7b251c5d99e" class="bulleted-list">
+									<li style="list-style-type:disc">Crear un proyecto de automatización para el
+										funcionamiento completo de la estación.</li>
+								</ul>
+								<ul id="203dc82f-49f8-8067-b06f-c51645eda37f" class="bulleted-list">
+									<li style="list-style-type:disc">Incorporar, al modelo estructurado de
+										implementación, bloques funcionales que gestionen los distintos modos los modos
+										de marcha y parada (GDMMA) obtenida al aplicar a nuestro sistema la guía
+										<strong>GEMMA</strong>.</li>
+								</ul>
+								<ul id="203dc82f-49f8-80fb-860e-d5cea538b96f" class="bulleted-list">
+									<li style="list-style-type:disc">Incoporar un FB encargado de establecer el modo de
+										funcionamiento de la estación según evolucionen las condiciones en las que se
+										encuentre.</li>
+								</ul>
+							</details>
+						</li>
+					</ul>
+					<ul id="21ddc82f-49f8-8086-99a9-f492c90193f2" class="block-color-default_background toggle">
+						<li>
+							<details open="">
+								<summary><strong>Requisitos</strong></summary>
+								<ul id="21ddc82f-49f8-801b-b77f-cd3f26c7ae63" class="bulleted-list">
+									<li style="list-style-type:disc">El <strong>programa </strong>debe mantener todas
+										las funcionalidades del nivel anterior (<code>Estructurado</code>)</li>
+								</ul>
+								<ul id="21ddc82f-49f8-80d3-9f9f-c51052b46b4c" class="toggle">
+									<li>
+										<details open="">
+											<summary>El <strong>programa </strong>debe incluir:</summary>
+											<ul id="21ddc82f-49f8-80ea-9959-f71f5f165d60" class="bulleted-list">
+												<li style="list-style-type:disc">Un pograma <code>MAIN</code> en
+													<code>ST</code></li>
+											</ul>
+											<ul id="21ddc82f-49f8-803e-b6b8-c45febbcffa0" class="bulleted-list">
+												<li style="list-style-type:disc">Un FB <strong>Estación</strong> en
+													<code>ST</code> </li>
+											</ul>
+											<ul id="21ddc82f-49f8-802c-8a8f-f00ba3756159"
+												class="block-color-yellow_background bulleted-list">
+												<li style="list-style-type:disc"><mark class="highlight-red"><mark
+															class="highlight-yellow_background"><strong>[NUEVO]</strong></mark></mark><strong>
+													</strong>Un FB <strong>Director</strong> en <code>ST</code> que se
+													encarga de gestionar los modos de marcha y parada. Implementa una
+													máquina de estados.</li>
+											</ul>
+											<ul id="23bdc82f-49f8-80e9-87bb-f65a665cbce2" class="bulleted-list">
+												<li style="list-style-type:disc">Un FB <strong>Coordinador</strong> en
+													<code>SFC</code> que se encarga de coordinar el funcionamiento de
+													las <strong>Tareas.</strong></li>
+											</ul>
+											<ul id="21ddc82f-49f8-8004-bec3-d4599110cfa0" class="bulleted-list">
+												<li style="list-style-type:disc">Un conjunto de FBs para las
+													<strong>Tareas </strong>implementados en <code>SFC</code></li>
+											</ul>
+											<ul id="245dc82f-49f8-8060-a63f-da0fde14d464"
+												class="block-color-yellow_background bulleted-list">
+												<li style="list-style-type:disc"><mark class="highlight-red"><mark
+															class="highlight-yellow_background"><strong>[NUEVO]</strong></mark></mark><strong>
+													</strong>Un conjunto de FBs para las <strong>secuencias de
+														GDMMA</strong> en <code>SCF</code>: <strong>Preparar</strong>,
+													<strong>Finalizar </strong>y <strong>Restaurar</strong>, </li>
+											</ul>
+											<ul id="21ddc82f-49f8-804d-a443-ded6e6f4643a" class="bulleted-list">
+												<li style="list-style-type:disc">Una <strong>Visualización.</strong>
+												</li>
+											</ul>
+										</details>
+									</li>
+								</ul>
+								<ul id="21ddc82f-49f8-80b4-958f-e1c71b3ccd1d" class="bulleted-list">
+									<li style="list-style-type:disc">El <strong>programa </strong>debe permitir conmutar
+										entre modo <strong>manual </strong>(se puede actuar sobre la estación desde la
+										visualización) y modo <strong>automático </strong>(el programa produce) mediante
+										el conmutador del <strong>Panel del Operador</strong> en el frente de la
+										estación.</li>
+								</ul>
+								<ul id="21ddc82f-49f8-80d2-9b23-de3592f101e5" class="toggle">
+									<li>
+										<details open="">
+											<summary>El <strong>programa </strong>debe considerar las
+												<strong>Condiciones Iniciales</strong> (CI) y la <strong>Condición de
+													Marcha</strong> (CM) antes de permitir que la estación comience a
+												producir.</summary>
+											<ul id="241dc82f-49f8-8071-bef9-f1977779d942" class="bulleted-list">
+												<li style="list-style-type:disc">Las <strong>CI</strong> engloba a todas
+													aquellas señales que deberían estar activas (o inactivas) en la
+													estación para considerar que cumple con todos los requisitos de
+													seguridad y operatividad necesarios para empezar a producir.
+													<strong>Son de especial relevancia aquellas señales que determinan
+														la posición de los actuadores biestables</strong>.
+													<script
+														src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"
+														integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg=="
+														crossorigin="anonymous" referrerPolicy="no-referrer"></script>
+													<link rel="stylesheet"
+														href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css"
+														integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ=="
+														crossorigin="anonymous" referrerPolicy="no-referrer" />
+													<pre id="241dc82f-49f8-808a-9c74-c984bda50779"
+														class="code code-wrap"><code class="language-Plain Text" style="white-space:pre-wrap;word-break:break-all">CondicionesIniciales := ManipuladorArriba AND EstacionConectada;</code></pre>
+												</li>
+											</ul>
+											<ul id="241dc82f-49f8-8019-8f62-ed953d4d4af1" class="bulleted-list">
+												<li style="list-style-type:disc">La <strong>CM</strong> indica aquellas
+													condiciones que debe cumplirse para que la estación comience a
+													producir (una vez satisfechas las <strong>CI</strong>).
+													<script
+														src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"
+														integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg=="
+														crossorigin="anonymous" referrerPolicy="no-referrer"></script>
+													<link rel="stylesheet"
+														href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css"
+														integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ=="
+														crossorigin="anonymous" referrerPolicy="no-referrer" />
+													<pre id="241dc82f-49f8-80bd-8641-fc36511236bb"
+														class="code code-wrap"><code class="language-Plain Text" style="white-space:pre-wrap;word-break:break-all">CondicionMarcha := (UnidadesSolicitadas&gt;0);</code></pre>
+												</li>
+											</ul>
+											<ul id="241dc82f-49f8-807b-882b-d9c1bc389373"
+												class="block-color-red_background bulleted-list">
+												<li style="list-style-type:disc">Cada grupo deberá identificar las
+													<strong>CI</strong> y la <strong>CM</strong> particular para su
+													estación.</li>
+											</ul>
+										</details>
+									</li>
+								</ul>
+								<ul id="21ddc82f-49f8-805a-8983-f8473b5b96b9" class="toggle">
+									<li>
+										<details open="">
+											<summary>La <strong>visualización</strong> debe mostrar el valor de las
+												siguientes variables de la tarea:</summary>
+											<figure id="21ddc82f-49f8-80b0-8d69-c740d19127d6" class="image"
+												style="text-align:center"><a href="images/n4/image.png"><img style="width:192px"
+														src="images/n4/image.png" /></a>
+												<figcaption>Panel de la tarea</figcaption>
+											</figure>
+											<ul id="21ddc82f-49f8-804c-8286-cf19c981f743" class="bulleted-list">
+												<li style="list-style-type:disc"><code>UnidadesSolicitadas</code>:
+													Variable que contiene el número de piezas que se quieren producir en
+													un lote. <strong>Debe poder ser editada desde la visualización</strong>.
+													<strong> </strong>El programa debe ser
+													capaz de, tras pulsar el <strong>Pulsador de Marcha</strong>,
+													producir el número de piezas especificado en esta variable. Esto se
+													denomina <strong>Producción por Lotes</strong>.</li>
+											</ul>
+											<ul id="21ddc82f-49f8-8063-967d-c3f91906727f" class="bulleted-list">
+												<li style="list-style-type:disc"><code>UnidadesPendientes</code>:
+													Contador que toma inicialmente el valor de
+													<code>UnidadesSolicitadas</code> y se decrementa cada vez que se
+													produce una pieza. Se reinicia cada vez que se acaba el lote.</li>
+											</ul>
+											<ul id="21ddc82f-49f8-808b-89c2-c5dfd43087c8" class="bulleted-list">
+												<li style="list-style-type:disc"><code>UnidadesRealizadas</code>:
+													Contador que empieza en cero y se incrementa cada vez que se produce
+													una pieza. No se reinicia cada vez que acaba el lote.</li>
+											</ul>
+											<ul id="21ddc82f-49f8-80fd-9fd8-e919596fa458" class="bulleted-list">
+												<li style="list-style-type:disc"><code>UnidadesRechazadas</code>: (si
+													aplica). Contador que empieza en cero y se incrementa cada vez que
+													se rechaza una pieza. No se reinicia cada vez que acaba el lote.
+												</li>
+											</ul>
+											<ul id="21ddc82f-49f8-8080-afce-e91ffc5af65d" class="bulleted-list">
+												<li style="list-style-type:disc">Selección de las piezas a producir (si
+													aplica, ejemplo: rodamiento alto o bajo).</li>
+											</ul>
+										</details>
+									</li>
+								</ul>
+								<ul id="21ddc82f-49f8-8073-8854-ec58baa0ad8b" class="toggle">
+									<li>
+										<details open="">
+											<summary>La <strong>visualización </strong>debe incluir, en su parte
+												inferior, una serie de indicadores y botones que permiten conocer el
+												estado de las condiciones de la estación y modificar su comportamiento:
+											</summary>
+											<figure id="21ddc82f-49f8-80ea-a899-c6d8e5574e76" class="image"
+												style="text-align:center"><a href="images/n4/image 1.png"><img
+														style="width:288px" src="images/n4/image 1.png" /></a></figure>
+											<ul id="21ddc82f-49f8-80ca-8b31-f0f10109c543" class="bulleted-list">
+												<li style="list-style-type:disc"><code>CI</code>: Indicador que muestra
+													si se cumplen o no las condiciones iniciales.</li>
+											</ul>
+											<ul id="21ddc82f-49f8-8042-82a0-e4715cbfd776" class="bulleted-list">
+												<li style="list-style-type:disc"><code>CM</code>: Indicador que muestra
+													si se cumple o no la condición de marcha.</li>
+											</ul>
+											<ul id="21ddc82f-49f8-80d4-8f3b-ed5ef6be0ce0" class="bulleted-list">
+												<li style="list-style-type:disc"><code>Ciclo</code> [<mark
+														class="highlight-blue">toggle</mark>]: <strong>Botón</strong> que indica que la
+													estación debe operar <strong>Ciclo a Ciclo</strong>, esto es, debe
+													parar entre cada iteración del lote hasta que se pulse el
+													<strong>Pulsador de Marcha</strong>. Debe seguir produciendo el
+													número de piezas que se especificó para el lote.</li>
+											</ul>
+											<ul id="21ddc82f-49f8-806c-b80a-efc3f9cf3ce2" class="bulleted-list">
+												<li style="list-style-type:disc"><code>Pause</code> [<mark
+														class="highlight-blue">toggle</mark>]: <strong>Botón</strong> que pausa la
+													estación en su estado actual. Relacionado con <code>SFCPause</code>.
+												</li>
+											</ul>
+											<ul id="21ddc82f-49f8-8056-ab2c-edb40ac95c76" class="bulleted-list">
+												<li style="list-style-type:disc"><code>Reset</code> [<mark
+														class="highlight-teal">tap</mark>]: <strong>Botón</strong> que reinicia la
+													estación y la devuelve a su estado inicial. Relacionado con
+													<code>SFCReset</code>. </li>
+											</ul>
+										</details>
+									</li>
+								</ul>
+								<ul id="21ddc82f-49f8-8061-bb7f-ec4bfa0983d3" class="toggle">
+									<li>
+										<details open="">
+											<summary>La <strong>visualización </strong>debe permitir, en la sección
+												<code>PARÁMETROS</code>, introducir los valores de los <strong>tiempos
+												</strong>utilizados en todos los FBs del programa, con el formato de las
+												variables de tipo <code>TIME</code></summary>
+											<figure id="21ddc82f-49f8-80c3-a4a6-e5d844c74989" class="image"
+												style="text-align:center"><a href="images/n4/image 2.png"><img
+														style="width:144px" src="images/n4/image 2.png" /></a></figure>
+										</details>
+									</li>
+								</ul>
+								<ul id="23bdc82f-49f8-801d-8812-da74a14140b1"
+									class="block-color-yellow_background toggle">
+									<li>
+										<details open="">
+											<summary><mark class="highlight-red"><mark
+														class="highlight-yellow_background"><strong>[NUEVO]</strong></mark></mark>
+												La <strong>visualización </strong>debe mostrar en algún lugar, la
+												etiqueta del modo actual y una descripción breve del mismo.</summary>
+											<figure id="23bdc82f-49f8-8099-b4f0-c486ffecec96" class="image"
+												style="text-align:center"><a href="images/n4/image 3.png"><img
+														style="width:384px" src="images/n4/image 3.png" /></a></figure>
+										</details>
+									</li>
+								</ul>
+							</details>
+						</li>
+					</ul>
+					<ul id="203dc82f-49f8-802d-9d99-e6e850e2bb36" class="block-color-red_background bulleted-list">
+						<li style="list-style-type:disc"><strong>Duración estimada: 2-3 sesiones</strong></li>
+					</ul>
+				</div>
+			</details>
+			<details open="" id="gdmma">
+				<summary style="font-weight:600;font-size:1.25em;line-height:1.3;margin:0"><strong>GDMMA</strong>
+				</summary>
+				<div class="indented">
+					<ul id="203dc82f-49f8-80b0-8001-dadcca5e71e4" class="bulleted-list">
+						<li style="list-style-type:disc">Se recomiendo realizar el <strong>diagrama GDMMA</strong> de la
+							estación a automatizar.</li>
+					</ul>
+					<ul id="203dc82f-49f8-806f-960c-e2e4e4b7e9cc" class="bulleted-list">
+						<li style="list-style-type:disc">Este diagrama representa todos los modos implementados y las
+							condiciones de transición entre los mismos. De esta manera, de un solo vistazo, seremos
+							capaces de determinar qué debe ocurrir en un modo determinado para transicionar a otro.</li>
+					</ul>
+					<ul id="203dc82f-49f8-80d2-9802-f59844994f45" class="bulleted-list">
+						<li style="list-style-type:disc">A modo de ejemplo, puedes encontrar un diagrama GDMMA para la
+							estación FMS203 en el Campus Virtual:
+							<code>Automatización → Ejemplos → FMS203 → Especificación → 3_FMS-203_GEMMA_GDMMA_V2.pdf</code>
+							<figure id="245dc82f-49f8-80a3-a64a-e217a339d44c" class="image"><a href="images/n4/image 4.png"><img
+										style="width:624px" src="images/n4/image 4.png" /></a></figure>
+						</li>
+					</ul>
+					<ul id="20adc82f-49f8-80de-b858-e82fcdb27c21" class="bulleted-list">
+						<li style="list-style-type:disc">Si se incorporan nuevos modos o nuevas condiciones de
+							transición entre modos, es recomendable añadirlos al diagrama GDMMA.</li>
+					</ul>
+				</div>
+			</details>
+			<details open="" id="jerarquia-proyecto">
+				<summary style="font-weight:600;font-size:1.25em;line-height:1.3;margin:0">Jerarquía del Proyecto
+					Estructurado + GEMMA</summary>
+				<div class="indented">
+					<ol type="1" id="203dc82f-49f8-8095-bdff-d6c39ed82af1" class="numbered-list" start="1">
+						<li><code><strong>MAIN</strong></code><strong> (Programa Principal):</strong> <ul
+								id="203dc82f-49f8-8076-a153-e9885c1c7eac" class="bulleted-list">
+								<li style="list-style-type:disc">Es el punto de entrada. </li>
+							</ul>
+							<ul id="203dc82f-49f8-80da-b8fa-ff200e4fb66e" class="bulleted-list">
+								<li style="list-style-type:disc">Su única responsabilidad es declarar una variable de
+									tipo <code>FB_Estacion</code> e instanciarla. </li>
+							</ul>
+						</li>
+					</ol>
+					<ol type="1" id="203dc82f-49f8-8067-8eb9-c39a34430df6" class="numbered-list" start="2">
+						<li><code><strong>FB_Estacion</strong></code><strong> (FB principal):</strong> <ul
+								id="203dc82f-49f8-8060-af8c-f53804d33771" class="bulleted-list">
+								<li style="list-style-type:disc">Actúa como el centro neurálgico de la estación.</li>
+							</ul>
+							<ul id="203dc82f-49f8-8044-9110-e48a01271fcc" class="bulleted-list">
+								<li style="list-style-type:disc">Declara <strong>todas</strong> las variables de
+									Entrada/Salida (E/S) físicas (<code>AT %I*</code>, <code>AT %Q*</code>).</li>
+							</ul>
+							<ul id="203dc82f-49f8-8028-98d6-c69ffe282ae2" class="bulleted-list">
+								<li style="list-style-type:disc">Instancia todos los FBs necesarios:
+									el <code>FB_Coordinador_SFC</code>, el <code>FB_Director_ST</code> y todos los FBs
+									de tareas (<code>FB_SituarPale_SFC</code>, <code>FB_CargarBase_SFC</code>, etc.), al
+									igual que en el nivel estructurado.</li>
+							</ul>
+							<ul id="203dc82f-49f8-80f0-b5d1-c70591f659a0"
+								class="block-color-yellow_background bulleted-list">
+								<li style="list-style-type:disc"><mark class="highlight-red"><mark
+											class="highlight-yellow_background"><strong>[NUEVO]</strong></mark></mark><strong>
+									</strong>Instancia también los FBs relacionados con la guía GEMMA:
+									<code>FB_Director_ST</code>, <code>FB_Preparar_SFC</code>,
+									<code>FB_Finalizar_SFC </code>y <code>FB_Restaurar_SFC</code>.</li>
+							</ul>
+							<ul id="203dc82f-49f8-8095-ba6c-d71cc03dfb8f" class="bulleted-list">
+								<li style="list-style-type:disc">Conecta las E/S físicas a las variables de interfaz
+									(entradas y salidas) de los FBs de tareas.</li>
+							</ul>
+							<ul id="203dc82f-49f8-80b0-8a4b-d4245686fcde" class="bulleted-list">
+								<li style="list-style-type:disc">Gestiona el paso de señales de control y sincronización
+									entre el director, el coordinador y los FBs de tareas y secuencias.</li>
+							</ul>
+							<ul id="203dc82f-49f8-806c-acd7-d08331a30e75" class="bulleted-list">
+								<li style="list-style-type:disc">Gestiona parámetros globales de la estación (tiempos,
+									modos, etc.), incluyendo el número de unidades a producir.</li>
+							</ul>
+						</li>
+					</ol>
+					<ol type="1" id="203dc82f-49f8-8086-9a8f-f8a4703e08f4"
+						class="block-color-yellow_background numbered-list" start="3">
+						<li><mark class="highlight-red"><mark class="highlight-yellow_background"><strong>[NUEVO]
+									</strong></mark></mark><code><strong>FB_Director_ST</strong></code><strong> (Implementa
+								el diagrama GDMMA):</strong> <ul id="203dc82f-49f8-80a5-aae0-f7ff96e422ee"
+								class="bulleted-list">
+								<li style="list-style-type:disc">Gestor de los modos de marcha y parada.</li>
+							</ul>
+						</li>
+					</ol>
+					<ol type="1" id="203dc82f-49f8-8092-b998-c379f8809d1c" class="numbered-list" start="4">
+						<li><code><strong>FB_Coordinador_SFC</strong></code><strong> (FB Coordinador):</strong> <ul
+								id="203dc82f-49f8-8068-99c4-d157c1420e02" class="bulleted-list">
+								<li style="list-style-type:disc">Orquesta la secuencia general de operación.</li>
+							</ul>
+							<ul id="203dc82f-49f8-80f7-9976-f3900e154d19" class="bulleted-list">
+								<li style="list-style-type:disc">Define el flujo principal del proceso mediante un SFC.
+								</li>
+							</ul>
+							<ul id="203dc82f-49f8-8012-a769-fc82ceb73070" class="bulleted-list">
+								<li style="list-style-type:disc">Activa los FBs de tareas en el orden correcto usando
+									sus señales <code>Execute</code>.</li>
+							</ul>
+							<ul id="203dc82f-49f8-80c3-b578-fa7b76785c33" class="bulleted-list">
+								<li style="list-style-type:disc">Espera la finalización de cada tarea monitorizando sus
+									señales <code>Done</code>.</li>
+							</ul>
+						</li>
+					</ol>
+					<ol type="1" id="20adc82f-49f8-80b8-b81e-e4581fa48148" class="numbered-list" start="5">
+						<li><code><strong>FB*_xxx_SFC</strong></code><strong> (FBs de Tareas)
+								(ej. </strong><code><strong>FB_CargarBase_SFC</strong></code><strong>):</strong> <ul
+								id="20adc82f-49f8-80e4-b66a-db56c938006f"
+								class="block-color-red_background bulleted-list">
+								<li style="list-style-type:disc">Las Tareas implementadas son las mismas que en el modo
+									anterior (<code>Estructurado</code>).</li>
+							</ul>
+							<ul id="20adc82f-49f8-807e-bbd2-daaf1dba439e" class="bulleted-list">
+								<li style="list-style-type:disc">Implementan la lógica secuencial detallada para una
+									operación <strong>específica</strong>.</li>
+							</ul>
+							<ul id="20adc82f-49f8-8029-a2ad-fe7c3a104f79" class="bulleted-list">
+								<li style="list-style-type:disc">Contienen un <code>SFC</code> que describe los pasos
+									para completar su tarea.</li>
+							</ul>
+							<ul id="20adc82f-49f8-8049-a87a-ea6926845c69" class="bulleted-list">
+								<li style="list-style-type:disc">Reciben una señal <code>Execute</code> para iniciar su
+									secuencia.</li>
+							</ul>
+							<ul id="20adc82f-49f8-80fc-9771-de936bbce23c" class="bulleted-list">
+								<li style="list-style-type:disc">Señalan su finalización con una
+									señal <code>Done</code>.</li>
+							</ul>
+							<ul id="20adc82f-49f8-808b-8bc9-c6acd27da77c" class="bulleted-list">
+								<li style="list-style-type:disc">Utilizan un patrón de
+									<em>handshake</em> <code>Ready/Execute</code> y <code>Done/Ack</code> para
+									sincronizarse con el coordinador.</li>
+							</ul>
+							<ul id="20adc82f-49f8-8058-b774-f36356ce013b" class="bulleted-list">
+								<li style="list-style-type:disc">Leen sensores y activan actuadores necesarios para su
+									tarea (a través de variables conectadas en <code>FB_Estacion</code>).</li>
+							</ul>
+						</li>
+					</ol>
+					<ol type="1" id="20adc82f-49f8-801f-a775-e2d89a805ec5"
+						class="block-color-yellow_background numbered-list" start="6">
+						<li><mark class="highlight-red"><mark class="highlight-yellow_background"><strong>[NUEVO]
+									</strong></mark></mark><strong>Secuencias de GDMMA</strong>
+							<ul id="20adc82f-49f8-8025-864b-cddae3769381" class="bulleted-list">
+								<li style="list-style-type:disc"><code>FB_EstacionRestaurar_SFC</code>: Secuencia de
+									<strong>recuperación </strong>de las condiciones iniciales de la estación.</li>
+							</ul>
+							<ul id="20adc82f-49f8-80f7-a5fb-ef4266db16b6" class="bulleted-list">
+								<li style="list-style-type:disc"><code>FB_EstacionPreparar_SFC</code>: Secuencia de
+									<strong>preparación </strong>de la producción normal.</li>
+							</ul>
+							<ul id="20adc82f-49f8-8059-bb0c-fc3d4cd48837" class="bulleted-list">
+								<li style="list-style-type:disc"><code>FB_EstacionFinalizar_SFC</code>: Secuencia de
+									<strong>finalización </strong>de la producción normal.</li>
+							</ul>
+						</li>
+					</ol>
+					<ol type="1" id="20adc82f-49f8-8034-8512-c528142233c5" class="numbered-list" start="7">
+						<li><code>FB_Clock</code>: <strong>Generador de onda cuadrada</strong>.<ul
+								id="20adc82f-49f8-8013-bb4c-c0e06e259bcf" class="bulleted-list">
+								<li style="list-style-type:disc">Se utiliza para conseguir una señal binaria que alterna
+									su valor a lo largo del tiempo, a una frecuencia determinada.</li>
+							</ul>
+							<ul id="20adc82f-49f8-8005-ae7f-ce853b9d231b" class="bulleted-list">
+								<li style="list-style-type:disc">Podemos utilizar su salida para conseguir que una
+									lámpara parpadee o que un avisador suene intermitentemente.
+									<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"
+										integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg=="
+										crossorigin="anonymous" referrerPolicy="no-referrer"></script>
+									<link rel="stylesheet"
+										href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css"
+										integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ=="
+										crossorigin="anonymous" referrerPolicy="no-referrer" />
+									<pre id="20adc82f-49f8-8072-9f57-f03ecb7d49b0" class="code code-wrap"><code class="language-Plain Text" style="white-space:pre-wrap;word-break:break-all">CLK: FB_Clock;
+-------------------------------------------------------
+LamparaMarcha := CondicionInicial AND CLK.Q;
+CLK();</code></pre>
+								</li>
+							</ul>
+						</li>
+					</ol>
+				</div>
+			</details>
+			<details open="" id="estructura-fb-tarea">
+				<summary style="font-weight:600;font-size:1.25em;line-height:1.3;margin:0"><strong>Estructura Estándar
+						de un FB de Tarea en SFC</strong></summary>
+				<div class="indented">
+					<ul id="203dc82f-49f8-80b8-849a-e79c66343a76" class="block-color-red_background bulleted-list">
+						<li style="list-style-type:disc"><strong>NOTA: </strong>La estructura es idéntica a la realizada
+							en el nivel <strong>Estructurado</strong>.</li>
+					</ul>
+					<ul id="203dc82f-49f8-8091-add6-c39a1e6ee991" class="bulleted-list">
+						<li style="list-style-type:disc">Tanto el FB Coordinador como los FBs de tareas
+							(<code>FB_CargarBase_SFC</code>,  <code>FB_SituarPale_SFC</code>, etc.) siguen una
+							estructura SFC común diseñada para la sincronización:<figure id="270dc82f-49f8-80d4-9928-c45733bfae37" class="image"
+								style="text-align:center"><a href="images/n4/image 7.png"><img style="width:240px" src="images/n4/image 7.png" /></a>
+								<figcaption>Estructura genérica de un FB</figcaption>
+							</figure>
+						</li>
+					</ul>
+					<ul id="203dc82f-49f8-80cd-a0e7-fc2910cae7d6" class="bulleted-list">
+						<li style="list-style-type:disc">
+							<strong>Paso </strong><code><strong>Initial</strong></code><strong>:</strong>
+							<ul id="203dc82f-49f8-809e-b9be-fefa32e0bb65" class="bulleted-list">
+								<li style="list-style-type:circle">Es el estado de reposo del FB.</li>
+							</ul>
+							<ul id="203dc82f-49f8-8025-bda8-cde9501c01a1" class="bulleted-list">
+								<li style="list-style-type:circle">Se activa la salida <code>Ready</code> para indicar
+									al coordinador que el FB está listo para recibir una orden.</li>
+							</ul>
+							<ul id="203dc82f-49f8-80ea-a645-f91eaf4b08c7" class="bulleted-list">
+								<li style="list-style-type:circle">La primera transición espera la señal de
+									entrada <code>Execute</code> (que será activada por el coordinador).</li>
+							</ul>
+						</li>
+					</ul>
+					<ul id="203dc82f-49f8-80e7-a9e2-e0dee9617834" class="bulleted-list">
+						<li style="list-style-type:disc"><strong>Pasos Intermedios
+								(</strong><code><strong>S1</strong></code><strong>, </strong><code><strong>S2</strong></code><strong>,
+								...):</strong>
+							<ul id="203dc82f-49f8-80e0-a9b3-ccd7bcbaefb3" class="bulleted-list">
+								<li style="list-style-type:circle">Implementan la lógica de control secuencial de la
+									tarea.</li>
+							</ul>
+							<ul id="203dc82f-49f8-80e5-8427-e37fe1d59e68" class="bulleted-list">
+								<li style="list-style-type:circle">Activan/desactivan las salidas necesarias
+									(actuadores) mediante acciones memorizadas o no memorizadas.</li>
+							</ul>
+							<ul id="203dc82f-49f8-80be-9a70-ce5f9a0be731" class="bulleted-list">
+								<li style="list-style-type:circle">Las transiciones entre pasos esperan condiciones de
+									proceso (sensores, temporizadores, o <code>Done</code> de otros FBs en el caso del
+									<code>FB_Coordinador_SFC</code>).</li>
+							</ul>
+						</li>
+					</ul>
+					<ul id="203dc82f-49f8-807f-a4e6-e6f4b090e8d2" class="bulleted-list">
+						<li style="list-style-type:disc">
+							<strong>Paso </strong><code><strong>End</strong></code><strong>:</strong>
+							<ul id="203dc82f-49f8-8089-b1a9-f91a9ee7debe" class="bulleted-list">
+								<li style="list-style-type:circle">Es el estado final de la secuencia de la tarea.</li>
+							</ul>
+							<ul id="203dc82f-49f8-80bc-9889-ef73585885fc" class="bulleted-list">
+								<li style="list-style-type:circle">Se activa la salida <code>Done</code> para indicar al
+									coordinador que la tarea ha finalizado.</li>
+							</ul>
+							<ul id="203dc82f-49f8-80f4-ac8d-f8e6c128bf66" class="bulleted-list">
+								<li style="list-style-type:circle">La última transición espera la señal de
+									entrada <code>Ack</code> (acuse de recibo del coordinador). Esta señal normalmente
+									se gestiona en el nivel superior (<code>FB_Estacion</code>) poniéndola
+									a <code>TRUE</code> cuando <code>Execute</code> es <code>FALSE</code>. Esto asegura
+									que el FB de tarea vuelve a <code>Initial</code> sólo después de que el coordinador
+									haya visto la señal <code>Done</code> y haya retirado la orden <code>Execute</code>.
+									Así, el coordinador espera a <code>Done=TRUE</code>, procesa la finalización, y
+									luego (implícita o explícitamente) permite
+									que <code>Ack</code> sea <code>TRUE</code> (generalmente asegurando
+									que <code>Execute</code> sea <code>FALSE</code>) para que el FB de tarea vuelva
+									a <code>Initial</code> y ponga <code>Ready=TRUE</code> de nuevo.</li>
+							</ul>
+						</li>
+					</ul>
+				</div>
+			</details>
+			<details open="" id="acceso-hardware">
+				<summary style="font-weight:600;font-size:1.25em;line-height:1.3;margin:0"><strong>Acceso a señales de
+					</strong><em><strong>hardware</strong></em></summary>
+				<div class="indented">
+					<ul id="203dc82f-49f8-808c-bebc-ea6533b434f9" class="block-color-red_background bulleted-list">
+						<li style="list-style-type:disc"><strong>NOTA: </strong>El acceso al <em>hardware </em>es
+							idéntico al realizado en el nivel <strong>Estructurado</strong>.</li>
+					</ul>
+					<ul id="203dc82f-49f8-80c6-bf86-ea75c0f395c5" class="bulleted-list">
+						<li style="list-style-type:disc"><strong>IMPORTANTE</strong>: Nótese que todas las variables de
+							acceso al <em>hardware </em>están declaradas en <code>FB_Estacion</code>. Con esto
+							conseguimos compartir el acceso a determinados sensores o actuadores desde distintos bloques
+							funcionales.</li>
+					</ul>
+					<ul id="203dc82f-49f8-80ff-bcd1-cfbf15bf3ec2" class="toggle">
+						<li>
+							<details open="">
+								<summary>Un punto clave es cómo un FB de tarea (ej. <code>FB_CargarBase_SFC</code>)
+									controla un actuador (ej. <code>ManipuladorSucciona AT %Q*</code>) si la declaración
+									física está en <code>FB_Estacion</code>. La conexión se realiza
+									en <code>FB_Estacion</code>:</summary>
+								<ul id="203dc82f-49f8-8008-885e-d356079b4de0" class="bulleted-list">
+									<li style="list-style-type:disc"><strong>Declaración
+											Física:</strong> <code>FB_Estacion</code> declara la variable física
+										utilizando la especificación <code>AT %Q*</code>:
+										<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"
+											integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg=="
+											crossorigin="anonymous" referrerPolicy="no-referrer"></script>
+										<link rel="stylesheet"
+											href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css"
+											integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ=="
+											crossorigin="anonymous" referrerPolicy="no-referrer" />
+										<pre id="203dc82f-49f8-80e6-bb85-d8916b90c016" class="code code-wrap"><code class="language-Plain Text" style="white-space:pre-wrap;word-break:break-all">// En FB_Estacion
+VAR
+	ManipuladorSucciona AT %Q*: BOOL;
+END_VAR</code></pre>
+									</li>
+								</ul>
+								<ul id="203dc82f-49f8-802c-bb80-e0024ca494d4" class="bulleted-list">
+									<li style="list-style-type:disc"><strong>Instanciación del FB de
+											Tarea:</strong> <code>FB_Estacion</code> instancia el FB:
+										<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"
+											integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg=="
+											crossorigin="anonymous" referrerPolicy="no-referrer"></script>
+										<link rel="stylesheet"
+											href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css"
+											integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ=="
+											crossorigin="anonymous" referrerPolicy="no-referrer" />
+										<pre id="203dc82f-49f8-80bb-b5f1-c51453da2e2a" class="code code-wrap"><code class="language-Plain Text" style="white-space:pre-wrap;word-break:break-all">// En FB_Estacion
+VAR
+	CargarBase: FB_CargarBase_SFC;
+END_VAR</code></pre>
+									</li>
+								</ul>
+								<ul id="203dc82f-49f8-8001-b7bd-f1466db52d43" class="bulleted-list">
+									<li style="list-style-type:disc"><strong>Declaración de Interfaz en
+											Tarea:</strong> <code>FB_CargarBase_SFC</code> declara una salida lógica con
+										el mismo propósito (nótese que esto es solo una variable booleana, <strong>sin
+										</strong>acceso directo al <em>hardware </em>ya que no está declarada con
+										<code>AT %Q*</code>):
+										<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"
+											integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg=="
+											crossorigin="anonymous" referrerPolicy="no-referrer"></script>
+										<link rel="stylesheet"
+											href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css"
+											integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ=="
+											crossorigin="anonymous" referrerPolicy="no-referrer" />
+										<pre id="203dc82f-49f8-80b6-84d9-c4565185bb32" class="code code-wrap"><code class="language-Plain Text" style="white-space:pre-wrap;word-break:break-all">// En FB_CargarBase_SFC
+VAR_OUTPUT
+	ManipuladorSucciona: BOOL;
+END_VAR</code></pre>
+										<ul id="203dc82f-49f8-80e9-9bc6-d08d8da83c31" class="bulleted-list">
+											<li style="list-style-type:circle"><strong>IMPORTANTE</strong>: Nótese que
+												debemos declarar esta variable en <code>VAR_OUTPUT</code> ya que
+												queremos que el valor que tome dentro de <code>FB_CargarBase_SFC</code>
+												sea visible desde fuera del FB.</li>
+										</ul>
+									</li>
+								</ul>
+								<ul id="203dc82f-49f8-804d-88c6-d3f9170e970f" class="bulleted-list">
+									<li style="list-style-type:disc"><strong>Conexión
+											en </strong><code><strong>FB_Estacion</strong></code><strong>:</strong> En
+										la implementación ST de <code>FB_Estacion</code>, se conectan ambas:
+										<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"
+											integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg=="
+											crossorigin="anonymous" referrerPolicy="no-referrer"></script>
+										<link rel="stylesheet"
+											href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css"
+											integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ=="
+											crossorigin="anonymous" referrerPolicy="no-referrer" />
+										<pre id="203dc82f-49f8-80bb-b96a-dcd600b9a277" class="code code-wrap"><code class="language-Plain Text" style="white-space:pre-wrap;word-break:break-all">// En la implementación ST de FB_Estacion
+ManipuladorSucciona := CargarBase.ManipuladorSucciona;</code></pre>
+									</li>
+								</ul>
+								<ul id="203dc82f-49f8-804f-8bb8-eb10e3cbe276" class="bulleted-list">
+									<li style="list-style-type:disc">En este código, la variable
+										<code>ManipuladorSucciona</code> de la izquierda pertenece a
+										<code>FB_Estacion</code> y tiene acceso al actuador, mientras que la de la
+										derecha es simplemente una señal booleana que se activa por el FB de la tarea en
+										cuestión.</li>
+								</ul>
+								<ul id="203dc82f-49f8-8024-9d22-d4947af4821e" class="bulleted-list">
+									<li style="list-style-type:disc">De esta forma,
+										cuando <code>FB_CargarBase_SFC</code> pone su salida
+										<code>ManipuladorSucciona</code> a <code>TRUE</code>, este valor se propaga a la
+										variable <code>ManipuladorSucciona</code> de <code>FB_Estacion</code>, que está
+										directamente mapeada a la salida física <code>%Q*</code>.</li>
+								</ul>
+							</details>
+						</li>
+					</ul>
+					<ul id="203dc82f-49f8-8095-998a-f25dfddde2b8" class="toggle">
+						<li>
+							<details open="">
+								<summary>El proceso es análogo para las <strong>entradas</strong> (sensores):</summary>
+								<ul id="203dc82f-49f8-8088-9ee5-cc5f391dc33c" class="bulleted-list">
+									<li style="list-style-type:disc">Declaración física
+										en <code>FB_Estacion</code> (<code>VAR ... AT %I*</code>).</li>
+								</ul>
+								<ul id="203dc82f-49f8-8038-8642-d50e75f4b138" class="bulleted-list">
+									<li style="list-style-type:disc">Instancia del FB de tarea
+										en <code>FB_Estacion</code>.</li>
+								</ul>
+								<ul id="203dc82f-49f8-8066-a186-c42a9dc64cd4" class="bulleted-list">
+									<li style="list-style-type:disc">Declaración de interfaz en el FB de tarea
+										(<code>VAR_INPUT</code>).<ul id="203dc82f-49f8-804f-bcc0-d49fa3041ca0"
+											class="bulleted-list">
+											<li style="list-style-type:circle"><strong>IMPORTANTE</strong>: Nótese que
+												hay que declarar esta variable en <code>VAR_INPUT</code> ya que queremos
+												obtener el valor del sensor proporcionado por <code>FB_Estacion</code>,
+												que debe introducirlo desde fuera de <code>FB_CargarBase_SFC</code>.
+											</li>
+										</ul>
+									</li>
+								</ul>
+								<ul id="203dc82f-49f8-80f8-ae1f-da4df82f8f60" class="bulleted-list">
+									<li style="list-style-type:disc">Conexión en <code>FB_Estacion</code> pasando la
+										entrada física a la entrada del FB de tarea:
+										<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"
+											integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg=="
+											crossorigin="anonymous" referrerPolicy="no-referrer"></script>
+										<link rel="stylesheet"
+											href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css"
+											integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ=="
+											crossorigin="anonymous" referrerPolicy="no-referrer" />
+										<pre id="203dc82f-49f8-8030-a9b7-f590f22baea8" class="code code-wrap"><code class="language-Plain Text" style="white-space:pre-wrap;word-break:break-all">// En FB_CargarBase_SFC
+VAR_INPUT
+	ManipuladorVacio: BOOL;
+END_VAR</code></pre>
+										<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"
+											integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg=="
+											crossorigin="anonymous" referrerPolicy="no-referrer"></script>
+										<link rel="stylesheet"
+											href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css"
+											integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ=="
+											crossorigin="anonymous" referrerPolicy="no-referrer" />
+										<pre id="203dc82f-49f8-806a-8c9e-e9f9cc487f85" class="code code-wrap"><code class="language-Plain Text" style="white-space:pre-wrap;word-break:break-all">// En FB_Estacion
+VAR
+	ManipuladorVacio AT %I*: BOOL;
+END_VAR</code></pre>
+										<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"
+											integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg=="
+											crossorigin="anonymous" referrerPolicy="no-referrer"></script>
+										<link rel="stylesheet"
+											href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css"
+											integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ=="
+											crossorigin="anonymous" referrerPolicy="no-referrer" />
+										<pre id="203dc82f-49f8-802b-8abe-e77b4fc70d89" class="code code-wrap"><code class="language-Plain Text" style="white-space:pre-wrap;word-break:break-all">// En la implementación ST de FB_Estacion
+CargarBase(
+    // ...
+    ManipuladorVacio := ManipuladorVacio
+    // ...
+);</code></pre>
+										<ul id="203dc82f-49f8-80b3-91e2-ee806a7fe613" class="bulleted-list">
+											<li style="list-style-type:circle">En este código, la variable
+												<code>ManipuladorVacio</code> de la izquierda pertenece al
+												<code>FB_CargarBase_SFC</code> mientras que la de la derecha es la que
+												tiene acceso al <em>hardware </em>y pertenece a
+												<code>FB_Estacion</code>. Estamos pasando la información del sensor
+												<code>ManipuladorVacio</code> al FB de la tarea.</li>
+										</ul>
+									</li>
+								</ul>
+							</details>
+						</li>
+					</ul>
+				</div>
+			</details>
+			<details open="" id="gestion-sfcreset-sfcpause">
+				<summary style="font-weight:600;font-size:1.25em;line-height:1.3;margin:0"><strong>Gestión
+						de </strong><code><strong>SFCReset</strong></code><strong> y </strong><code><strong>SFCPause</strong></code>
+				</summary>
+				<div class="indented">
+					<ul id="203dc82f-49f8-8066-8f57-d8ab7dd10ee3" class="block-color-red_background bulleted-list">
+						<li style="list-style-type:disc"><strong>NOTA: </strong>Estas señales funcionan de igual manera
+							al nivel <strong>Estructurado</strong>.</li>
+					</ul>
+					<ul id="203dc82f-49f8-804a-a3d5-cd4bbc1e1f71" class="bulleted-list">
+						<li style="list-style-type:disc">Estas son <strong>entradas estándar</strong> proporcionadas por
+							TwinCAT para FBs basados en SFC. Permiten un control externo sobre la ejecución del gráfico
+							SFC.</li>
+					</ul>
+					<ul id="203dc82f-49f8-800c-9e2b-d6ed6f5b1a17" class="toggle">
+						<li>
+							<details open="">
+								<summary><code><strong>SFCPause</strong></code><strong> (BOOL):</strong></summary>
+								<ul id="203dc82f-49f8-801d-a988-e01326305dd6" class="bulleted-list">
+									<li style="list-style-type:disc">Si se pone a <code>TRUE</code>, el
+										SFC <strong>congela</strong> su estado actual.</li>
+								</ul>
+								<ul id="203dc82f-49f8-8049-8bf1-c083b52465c2" class="bulleted-list">
+									<li style="list-style-type:disc">Los temporizadores de los pasos activos
+										(<code>S1.t</code>,<code>S2.t</code>, etc.) dejan de contar.</li>
+								</ul>
+								<ul id="203dc82f-49f8-80db-bd80-dce73558986f" class="bulleted-list">
+									<li style="list-style-type:disc">Las acciones
+										activas <strong>continúan</strong> ejecutándose.</li>
+								</ul>
+								<ul id="203dc82f-49f8-801e-ba96-d187748f4820" class="bulleted-list">
+									<li style="list-style-type:disc">Las transiciones <strong>no</strong> se evalúan. El
+										SFC no avanzará a pasos siguientes.</li>
+								</ul>
+								<ul id="203dc82f-49f8-8045-86bd-d711241652d4" class="bulleted-list">
+									<li style="list-style-type:disc">Cuando <code>SFCPause</code> vuelve
+										a <code>FALSE</code>, el SFC reanuda la ejecución desde donde se quedó (los
+										temporizadores continúan, las transiciones se evalúan).</li>
+								</ul>
+								<ul id="203dc82f-49f8-80b7-a4cf-e5143f9b8bf0" class="bulleted-list">
+									<li style="list-style-type:disc">En el ejemplo, <code>FB_Estacion</code> recibe una
+										señal <code>PausaEstado</code> y la pasa a la entrada <code>SFCPause</code> de
+										todos los FBs SFC relevantes (<code>Coordinador</code>, <code>SituarPale</code>,
+										etc.), <strong>siempre que no esté
+											activo </strong><code><strong>ReiniciaEstado</strong></code>.</li>
+								</ul>
+							</details>
+						</li>
+					</ul>
+					<ul id="203dc82f-49f8-80a7-8a56-ea95a9f827bf" class="toggle">
+						<li>
+							<details open="">
+								<summary><code><strong>SFCReset</strong></code><strong> (BOOL):</strong></summary>
+								<ul id="203dc82f-49f8-8018-b26f-fcd6c4045d7e" class="bulleted-list">
+									<li style="list-style-type:disc">Si se pone a <code>TRUE</code>, el
+										SFC <strong>fuerza</strong> el retorno al paso inicial (<code>Initial</code>).
+									</li>
+								</ul>
+								<ul id="203dc82f-49f8-80cf-8f73-cbcea703b55b" class="bulleted-list">
+									<li style="list-style-type:disc">Todas las acciones se desactivan (como si se
+										saliera de los pasos activos).</li>
+								</ul>
+								<ul id="203dc82f-49f8-80c7-957b-d65049a6eaee" class="bulleted-list">
+									<li style="list-style-type:disc">Las variables internas del SFC
+										(como <code>S1.x</code> o <code>S1.t</code>) se reinician.</li>
+								</ul>
+								<ul id="203dc82f-49f8-8037-989b-e385320b80ea" class="bulleted-list">
+									<li style="list-style-type:disc">El SFC permanecerá en el
+										paso <code>Initial</code> mientras <code>SFCReset</code> esté
+										a <code>TRUE</code>.</li>
+								</ul>
+								<ul id="203dc82f-49f8-8075-8096-da23fce3d60f" class="bulleted-list">
+									<li style="list-style-type:disc">Normalmente, <code>SFCReset</code> se activa con un
+										pulso (<em>tap</em>) o se mantiene activo durante la condición de reinicio.</li>
+								</ul>
+								<ul id="203dc82f-49f8-804c-ac25-ecff1d8da13a" class="bulleted-list">
+									<li style="list-style-type:disc">En el
+										ejemplo, <code>FB_Estacion</code> recibe <code>ReiniciaEstado</code> y lo pasa a
+										la entrada <code>SFCReset</code> de todos los FBs SFC.</li>
+								</ul>
+							</details>
+						</li>
+					</ul>
+					<ul id="203dc82f-49f8-8000-932b-fea936ede910" class="bulleted-list">
+						<li style="list-style-type:disc">En nuestra implementación <code>PauseEstado</code> y
+							<code>ReiniciaEstado</code> están controlados por dos botones situados abajo a la derecha en
+							la visualización.</li>
+					</ul>
+					<ul id="203dc82f-49f8-80a3-be80-d3836b48f624" class="toggle">
+						<li>
+							<details open="">
+								<summary><strong>Implementación Típica:</strong></summary>
+								<ul id="203dc82f-49f8-8001-940a-e04dba383f6a" class="bulleted-list">
+									<li style="list-style-type:disc">Como se ve en <code>FB_Estacion</code>, estas
+										señales (<code>PausaEstado</code>, <code>ReiniciaEstado</code>) suelen venir de
+										la lógica de control general de la máquina (HMI, pulsadores de control) y se
+										distribuyen a todos los FBs SFC que necesiten ser pausados o reiniciados
+										conjuntamente.</li>
+								</ul>
+								<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"
+									integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg=="
+									crossorigin="anonymous" referrerPolicy="no-referrer"></script>
+								<link rel="stylesheet"
+									href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css"
+									integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ=="
+									crossorigin="anonymous" referrerPolicy="no-referrer" />
+								<pre id="203dc82f-49f8-805b-8335-ffa28650974d" class="code code-wrap"><code class="language-Plain Text" style="white-space:pre-wrap;word-break:break-all">// En la implementación ST de FB_Estacion (ejemplo simplificado)
+Coordinador(
+    SFCPause := NOT ReiniciaEstado AND PausaEstado,
+    SFCReset := ReiniciaEstado,
+    // ...
+);
+SituarPale(
+    SFCPause := NOT ReiniciaEstado AND PausaEstado,
+    SFCReset := ReiniciaEstado,
+    // ...
+);
+// ... y así para todos los demás FBs SFC</code></pre>
+							</details>
+						</li>
+					</ul>
+				</div>
+			</details>
+			<details open="" id="guia-resolucion">
+				<summary style="font-weight:600;font-size:1.25em;line-height:1.3;margin:0">Guía de resolución</summary>
+				<div class="indented">
+					<ul id="23bdc82f-49f8-80a6-862a-c1dc6d8a9e4a" class="bulleted-list">
+						<li style="list-style-type:disc">Crear un nuevo <strong>TwinCAT Project</strong>, con nombre:
+							<code>XXX_TC3_GYY</code> donde <code>XXX</code> es el grado (<code>AIE</code>,
+							<code>AIM</code>, <code>SR</code>, etc.) y <code>GYY</code> es el número de grupo
+							(<code>G01</code>, <code>G02</code>, etc.)</li>
+					</ul>
+					<ul id="23bdc82f-49f8-807f-a4c1-c0dc685bc5f8" class="bulleted-list">
+						<li style="list-style-type:disc">Crear un <strong>PLC Project</strong>, con nombre:
+							<code>FMSXXX_GEMMA</code> donde <code>XXX</code> es el número de la estación
+							(<code>201</code>, <code>202</code>, etc.).</li>
+					</ul>
+					<ul id="23bdc82f-49f8-807c-8522-e373cb3558ba" class="block-color-yellow_background bulleted-list">
+						<li style="list-style-type:disc"><mark class="highlight-red"><mark
+									class="highlight-yellow_background"><strong>[NUEVO] </strong></mark></mark>Importa
+							el tipo de dato <code>E_GEMMA </code>que se proporciona en el ejemplo del CV.</li>
+					</ul>
+					<ul id="23bdc82f-49f8-8053-844f-e94bb662af50" class="toggle">
+						<li>
+							<details open="">
+								<summary>Crear un bloque funcional para el <strong>Coordinador</strong></summary>
+								<ul id="23bdc82f-49f8-80ad-8d4f-ca62c2bbab4c" class="bulleted-list">
+									<li style="list-style-type:disc">Nombre: <code>FB_Coordinador_SFC</code></li>
+								</ul>
+								<ul id="23bdc82f-49f8-803b-9000-c66c552f8507" class="bulleted-list">
+									<li style="list-style-type:disc">Lenguaje: <code>SFC</code></li>
+								</ul>
+								<ul id="23bdc82f-49f8-8058-aba4-c1fe481e3212" class="bulleted-list">
+									<li style="list-style-type:disc">Variables: <ul
+											id="23bdc82f-49f8-80ae-835c-e66acc494b45" class="bulleted-list">
+											<li style="list-style-type:circle">Declara como <strong>salida
+												</strong>variables <code>BOOL</code> para activar los
+												<code>Execute</code> de cada FB de Tarea. Dale nombres significativos
+												(<code>SituaPale</code>, <code>CargaBase</code>, etc.).</li>
+										</ul>
+										<ul id="23bdc82f-49f8-80e7-a590-c25ff9eb6f20" class="bulleted-list">
+											<li style="list-style-type:circle">Declara como <strong>entrada
+												</strong>variables <code>BOOL</code> para recibir los <code>Done</code>
+												de cada FB de Tarea. Dale nombres significativos
+												(<code>PaleSituado</code>, <code>BaseCargada</code>, etc.).</li>
+										</ul>
+									</li>
+								</ul>
+								<ul id="23bdc82f-49f8-806d-9ba7-c55c687e01de" class="bulleted-list">
+									<li style="list-style-type:disc">Implementación:<ul
+											id="23bdc82f-49f8-80c7-8121-f1ede6c6b097" class="bulleted-list">
+											<li style="list-style-type:circle">Respeta la estructura necesaria para
+												hacer el <em>handshake </em>(<code>Initial + Ready + Execute</code> /
+												<code>End + Done + Ack</code>).</li>
+										</ul>
+										<ul id="23bdc82f-49f8-80b0-b222-c36d9f74102b" class="bulleted-list">
+											<li style="list-style-type:circle">En este nivel, el <strong>Coordinador
+												</strong>se encarga de ejecutar la lógica de control correspondiente a
+												un ciclo de la tarea (desde traer el palé hasta transferirlo a la
+												siguiente estación).</li>
+										</ul>
+										<ul id="23bdc82f-49f8-808e-ae73-cf2b0f42f083" class="bulleted-list">
+											<li style="list-style-type:circle">El <strong>Coordinador </strong>también
+												se encarga de decrementar el contador de <code>UnidadesPendientes</code>
+												e incrementar <code>UnidadesRealizadas</code> una vez ha terminado el
+												ciclo. <figure id="23bdc82f-49f8-800e-82fc-f0e8be0b2ead" class="image"
+													style="text-align:center"><a href="images/n4/image 5.png"><img
+															style="width:240px" src="images/n4/image 5.png" /></a></figure>
+												<script
+													src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"
+													integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg=="
+													crossorigin="anonymous" referrerPolicy="no-referrer"></script>
+												<link rel="stylesheet"
+													href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css"
+													integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ=="
+													crossorigin="anonymous" referrerPolicy="no-referrer" />
+												<pre id="23bdc82f-49f8-8077-bc3b-c5573f69ae8c" class="code code-wrap"><code class="language-Plain Text" style="white-space:pre-wrap;word-break:break-all">// Código dentro de la acción con activación a la entrada en S6
+IF (UnidadesPendientes &gt; 0) THEN
+    UnidadesPendientes := UnidadesPendientes - 1;
+END_IF
+
+UnidadesRealizadas := UnidadesRealizadas + 1;</code></pre>
+											</li>
+										</ul>
+									</li>
+								</ul>
+							</details>
+						</li>
+					</ul>
+					<ul id="23bdc82f-49f8-808b-a852-f9f23dc7ef41" class="toggle">
+						<li>
+							<details open="">
+								<summary>Crear un bloque funcional para cada <strong>Tarea</strong></summary>
+								<ul id="23bdc82f-49f8-801b-be42-fb1619722e88" class="bulleted-list">
+									<li style="list-style-type:disc">Nombre: <code>FB_SituarPale_SFC</code> ,
+										<code>FB_CargarBase_SFC</code>, etc.</li>
+								</ul>
+								<ul id="23bdc82f-49f8-8016-ac08-f6e91764cab2" class="bulleted-list">
+									<li style="list-style-type:disc">Lenguaje: <code><strong>SFC</strong></code></li>
+								</ul>
+								<ul id="23bdc82f-49f8-80b8-9453-f5704db6c4ed" class="bulleted-list">
+									<li style="list-style-type:disc">Variables: <ul
+											id="23bdc82f-49f8-8032-8285-ceb13a466f75" class="bulleted-list">
+											<li style="list-style-type:circle">Declara como <strong>salida
+												</strong>variables <code>BOOL</code> para activar los <strong>actuadores
+												</strong>necesarios para realizar la tarea. Usa los nombres de las
+												variables de los actuadores especificados en la tabla de E/S.</li>
+										</ul>
+										<ul id="23bdc82f-49f8-80c9-8fe6-e59db8d4b02a" class="bulleted-list">
+											<li style="list-style-type:circle">Declara como <strong>entrada
+												</strong>variables <code>BOOL</code> para recibir los valores de los
+												<strong>sensores </strong>necesarios para realizar la tarea. Usa los
+												nombres de las variables de los sensores especificados en la tabla de
+												E/S.</li>
+										</ul>
+									</li>
+								</ul>
+								<ul id="23bdc82f-49f8-808e-bebf-d338b6065e7a" class="bulleted-list">
+									<li style="list-style-type:disc">Implementación:<ul
+											id="23bdc82f-49f8-803d-9640-d9e681289926" class="bulleted-list">
+											<li style="list-style-type:circle">Respeta la estructura necesaria para
+												hacer el <em>handshake </em>(<code>Initial + Ready + Execute</code> /
+												<code>End + Done + Ack</code>).</li>
+										</ul>
+										<ul id="23bdc82f-49f8-80a0-82c0-e1e9be097b3c" class="bulleted-list">
+											<li style="list-style-type:circle">Implementa la secuencia de pasos
+												necesaria para realizar la tarea. </li>
+										</ul>
+									</li>
+								</ul>
+							</details>
+						</li>
+					</ul>
+					<ul id="23bdc82f-49f8-8047-95ab-c5be4d73eef0" class="block-color-yellow_background toggle">
+						<li>
+							<details open="">
+								<summary><mark class="highlight-red"><mark
+											class="highlight-yellow_background"><strong>[NUEVO]
+											</strong></mark></mark>Crear un bloque funcional para las <strong>Secuencias
+										de GDMMA</strong></summary>
+								<ul id="23bdc82f-49f8-8070-b964-f00de128cc7d" class="bulleted-list">
+									<li style="list-style-type:disc">Nombre: <code>FB_Restaurar_SFC</code> ,
+										<code>FB_Preparar_SFC</code>, <code>FB_Finalizar_SFC</code>.</li>
+								</ul>
+								<ul id="23bdc82f-49f8-8043-b069-caafcc5e4af8" class="bulleted-list">
+									<li style="list-style-type:disc">Lenguaje: <code><strong>SFC</strong></code></li>
+								</ul>
+								<ul id="23bdc82f-49f8-80ab-8daa-d47f633dfa5b" class="bulleted-list">
+									<li style="list-style-type:disc">Variables: <ul
+											id="23bdc82f-49f8-8001-bfce-ffc5f04568e3" class="bulleted-list">
+											<li style="list-style-type:circle">Declara como <strong>salida
+												</strong>variables <code>BOOL</code> para activar los <strong>actuadores
+												</strong>necesarios para realizar la tarea. Usa los nombres de las
+												variables de los actuadores especificados en la tabla de E/S.</li>
+										</ul>
+										<ul id="23bdc82f-49f8-809d-a7e3-f0c1f83dce23" class="bulleted-list">
+											<li style="list-style-type:circle">Declara como <strong>entrada
+												</strong>variables <code>BOOL</code> para recibir los valores de los
+												<strong>sensores </strong>necesarios para realizar la tarea. Usa los
+												nombres de las variables de los sensores especificados en la tabla de
+												E/S.</li>
+										</ul>
+									</li>
+								</ul>
+								<ul id="23bdc82f-49f8-80b7-87d3-cd2179736c5f" class="bulleted-list">
+									<li style="list-style-type:disc">Implementación:<ul
+											id="23bdc82f-49f8-8089-9b98-e2089b041b39" class="bulleted-list">
+											<li style="list-style-type:circle">Respeta la estructura necesaria para
+												hacer el <em>handshake </em>(<code>Initial + Ready + Execute</code> /
+												<code>End + Done + Ack</code>).</li>
+										</ul>
+										<ul id="23bdc82f-49f8-8062-9946-f45a01315d93" class="bulleted-list">
+											<li style="list-style-type:circle">Implementa la secuencia de pasos
+												necesaria para realizar la tarea. </li>
+										</ul>
+									</li>
+								</ul>
+							</details>
+						</li>
+					</ul>
+					<ul id="23bdc82f-49f8-8084-9b3a-d1ec33a7ce4f" class="toggle">
+						<li>
+							<details open="">
+								<summary>Crear un bloque funcional para la <strong>Estación</strong></summary>
+								<ul id="23bdc82f-49f8-80a5-938d-cdca8b018736" class="bulleted-list">
+									<li style="list-style-type:disc">Nombre: <code>FB_Estacion</code></li>
+								</ul>
+								<ul id="23bdc82f-49f8-80af-baa1-c55b179bc340" class="bulleted-list">
+									<li style="list-style-type:disc">Lenguaje: <code><strong>ST</strong></code></li>
+								</ul>
+								<ul id="23bdc82f-49f8-8011-89f6-e0dfa362bb45" class="bulleted-list">
+									<li style="list-style-type:disc"><strong>Variables</strong>: <ul
+											id="23bdc82f-49f8-805b-a819-f277ddd48848" class="bulleted-list">
+											<li style="list-style-type:circle">Declarar las variables de la tabla de E/S
+												en las imágenes de E y S (<code>AT %I*</code> y <code>AT %Q*</code>).
+												<mark class="highlight-red_background"><strong>Recuerda
+													</strong></mark><mark class="highlight-red_background">que este FB
+													es el que tiene el control del </mark><em><mark
+														class="highlight-red_background">hardware</mark></em><mark
+													class="highlight-red_background">.</mark></li>
+										</ul>
+										<ul id="23bdc82f-49f8-8075-9821-c0d4a7da2713" class="bulleted-list">
+											<li style="list-style-type:circle">Declarar una variable para el
+												<strong>Coordinador </strong>y otra para cada uno de los FBs de
+												<strong>Tareas </strong>(<code>CargarBase</code>, etc.).</li>
+										</ul>
+										<ul id="23bdc82f-49f8-80e9-a85b-dbbd27116445"
+											class="block-color-yellow_background bulleted-list">
+											<li style="list-style-type:circle"><mark class="highlight-red"><mark
+														class="highlight-yellow_background"><strong>[NUEVO]
+														</strong></mark></mark>Declarar una variable para el
+												<strong>Director</strong>.</li>
+										</ul>
+										<ul id="23bdc82f-49f8-806d-94c3-ee2ef9736114" class="bulleted-list">
+											<li style="list-style-type:circle">Declarar el resto de variables necesarias
+												para la lógica de control de la estación: <code>CicloACiclo</code>,
+												<code>PausaEstado</code>, <code>ReiniciaEstado</code>, etc.</li>
+										</ul>
+										<ul id="23bdc82f-49f8-8074-900f-fcd667907c81" class="bulleted-list">
+											<li style="list-style-type:circle">Declarar las variables de tiempo a
+												utilizar (ej. <code>TpoPaleEntrada</code>).</li>
+										</ul>
+									</li>
+								</ul>
+								<ul id="23bdc82f-49f8-8083-b9be-e5f87f709082" class="bulleted-list">
+									<li style="list-style-type:disc"><strong>Implementación</strong>:<ul
+											id="23bdc82f-49f8-808f-a240-c44982e62315" class="bulleted-list">
+											<li style="list-style-type:circle">Instanciar aquellos FBs que se ejecutan
+												tanto en modo manual como automático:<ul
+													id="23bdc82f-49f8-803f-af06-f6095640b463" class="bulleted-list">
+													<li style="list-style-type:square">FB de generación de señal
+														cuadrada <strong>CLK</strong>.</li>
+												</ul>
+												<ul id="23bdc82f-49f8-806c-99e6-dcae6b9905b4" class="bulleted-list">
+													<li style="list-style-type:square">FB <strong>Director</strong>.
+													</li>
+												</ul>
+											</li>
+										</ul>
+										<ul id="23bdc82f-49f8-8038-9b0f-d5374f8c6fc1" class="bulleted-list">
+											<li style="list-style-type:circle">Determinar si estamos trabajando en modo
+												manual (<code>F4</code>) o automático, usando en este nivel el valor de
+												la variable <code>Modo</code> del <code>Director</code>.
+												<script
+													src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"
+													integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg=="
+													crossorigin="anonymous" referrerPolicy="no-referrer"></script>
+												<link rel="stylesheet"
+													href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css"
+													integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ=="
+													crossorigin="anonymous" referrerPolicy="no-referrer" />
+												<pre id="23bdc82f-49f8-8033-8703-db0ffeedde6a" class="code code-wrap"><code class="language-Plain Text" style="white-space:pre-wrap;word-break:break-all">IF (Director.Modo &lt;&gt; E_GEMMA.F4) THEN
+	// Codigo automatico
+END_IF</code></pre>
+											</li>
+										</ul>
+										<ul id="23bdc82f-49f8-80e0-b487-da5f062e8d65" class="toggle">
+											<li>
+												<details open="">
+													<summary>En modo automático</summary>
+													<ul id="23bdc82f-49f8-800d-809c-e4b3ca000d48" class="bulleted-list">
+														<li style="list-style-type:disc">Instanciar el
+															<code>FB_Coordinador_SFC</code>, pasándole como entrada las
+															señales <code>Done</code> de las tareas (<mark
+																class="highlight-purple">morado</mark>) y las variables
+															declaradas en <code>FB_Estacion</code> que vayan a
+															utilizarse en el <strong>Coordinador </strong>(<mark
+																class="highlight-orange">naranja</mark>). Presta
+															especial atención a las condiciones que manejan su señal de
+															<code>Execute</code>.
+															<script
+																src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"
+																integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg=="
+																crossorigin="anonymous"
+																referrerPolicy="no-referrer"></script>
+															<link rel="stylesheet"
+																href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css"
+																integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ=="
+																crossorigin="anonymous" referrerPolicy="no-referrer" />
+															<pre id="23bdc82f-49f8-809f-af74-d6425989a356"
+																class="code code-wrap"><code class="language-Plain Text" style="white-space:pre-wrap;word-break:break-all">Coordinador(
+        UnidadesPendientes := UnidadesPendientes,
+        UnidadesRealizadas := UnidadesRealizadas,
+        SFCPause := NOT ReiniciaEstado AND PausaEstado,
+        SFCReset := ReiniciaEstado,
+        Ack := TRUE,
+        Execute := CondicionInicial AND 
+	        CondicionMarcha AND 
+	        PulsadorMarcha,
+        Resume := PulsadorMarcha,
+        StepByStep := CicloaCiclo,
+        PaleSituado := SituarPale.Done,
+        BaseCargada := CargarBase.Done,
+        RodamientoPrensado := PrensarRodamiento.Done,
+        BaseDescargada := DescargarBase.Done,
+        PaleTransferido := TransferirPale.Done,
+        CondicionInicial := CondicionInicial,
+        UnidadesSolicitadas := UnidadesSolicitadas
+        );</code></pre>
+														</li>
+													</ul>
+													<ul id="23bdc82f-49f8-804a-b074-d68663524cf8" class="bulleted-list">
+														<li style="list-style-type:disc">Instanciar cada una de los FBs
+															de <strong>Tareas </strong>pasándole como entrada los
+															valores de los sensores necesarios para cada FB (<mark
+																class="highlight-purple">morado</mark>) y otras
+															variables declaradas en <code>FB_Estacion</code> que vayan a
+															utilizarse en el FB (<mark
+																class="highlight-orange">naranja</mark>).
+															<script
+																src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"
+																integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg=="
+																crossorigin="anonymous"
+																referrerPolicy="no-referrer"></script>
+															<link rel="stylesheet"
+																href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css"
+																integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ=="
+																crossorigin="anonymous" referrerPolicy="no-referrer" />
+															<pre id="23bdc82f-49f8-8062-b9ee-ed8716779e66"
+																class="code code-wrap"><code class="language-Plain Text" style="white-space:pre-wrap;word-break:break-all">SituarPale(
+        SFCPause := NOT ReiniciaEstado AND PausaEstado,
+        SFCReset := ReiniciaEstado,
+        Ack := NOT Coordinador.SituaPale,
+        Execute := Coordinador.SituaPale,
+        TpoPaleEntrada := TpoPaleEntrada,
+        PresenciaPale := PresenciaPale,
+        CodigoPaleBit0 := CodigoPaleBit0,
+        CodigoPaleBit1 := CodigoPaleBit1,
+        CodigoPaleBit2 := CodigoPaleBit2
+        );</code></pre>
+														</li>
+													</ul>
+													<ul id="245dc82f-49f8-80f7-907f-e8b20ca9b860" class="bulleted-list">
+														<li style="list-style-type:disc">Instanciar cada una de los FBs
+															de <strong>secuencias de GDMMA</strong> pasándole como
+															entrada los valores de los sensores necesarios para cada FB
+															(<mark class="highlight-purple">morado</mark>) y otras
+															variables declaradas en <code>FB_Estacion</code> que vayan a
+															utilizarse en el FB (<mark
+																class="highlight-orange">naranja</mark>).
+															<script
+																src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"
+																integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg=="
+																crossorigin="anonymous"
+																referrerPolicy="no-referrer"></script>
+															<link rel="stylesheet"
+																href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css"
+																integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ=="
+																crossorigin="anonymous" referrerPolicy="no-referrer" />
+															<pre id="245dc82f-49f8-8077-8f50-ede2e4b27dea"
+																class="code code-wrap"><code class="language-Plain Text" style="white-space:pre-wrap;word-break:break-all">TODO EJEMPLO PREPARAR
+PrepararEstacion(
+        SFCPause := NOT ReiniciaEstado AND PausaEstado,
+        SFCReset := ReiniciaEstado,
+        Ack := NOT Coordinador.SituaPale,
+        Execute := /* */,
+        TpoPaleEntrada := TpoPaleEntrada,
+        PresenciaPale := PresenciaPale,
+        CodigoPaleBit0 := CodigoPaleBit0,
+        CodigoPaleBit1 := CodigoPaleBit1,
+        CodigoPaleBit2 := CodigoPaleBit2
+        );</code></pre>
+														</li>
+													</ul>
+													<ul id="23bdc82f-49f8-80e0-806c-ee1375469e4b" class="bulleted-list">
+														<li style="list-style-type:disc">Capturar las señales de salida
+															de los FBs de <strong>Tareas y secuencias GDMMA </strong>y
+															asignarlos a las señales de salida que controlan el
+															<em>hardware</em>. </li>
+													</ul>
+													<ul id="23bdc82f-49f8-80ce-a52a-f735c8f0c778" class="bulleted-list">
+														<li style="list-style-type:disc">Capturar también el valor de
+															<code>CodigoPale</code>.
+															<script
+																src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"
+																integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg=="
+																crossorigin="anonymous"
+																referrerPolicy="no-referrer"></script>
+															<link rel="stylesheet"
+																href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css"
+																integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ=="
+																crossorigin="anonymous" referrerPolicy="no-referrer" />
+															<pre id="23bdc82f-49f8-80b7-98db-f340a198013d"
+																class="code code-wrap"><code class="language-Plain Text" style="white-space:pre-wrap;word-break:break-all">// Acciones
+LamparaAlarma := Coordinador.LamparaAlarma;
+LamparaMarcha := Coordinador.LamparaMarcha;
+
+CintaActiva := NOT PausaEstado 
+	AND (SituarPale.CintaActiva OR TransferirPale.CintaActiva);
+        
+RetenedorBaja:= TransferirPale.RetenedorBaja;
+
+ManipuladorAvanza := CargarBase.ManipuladorAdelante 
+        OR DescargarBase.ManipuladorAdelante;
+
+// ...
+        
+CodigoPale := SituarPale.CodigoPale;</code></pre>
+														</li>
+													</ul>
+												</details>
+											</li>
+										</ul>
+										<ul id="23bdc82f-49f8-8026-9000-f0cceac8e99b" class="toggle">
+											<li>
+												<details open="">
+													<summary>En modo manual</summary>
+													<ul id="23bdc82f-49f8-8003-b4a2-c7f7715bc902" class="bulleted-list">
+														<li style="list-style-type:disc">Establecer el valor de
+															<code>CodigoPale</code> directamente desde los sensores (ya
+															que, al no ejecutarse el código de <code>SituarPale</code>,
+															éste no puede devolver su valor).
+															<script
+																src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"
+																integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg=="
+																crossorigin="anonymous"
+																referrerPolicy="no-referrer"></script>
+															<link rel="stylesheet"
+																href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css"
+																integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ=="
+																crossorigin="anonymous" referrerPolicy="no-referrer" />
+															<pre id="23bdc82f-49f8-8065-9637-d53089aef727"
+																class="code code-wrap"><code class="language-Plain Text" style="white-space:pre-wrap;word-break:break-all">CodigoPale.0 := CodigoPaleBit0;
+CodigoPale.1 := CodigoPaleBit1;
+CodigoPale.2 := CodigoPaleBit2;</code></pre>
+														</li>
+													</ul>
+												</details>
+											</li>
+										</ul>
+										<ul id="23bdc82f-49f8-8000-a5b3-f17b7f903c9e" class="toggle">
+											<li>
+												<details open="">
+													<summary>En cualquier modo </summary>
+													<ul id="23bdc82f-49f8-80d3-9b8f-cf8deffd7c51" class="bulleted-list">
+														<li style="list-style-type:disc">Establecer las condiciones
+															iniciales y de marcha.
+															<script
+																src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"
+																integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg=="
+																crossorigin="anonymous"
+																referrerPolicy="no-referrer"></script>
+															<link rel="stylesheet"
+																href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css"
+																integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ=="
+																crossorigin="anonymous" referrerPolicy="no-referrer" />
+															<pre id="23bdc82f-49f8-806e-b436-daee66e1a58c"
+																class="code code-wrap"><code class="language-Plain Text" style="white-space:pre-wrap;word-break:break-all">// Parametros de salida
+CondicionInicial := EstacionConectada 
+    AND ManipuladorMedio 
+    AND IntroductorDetras 
+    AND ExtractorDetras 
+    AND PrensadorArriba;
+    
+CondicionMarcha := (UnidadesSolicitadas &gt; 0);</code></pre>
+														</li>
+													</ul>
+												</details>
+											</li>
+										</ul>
+									</li>
+								</ul>
+							</details>
+						</li>
+					</ul>
+					<ul id="23bdc82f-49f8-8021-bf65-e4f055a97564" class="bulleted-list">
+						<li style="list-style-type:disc">Crear una instancia del <code>FB_Estacion</code> en el programa
+							<code>MAIN</code>.
+							<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"
+								integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg=="
+								crossorigin="anonymous" referrerPolicy="no-referrer"></script>
+							<link rel="stylesheet"
+								href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css"
+								integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ=="
+								crossorigin="anonymous" referrerPolicy="no-referrer" />
+							<pre id="23bdc82f-49f8-8083-aba0-c27f16724a97" class="code code-wrap"><code class="language-Plain Text" style="white-space:pre-wrap;word-break:break-all">VAR
+    // Bloques funcionales
+    Estacion: FB_Estacion;
+END_VAR
+--------------------------------------------------------
+Estacion();</code></pre>
+						</li>
+					</ul>
+					<ul id="203dc82f-49f8-8054-9109-ebf02ce307e7" class="block-color-yellow_background toggle">
+						<li>
+							<details open="">
+								<summary><mark class="highlight-red"><mark
+											class="highlight-yellow_background"><strong>[NUEVO]
+											</strong></mark></mark>Crear un bloque funcional para el
+									<code>FB_Director</code></summary>
+								<ul id="203dc82f-49f8-804e-b624-f1a3a6156488"
+									class="block-color-red_background bulleted-list">
+									<li style="list-style-type:disc">Puedes importar el <strong>Director </strong>del
+										ejemplo de la estación FMS203.</li>
+								</ul>
+								<ul id="203dc82f-49f8-80d8-b0bb-c510f3781d14" class="bulleted-list">
+									<li style="list-style-type:disc">Nombre: <code>FB_Director</code></li>
+								</ul>
+								<ul id="203dc82f-49f8-807c-bcd5-d164be8b0294" class="bulleted-list">
+									<li style="list-style-type:disc">Lenguaje: <code><strong>ST</strong></code></li>
+								</ul>
+								<ul id="203dc82f-49f8-80f9-8180-ca02320fe5a4" class="bulleted-list">
+									<li style="list-style-type:disc">Variables: <ul
+											id="23bdc82f-49f8-806b-982a-ddf0eec96422" class="bulleted-list">
+											<li style="list-style-type:circle">Declara una variable llamada
+												<code>Modo</code> de tipo <code>E_GEMMA</code> y dale como valor inicial
+												el modo <code>A6</code>.</li>
+										</ul>
+										<ul id="23bdc82f-49f8-80e2-81f0-fd147b74ac6c" class="bulleted-list">
+											<li style="list-style-type:circle">Define una serie de variables booleanas
+												que identifican en qué conjunto de procedimientos está la estación:<ul
+													id="23bdc82f-49f8-80a0-9f68-e44514d8876b" class="bulleted-list">
+													<li style="list-style-type:square"><code>Defecto</code>: Modos
+														<code>D[1..3]</code>.</li>
+												</ul>
+												<ul id="23bdc82f-49f8-8019-970b-ddf4dcc89686" class="bulleted-list">
+													<li style="list-style-type:square"><code>Funcionamiento</code>:
+														Modos <code>F[1..6]</code>.</li>
+												</ul>
+												<ul id="23bdc82f-49f8-8015-9b73-db93339d877b" class="bulleted-list">
+													<li style="list-style-type:square"><code>Parada</code>: Modos
+														<code>A[1..7]</code>.</li>
+												</ul>
+												<ul id="23bdc82f-49f8-8009-bc82-f94d212bf951" class="bulleted-list">
+													<li style="list-style-type:square"><code>Producción</code>: Modos
+														<code>A2</code>, <code>A3</code>, <code>F1</code>,
+														<code>F2</code>, <code>F3</code>, <code>F5</code>,
+														<code>F6</code>, <code>D3</code></li>
+												</ul>
+											</li>
+										</ul>
+										<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"
+											integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg=="
+											crossorigin="anonymous" referrerPolicy="no-referrer"></script>
+										<link rel="stylesheet"
+											href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css"
+											integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ=="
+											crossorigin="anonymous" referrerPolicy="no-referrer" />
+										<pre id="23bdc82f-49f8-8078-89aa-e592ecd12d14" class="code code-wrap"><code class="language-Plain Text" style="white-space:pre-wrap;word-break:break-all">VAR_INPUT
+    // Señales de transición entre modos
+END_VAR
+VAR_OUTPUT
+    Modo: E_GEMMA := E_GEMMA.A6;
+
+    Defecto: BOOL; // Procedimientos de defecto
+    Funcionamiento: BOOL; // Procedimientos de funcionamiento
+    Parada: BOOL; // Procedimientos de parada
+    Produccion: BOOL; // Procedimientos que proporcionan valor añadido
+END_VAR</code></pre>
+									</li>
+								</ul>
+								<ul id="203dc82f-49f8-8057-a11b-fb46b1d5425b" class="bulleted-list">
+									<li style="list-style-type:disc">Implementación:<ul
+											id="203dc82f-49f8-80da-ae67-d6d5bc7be988" class="bulleted-list">
+											<li style="list-style-type:circle">Implementar la <strong>función de
+													estado</strong> especificada en el diagrama GDMMA, donde se
+												establecen los modos de funcionamiento y las condiciones de transición
+												entre distintos modos.</li>
+										</ul>
+									</li>
+								</ul>
+							</details>
+						</li>
+					</ul>
+					<ul id="203dc82f-49f8-8085-9d66-cc6adb3ec7d0" class="toggle">
+						<li>
+							<details open="">
+								<summary>Crear un bloque funcional para el <code>FB_Coordinador_SFC</code></summary>
+								<ul id="203dc82f-49f8-8091-ab16-cfb4dcc412d1" class="bulleted-list">
+									<li style="list-style-type:disc">Nombre: <code>FB_Coordinador_SFC</code></li>
+								</ul>
+								<ul id="203dc82f-49f8-8031-9ea2-c38587ec3704" class="bulleted-list">
+									<li style="list-style-type:disc">Lenguaje: <strong>SFC</strong></li>
+								</ul>
+								<ul id="203dc82f-49f8-8097-b9ac-e16742c03d49" class="bulleted-list">
+									<li style="list-style-type:disc">Variables: <ul
+											id="203dc82f-49f8-8053-ba0e-c35da9fae515" class="bulleted-list">
+											<li style="list-style-type:circle">Declara como <strong>salida
+												</strong>variables <code>BOOL</code> para activar los
+												<code>Execute</code> de cada FB de Tarea. Dale nombres significativos
+												(<code>SituaPale</code>, <code>CargaBase</code>, etc.).</li>
+										</ul>
+										<ul id="203dc82f-49f8-80ad-bf20-e4d9e2496e16" class="bulleted-list">
+											<li style="list-style-type:circle">Declara como <strong>entrada
+												</strong>variables <code>BOOL</code> para recibir los <code>Done</code>
+												de cada FB de Tarea. Dale nombres significativos
+												(<code>PaleSituado</code>, <code>BaseCargada</code>, etc.).</li>
+										</ul>
+									</li>
+								</ul>
+								<ul id="203dc82f-49f8-8086-aad2-ec255417718a" class="bulleted-list">
+									<li style="list-style-type:disc">Implementación:<ul
+											id="203dc82f-49f8-800d-9b1a-c5b84c3fa8f5" class="bulleted-list">
+											<li style="list-style-type:circle">Respeta la estructura necesaria para
+												hacer el <em>handshake </em>(<code>Initial + Ready + Execute</code> /
+												<code>End + Done + Ack</code>).</li>
+										</ul>
+										<ul id="203dc82f-49f8-80fd-9e04-cab7b7c1413b" class="bulleted-list">
+											<li style="list-style-type:circle">Implementa la secuencia de pasos a alto
+												nivel del funcionamiento total de la estación. Es el equivalente al FB
+												monolítico del nivel anterior, pero con pasos de <em>alto nivel</em>.
+											</li>
+										</ul>
+									</li>
+								</ul>
+							</details>
+						</li>
+					</ul>
+					<ul id="203dc82f-49f8-80bf-abec-c7b1c551c141" class="toggle">
+						<li>
+							<details open="">
+								<summary>Crear un bloque funcional para cada tarea: <code>FB_SituarPale_SFC</code>,
+									<code>FB_CargarBase_SFC</code></summary>
+								<ul id="203dc82f-49f8-80f3-9d30-fde6c287e34a" class="bulleted-list">
+									<li style="list-style-type:disc">Nombre: <code>FB_SituarPale_SFC</code> ,
+										<code>FB_CargarBase_SFC</code>, etc.</li>
+								</ul>
+								<ul id="203dc82f-49f8-80fa-a77b-c3dd19ff635b" class="bulleted-list">
+									<li style="list-style-type:disc">Lenguaje: <strong>SFC</strong></li>
+								</ul>
+								<ul id="203dc82f-49f8-80c3-81b9-e5ddb3be20be" class="bulleted-list">
+									<li style="list-style-type:disc">Variables: <ul
+											id="203dc82f-49f8-8005-8fb2-ef71567f54cd" class="bulleted-list">
+											<li style="list-style-type:circle">Declara como <strong>salida
+												</strong>variables <code>BOOL</code> para activar los <strong>actuadores
+												</strong>necesarios para realizar la tarea. Usa los nombres de las
+												variables de los actuadores especificados en la tabla de E/S.</li>
+										</ul>
+										<ul id="203dc82f-49f8-808a-89ea-f42df37a2044" class="bulleted-list">
+											<li style="list-style-type:circle">Declara como <strong>entrada
+												</strong>variables <code>BOOL</code> para recibir los valores de los
+												<strong>sensores </strong>necesarios para realizar la tarea. Usa los
+												nombres de las variables de los sensores especificados en la tabla de
+												E/S.</li>
+										</ul>
+									</li>
+								</ul>
+								<ul id="203dc82f-49f8-8035-a134-d2ab4b7fb949" class="bulleted-list">
+									<li style="list-style-type:disc">Implementación:<ul
+											id="203dc82f-49f8-80df-b6b2-e457aad17f0a" class="bulleted-list">
+											<li style="list-style-type:circle">Respeta la estructura necesaria para
+												hacer el <em>handshake </em>(<code>Initial + Ready + Execute</code> /
+												<code>End + Done + Ack</code>).</li>
+										</ul>
+										<ul id="203dc82f-49f8-80ec-bee5-ce9b4b64ad60" class="bulleted-list">
+											<li style="list-style-type:circle">Implementa la secuencia de pasos
+												necesaria para realizar la tarea. </li>
+										</ul>
+									</li>
+								</ul>
+							</details>
+						</li>
+					</ul>
+					<ul id="203dc82f-49f8-804d-8fbb-d5ae535b626c" class="toggle">
+						<li>
+							<details open="">
+								<summary>Crear un bloque funcional para la estación.</summary>
+								<ul id="203dc82f-49f8-8078-8b31-f2bd8bca7b79" class="bulleted-list">
+									<li style="list-style-type:disc">Nombre: <code>FB_Estacion</code></li>
+								</ul>
+								<ul id="203dc82f-49f8-807a-b498-dd97e590e12c" class="bulleted-list">
+									<li style="list-style-type:disc">Lenguaje: <strong>ST</strong></li>
+								</ul>
+								<ul id="203dc82f-49f8-805c-a4ea-dba5d138c65a" class="bulleted-list">
+									<li style="list-style-type:disc">Variables: <ul
+											id="203dc82f-49f8-8080-a358-db4679de68a9" class="bulleted-list">
+											<li style="list-style-type:circle">Declarar las variables de la tabla de E/S
+												en las imágenes de E y S (<code>AT %I*</code> y <code>AT %Q*</code>).
+												<strong>Recuerda</strong>: la estación tiene el control del
+												<em>hardware</em>.</li>
+										</ul>
+										<ul id="203dc82f-49f8-8041-b84e-ccc962d7ecbf" class="bulleted-list">
+											<li style="list-style-type:circle">Declarar una variable para el Coordinador
+												y otra para cada uno de los FBs de Tareas (CargarBase, etc.).</li>
+										</ul>
+									</li>
+								</ul>
+								<ul id="203dc82f-49f8-807f-8eeb-ef73affb0e92" class="bulleted-list">
+									<li style="list-style-type:disc">Implementación:<ul
+											id="203dc82f-49f8-80ca-b869-e8d29b874471" class="bulleted-list">
+											<li style="list-style-type:circle">Determinar si estamos trabajando en modo
+												manual o automático, usando la variable asociada al selector de modo.
+												<script
+													src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"
+													integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg=="
+													crossorigin="anonymous" referrerPolicy="no-referrer"></script>
+												<link rel="stylesheet"
+													href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css"
+													integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ=="
+													crossorigin="anonymous" referrerPolicy="no-referrer" />
+												<pre id="203dc82f-49f8-8057-9845-d1095b711e85" class="code code-wrap"><code class="language-Plain Text" style="white-space:pre-wrap;word-break:break-all">IF NOT SelectorManual THEN
+	// Codigo automatico
+END_IF</code></pre>
+											</li>
+										</ul>
+										<ul id="203dc82f-49f8-806a-ae24-da49c221356a" class="toggle">
+											<li>
+												<details open="">
+													<summary>En modo automático</summary>
+													<ul id="203dc82f-49f8-8041-8586-de9d5077e4ed" class="bulleted-list">
+														<li style="list-style-type:disc">Instanciar el
+															<code>FB_Coordinador_SFC</code>, pasándole como entrada las
+															señales <code>Done</code> de las tareas (morado) y otras
+															variables declaradas en <code>FB_Estacion</code> que vayan a
+															utilizarse en el coordinador (naranja). Presta especial
+															atención a las condiciones de que manejan su
+															<code>Execute</code>.
+															<script
+																src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"
+																integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg=="
+																crossorigin="anonymous"
+																referrerPolicy="no-referrer"></script>
+															<link rel="stylesheet"
+																href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css"
+																integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ=="
+																crossorigin="anonymous" referrerPolicy="no-referrer" />
+															<pre id="203dc82f-49f8-80a3-af0f-c47277a6bfef"
+																class="code code-wrap"><code class="language-Plain Text" style="white-space:pre-wrap;word-break:break-all">Coordinador(
+        UnidadesPendientes := UnidadesPendientes,
+        UnidadesRealizadas := UnidadesRealizadas,
+        SFCPause := NOT ReiniciaEstado AND PausaEstado,
+        SFCReset := ReiniciaEstado,
+        Ack := TRUE,
+        Execute := CondicionInicial AND 
+	        CondicionMarcha AND 
+	        PulsadorMarcha,
+        Resume := PulsadorMarcha,
+        StepByStep := CicloaCiclo,
+        PaleSituado := SituarPale.Done,
+        BaseCargada := CargarBase.Done,
+        RodamientoPrensado := PrensarRodamiento.Done,
+        BaseDescargada := DescargarBase.Done,
+        PaleTransferido := TransferirPale.Done,
+        CondicionInicial := CondicionInicial,
+        UnidadesSolicitadas := UnidadesSolicitadas
+        );</code></pre>
+														</li>
+													</ul>
+													<ul id="203dc82f-49f8-80a1-819d-f623cad2c5f9" class="bulleted-list">
+														<li style="list-style-type:disc">Instanciar cada una de los FBs
+															de Tareas pasándole como entrada los valores de los sensores
+															necesarios para cada FB (morado) y otras variables
+															declaradas en <code>FB_Estacion</code> que vayan a
+															utilizarse en el FB (naranja).
+															<script
+																src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"
+																integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg=="
+																crossorigin="anonymous"
+																referrerPolicy="no-referrer"></script>
+															<link rel="stylesheet"
+																href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css"
+																integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ=="
+																crossorigin="anonymous" referrerPolicy="no-referrer" />
+															<pre id="203dc82f-49f8-8076-9652-c1e3e0d20bfa"
+																class="code code-wrap"><code class="language-Plain Text" style="white-space:pre-wrap;word-break:break-all">SituarPale(
+        SFCPause := NOT ReiniciaEstado AND PausaEstado,
+        SFCReset := ReiniciaEstado,
+        Ack := NOT Coordinador.SituaPale,
+        Execute := Coordinador.SituaPale,
+        TpoPaleEntrada := TpoPaleEntrada,
+        PresenciaPale := PresenciaPale,
+        CodigoPaleBit0 := CodigoPaleBit0,
+        CodigoPaleBit1 := CodigoPaleBit1,
+        CodigoPaleBit2 := CodigoPaleBit2
+        );</code></pre>
+														</li>
+													</ul>
+													<ul id="203dc82f-49f8-80e9-adb9-c62f3364da11" class="bulleted-list">
+														<li style="list-style-type:disc">Captura las señales de salida
+															de los FBs de Tareas y asígnalos a las señales de salida que
+															controlan el <em>hardware</em>. Fíjate que de esta manera
+															podemos compartir <em>hardware </em>entre distintos FBs. Por
+															ejemplo, la cinta se va a activar cuando lo demande el FB de
+															<code>SituarPale</code> o el FB de
+															<code>TransferirPale</code> (y no estemos en pausa). Captura
+															también el valor de <code>CodigoPale</code>.
+															<script
+																src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"
+																integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg=="
+																crossorigin="anonymous"
+																referrerPolicy="no-referrer"></script>
+															<link rel="stylesheet"
+																href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css"
+																integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ=="
+																crossorigin="anonymous" referrerPolicy="no-referrer" />
+															<pre id="203dc82f-49f8-80fd-809d-f3b76d84a4b0"
+																class="code code-wrap"><code class="language-Plain Text" style="white-space:pre-wrap;word-break:break-all">LamparaAlarma := Coordinador.LamparaAlarma;
+LamparaMarcha := Coordinador.LamparaMarcha;
+
+CintaActiva := NOT PausaEstado 
+        AND (SituarPale.CintaActiva OR TransferirPale.CintaActiva);
+        
+RetenedorBaja:= TransferirPale.RetenedorBaja;
+
+ManipuladorAvanza := CargarBase.ManipuladorAdelante 
+        OR DescargarBase.ManipuladorAdelante;
+
+// ...
+        
+CodigoPale := SituarPale.CodigoPale;</code></pre>
+														</li>
+													</ul>
+												</details>
+											</li>
+										</ul>
+										<ul id="203dc82f-49f8-80fc-8dbc-dd58a530afc6" class="toggle">
+											<li>
+												<details open="">
+													<summary>En modo manual</summary>
+													<ul id="203dc82f-49f8-80ed-a78c-d7e33f09198a" class="bulleted-list">
+														<li style="list-style-type:disc">Establece el valor de
+															<code>CodigoPale</code> directamente desde los sensores (ya
+															que, al no ejecutarse el código de <code>SituarPale</code>,
+															éste no puede devolver su valor).
+															<script
+																src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"
+																integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg=="
+																crossorigin="anonymous"
+																referrerPolicy="no-referrer"></script>
+															<link rel="stylesheet"
+																href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css"
+																integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ=="
+																crossorigin="anonymous" referrerPolicy="no-referrer" />
+															<pre id="203dc82f-49f8-8036-983b-c0d0fa33d2f7"
+																class="code code-wrap"><code class="language-Plain Text" style="white-space:pre-wrap;word-break:break-all">CodigoPale.0 := CodigoPaleBit0;
+CodigoPale.1 := CodigoPaleBit1;
+CodigoPale.2 := CodigoPaleBit2;</code></pre>
+														</li>
+													</ul>
+												</details>
+											</li>
+										</ul>
+										<ul id="203dc82f-49f8-80ce-8c26-c97e147bc64d" class="toggle">
+											<li>
+												<details open="">
+													<summary>En cualquier modo </summary>
+													<ul id="203dc82f-49f8-80c6-b7a8-d1d633855a5f" class="bulleted-list">
+														<li style="list-style-type:disc">Establece las condiciones
+															iniciales y de marcha.
+															<script
+																src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"
+																integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg=="
+																crossorigin="anonymous"
+																referrerPolicy="no-referrer"></script>
+															<link rel="stylesheet"
+																href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css"
+																integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ=="
+																crossorigin="anonymous" referrerPolicy="no-referrer" />
+															<pre id="203dc82f-49f8-8051-afdb-d7724fde59eb"
+																class="code code-wrap"><code class="language-Plain Text" style="white-space:pre-wrap;word-break:break-all">// Parametros de salida
+CondicionInicial := EstacionConectada 
+    AND ManipuladorMedio 
+    AND IntroductorDetras 
+    AND ExtractorDetras 
+    AND PrensadorArriba;
+    
+CondicionMarcha := (UnidadesSolicitadas &gt; 0);</code></pre>
+														</li>
+													</ul>
+												</details>
+											</li>
+										</ul>
+									</li>
+								</ul>
+							</details>
+						</li>
+					</ul>
+					<ul id="203dc82f-49f8-802c-9010-def2daf6430a" class="bulleted-list">
+						<li style="list-style-type:disc">Crear una variable del <code>FB_Estacion</code> en el programa
+							<code>MAIN</code> e instáncialo.</li>
+					</ul>
+					<ul id="203dc82f-49f8-8029-8507-cb323d30c11d" class="toggle">
+						<li>
+							<details open="">
+								<summary>Realizar una visualización para el programa.</summary>
+								<ul id="203dc82f-49f8-80b3-a7b5-cac03666a830" class="bulleted-list">
+									<li style="list-style-type:disc">Esta visualización es simular a la del nivel
+										anterior, pero incorpora la información relativa al modo en el que está
+										funcionando la estación.<figure id="23bdc82f-49f8-804e-a862-d214a39c6ce0"
+											class="image"><a href="images/n4/image 6.png"><img style="width:480px"
+													src="images/n4/image 6.png" /></a></figure>
+									</li>
+								</ul>
+								<ul id="203dc82f-49f8-8003-beb3-dbfff701b27a" class="bulleted-list">
+									<li style="list-style-type:disc">Todas las señales de E/S deben estar representadas.
+									</li>
+								</ul>
+								<ul id="203dc82f-49f8-80f9-9446-f08a447f53df" class="bulleted-list">
+									<li style="list-style-type:disc">Decidir si los botones deben ser <em>Tap </em>o
+										<em>Toggle.</em></li>
+								</ul>
+								<ul id="23bdc82f-49f8-8017-b64f-de6491d164e9" class="bulleted-list">
+									<li style="list-style-type:disc">Se añaden las variables de la tarea:
+										<strong>unidades solicitadas, pendientes, realizadas y rechazadas</strong> (si
+										aplica).</li>
+								</ul>
+								<ul id="23bdc82f-49f8-804b-99b4-cb4db575ec06" class="bulleted-list">
+									<li style="list-style-type:disc">Los tiempos utilizados en los bloques funcionales
+										deben ser configurables en la visualización (sección <code>PARÁMETROS</code>).
+									</li>
+								</ul>
+								<ul id="23bdc82f-49f8-80da-a8ea-f0cd2cabbbcd" class="bulleted-list">
+									<li style="list-style-type:disc">Debe tener una barra inferior con información sobre
+										las condiciones iniciales, la condición de marcha, y controles para
+										<strong>Pausar</strong>, <strong>Reiniciar </strong>y ejecutar la tarea
+										<strong>Ciclo a Ciclo.</strong></li>
+								</ul>
+								<ul id="23bdc82f-49f8-80ea-9c98-db091760a1e9" class="bulleted-list">
+									<li style="list-style-type:disc">Añadir cualquier otra información que sea
+										interesante mostrar.</li>
+								</ul>
+							</details>
+						</li>
+					</ul>
+					<ul id="203dc82f-49f8-8034-b2af-fbcaa647d9b4" class="bulleted-list">
+						<li style="list-style-type:disc">Compilar el proyecto y comprobar que no tiene errores</li>
+					</ul>
+					<ul id="203dc82f-49f8-807b-8092-cd1b3210e885" class="block-color-yellow_background toggle">
+						<li>
+							<details open="">
+								<summary>Si se tiene acceso a la estación</summary>
+								<ul id="203dc82f-49f8-800e-9e87-ece8b8ec0fe5" class="bulleted-list">
+									<li style="list-style-type:disc">Buscar la estación en la red y conectarse</li>
+								</ul>
+								<ul id="203dc82f-49f8-804f-bdf7-fe7f91fd3f72" class="bulleted-list">
+									<li style="list-style-type:disc">Buscar los terminales de E/S con TwinCAT3</li>
+								</ul>
+								<ul id="203dc82f-49f8-80c2-9397-df4f5c075dd9" class="bulleted-list">
+									<li style="list-style-type:disc">Renombrar los terminales de E/S según la tabla</li>
+								</ul>
+								<ul id="203dc82f-49f8-802b-b7c8-c20c7533c77b" class="bulleted-list">
+									<li style="list-style-type:disc">Enlazar las variables del programa con los
+										terminales de E/S</li>
+								</ul>
+								<ul id="203dc82f-49f8-80eb-8350-d3829c48c4fd" class="bulleted-list">
+									<li style="list-style-type:disc">Activar la configuración en la estación</li>
+								</ul>
+								<ul id="203dc82f-49f8-8033-9c29-ff2fd7690c47" class="bulleted-list">
+									<li style="list-style-type:disc">Descargar el programa en la estación (<em>Log
+											in</em>)</li>
+								</ul>
+								<ul id="203dc82f-49f8-809e-a816-f9e42a709a11" class="bulleted-list">
+									<li style="list-style-type:disc">Ejecutar el programa (<em>Start</em>)</li>
+								</ul>
+								<ul id="203dc82f-49f8-806c-95f0-fd1348662e80" class="bulleted-list">
+									<li style="list-style-type:disc">Probar el funcionamiento</li>
+								</ul>
+							</details>
+						</li>
+					</ul>
+					<ul id="203dc82f-49f8-80e6-a5e3-c3a4df101ae1" class="block-color-gray_background toggle">
+						<li>
+							<details open="">
+								<summary>Si no se tiene acceso a la estación</summary>
+								<ul id="203dc82f-49f8-8083-ac11-db485a786b77" class="bulleted-list">
+									<li style="list-style-type:disc">Activar la configuración en el equipo local</li>
+								</ul>
+								<ul id="203dc82f-49f8-803a-aa70-e55097842334" class="bulleted-list">
+									<li style="list-style-type:disc">Descargar el programa en el equipo local (<em>Log
+											in</em>)</li>
+								</ul>
+								<ul id="203dc82f-49f8-8082-b96f-f26dce639aab" class="bulleted-list">
+									<li style="list-style-type:disc">Ejecutar el programa (<em>Start</em>)</li>
+								</ul>
+								<ul id="203dc82f-49f8-80f4-aad9-da2f7245e1ac" class="bulleted-list">
+									<li style="list-style-type:disc">Comprobar que la visualización cambia los valores
+										de las variables correctas</li>
+								</ul>
+								<ul id="203dc82f-49f8-8037-8a59-f5509b852dba" class="bulleted-list">
+									<li style="list-style-type:disc">Usar la visualización para hacer evolucionar el
+										programa</li>
+								</ul>
+							</details>
+						</li>
+					</ul>
+				</div>
+			</details>
+		</div>
+	</article><span class="sans" style="font-size:14px;padding-top:2em"></span>
+</body>
+
+</html>
