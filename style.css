@@ -817,3 +817,53 @@ blockquote.quote-large {
 .checkbox-off {
     background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
 }
+
+.toc {
+  font-size: 0.95em;
+  font-family: 'Segoe UI', Arial, sans-serif;
+  background: #fffbe6;
+  border: 1px solid #ffe58f;
+  border-radius: 8px;
+  padding: 1em 1.5em;
+  margin: 2em 0;
+  box-shadow: 0 2px 8px rgba(255, 229, 143, 0.08);
+}
+.toc strong {
+  font-size: 1.05em;
+  letter-spacing: 0.5px;
+}
+.toc ol, .toc ul {
+  margin-left: 1.2em;
+  padding-left: 0.5em;
+}
+.toc a {
+  color: #b8860b;
+  text-decoration: none;
+  transition: color 0.2s;
+}
+.toc a:hover {
+  color: #ff9800;
+  text-decoration: underline;
+}
+
+.volver-btn {
+    display: inline-block;
+    margin: 1.2em 0 0.8em 1em;
+    padding: 0.15em 0.7em;
+    background: #fff1f0;
+    color: #a8071a;
+    border: 1px solid #ffa39e;
+    border-radius: 4px;
+    font-size: 0.85em;
+    font-weight: 500;
+    text-decoration: none;
+    box-shadow: 0 2px 8px rgba(255, 77, 79, 0.08);
+    font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol";
+    transition: background 0.2s, box-shadow 0.2s, color 0.2s, border-color 0.2s;
+}
+.volver-btn:hover {
+    background: #ff7875;
+    color: #fff;
+    border-color: #ff4d4f;
+    box-shadow: 0 4px 16px rgba(255, 77, 79, 0.16);
+}
