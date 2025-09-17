@@ -1,0 +1,2260 @@
+<html>
+
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<title>Conceptos generales (WIP)</title>
+	<link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+	<a href="index.html" class="volver-btn">Volver</a>
+	<article id="203dc82f-49f8-8086-b29d-dba570f16235" class="page sans">
+		<header><img class="page-cover-image" src="https://www.notion.so/images/page-cover/gradients_3.png"
+				style="object-position:center 60%" />
+			<div class="page-header-icon page-header-icon-with-cover"><img class="icon"
+					src="https://www.notion.so/icons/light-bulb_gray.svg" /></div>
+			<h1 class="page-title">Conceptos generales (WIP)</h1>
+			<!-- Índice de Contenidos (añadido) -->
+			<nav class="sans toc"
+				style="margin: 2em 0 2em 0; padding: 1em; background: #fffbe6; border: 1px solid #ffe58f; border-radius: 6px;">
+				<strong>Índice de Contenidos</strong>
+				<ol style="margin-top: 0.5em;">
+					<li><a href="#leyenda">Leyenda</a></li>
+					<li><a href="#creacion_proyectos_tc3">Creación de proyectos en TwinCAT3</a></li>
+					<li><a href="#declaracion_de_variables">Declaración de variables en TwinCAT3</a></li>
+					<li><a href="#exportar_importar">Exportar e importar POUs y VISUs entre proyectos</a></li>
+					<li><a href="#guardar_llevar">Guardar y llevar el proyecto a otro equipo</a></li>
+					<li><a href="#convenciones">Convenciones para nombrar (y renombrar) elementos</a></li>
+					<li><a href="#ejecutar_programa">Ejecutar un programa en TwinCAT3</a></li>
+					<li><a href="#activar_desactivar">Activar/desactivar el <em>hardware</em></a></li>
+					<li><a href="#buscar_equipos_remotos">Búsqueda de equipos remotos</a></li>
+					<li><a href="#enlace_variables">Enlace de variables y terminales de E/S</a></li>
+				</ol>
+			</nav>
+			<p class="page-description"></p>
+		</header>
+		<div class="page-body">
+			<details open="" id="leyenda">
+				<summary style="font-weight:600;font-size:1.25em;line-height:1.3;margin:0">Leyenda</summary>
+				<div class="indented">
+					<ul id="206dc82f-49f8-8053-a125-e1c82b6967d9" class="block-color-teal_background toggle">
+						<li>
+							<ul id="270dc82f-49f8-8032-8339-e8244e12c364" class="bulleted-list">
+								<li style="list-style-type:disc"><strong>CD</strong>: Clic derecho del ratón</li>
+							</ul>
+							<ul id="270dc82f-49f8-8044-8521-f57332f4e105" class="bulleted-list">
+								<li style="list-style-type:disc"><strong>CI</strong>: Clic izquierdo del ratón</li>
+							</ul>
+							<ul id="270dc82f-49f8-802c-863e-ed28b2772093" class="bulleted-list">
+								<li style="list-style-type:disc"><strong>DCI</strong>: Doble clic izquierdo del ratón</li>
+							</ul>
+							<ul id="270dc82f-49f8-8083-8378-cde23bd328d5" class="bulleted-list">
+								<li style="list-style-type:disc"><strong>TC3</strong>: TwinCAT3</li>
+							</ul>
+							<ul id="270dc82f-49f8-8017-9cec-e18a572838ef" class="bulleted-list">
+								<li style="list-style-type:disc"><strong>CV</strong>: Campus Virtual</li>
+							</ul>
+							<ul id="270dc82f-49f8-8045-afe8-c6fd6b9e8fc7" class="bulleted-list">
+								<li style="list-style-type:disc"><strong>FB</strong>: Bloque funcional (<em>Functional
+										Block</em>)</li>
+							</ul>
+						</li>
+					</ul>
+				</div>
+			</details>
+			<details open="" id="creacion_proyectos_tc3">
+				<summary style="font-weight:600;font-size:1.25em;line-height:1.3;margin:0">Creación de proyectos en
+					TwinCAT3</summary>
+				<div class="indented">
+					<details open="">
+						<summary><strong>Crear un proyecto de TwinCAT3</strong></summary>
+						<div class="indented">
+							<ul id="270dc82f-49f8-80aa-aab2-ef0fa7f9f953" class="bulleted-list">
+								<li style="list-style-type:disc">Abrir el <em>software
+									</em><code>Twincat XAE Shell</code>, desde el menú
+									<em><strong>Inicio</strong></em><strong> </strong>de Windows o desde el icono de la
+									barra de programas en segundo plano que hay abajo a la derecha en la barra de
+									tareas.</li>
+							</ul>
+							<ul id="270dc82f-49f8-803d-a737-c0bcc338325d" class="bulleted-list">
+								<li style="list-style-type:disc">Seleccionar <em><strong>New TwinCAT
+											Project</strong></em><em>.</em>
+									<figure id="270dc82f-49f8-8071-bdbe-c948972d867d" class="image"
+										style="text-align:left"><a href="images/cb/image.png"><img style="width:240px"
+												src="images/cb/image.png" /></a></figure>
+								</li>
+							</ul>
+							<ul id="270dc82f-49f8-80c3-946a-c85c71d40a9e" class="bulleted-list">
+								<li style="list-style-type:disc">Seleccionar el tipo <em><strong>TwinCAT XAE
+											Project</strong></em> <em><strong>(XML format)</strong></em>.<figure
+										id="270dc82f-49f8-8041-9d5c-dfea35d68beb" class="image"><a
+											href="images/cb/image%201.png"><img style="width:384px" src="images/cb/image%201.png" /></a>
+									</figure>
+								</li>
+							</ul>
+							<ul id="270dc82f-49f8-8017-880e-ea5881eec44c" class="bulleted-list">
+								<li style="list-style-type:disc">Darle un nombre a la <strong>Solución</strong>, y
+									seleccionar su ubicación (la que viene por defecto está bien). Dejar marcada la
+									opción <em><strong>Create directory for solution</strong></em>.<br /><mark
+										class="highlight-red"><strong>Ejemplo</strong></mark><mark
+										class="highlight-red">: </mark><mark
+										class="highlight-red"><code>TC3_Lampara</code></mark>
+									<figure id="270dc82f-49f8-8006-9db3-e2639db8aca0" class="image"><a
+											href="images/cb/image%202.png"><img style="width:768px" src="images/cb/image%202.png" /></a>
+									</figure>
+								</li>
+							</ul>
+							<ul id="270dc82f-49f8-8005-aaf6-e4cacb4f73d4" class="bulleted-list">
+								<li style="list-style-type:disc">Por defecto, tanto la <em><strong>Solution
+										</strong></em>de Visual Studio como el proyecto de <strong>TC3 </strong>tendrán
+									el mismo nombre.</li>
+							</ul>
+							<ul id="270dc82f-49f8-807a-9001-fef6098db95f"
+								class="block-color-yellow_background bulleted-list">
+								<li style="list-style-type:disc"><strong><span
+											style="border-bottom:0.05em solid">Recomendación</span></strong>: Ocultar
+									las secciones del proyecto que no se van a utilizar: <code>MOTION</code>,
+									<code>SAFETY</code>, <code>C++</code>, <code>VISION</code>, <code>ANALYTICS</code>.
+									Nos quedaremos solo con <code>SYSTEM</code>, <code>PLC</code> e <code>I/O</code>.
+								</li>
+							</ul>
+						</div>
+					</details>
+					<details open="">
+						<summary><strong>Crear un proyecto PLC</strong></summary>
+						<div class="indented">
+							<ul id="270dc82f-49f8-808b-86ff-cd717b63cccf" class="bulleted-list">
+								<li style="list-style-type:disc">Una vez creado un proyecto de TC3 (ver <mark
+										class="highlight-red"><strong>aquí</strong></mark>), procedemos a crear un
+									proyecto PLC.</li>
+							</ul>
+							<ul id="270dc82f-49f8-80f7-9b5f-c7395caeee27" class="bulleted-list">
+								<li style="list-style-type:disc">Hacer <strong>CD </strong>sobre la sección
+									<code>PLC</code> y seleccionar <em><strong>Add New Item</strong></em><em>.</em></li>
+							</ul>
+							<ul id="270dc82f-49f8-80e2-8e13-fd2c02077b9c" class="bulleted-list">
+								<li style="list-style-type:disc">Seleccionar <em><strong>Standard PLC
+											Project</strong></em>, darle un nombre y pulsar
+									<em><strong>Add</strong></em>.<br /><mark class="highlight-red"><strong>Ejemplo:
+										</strong></mark><mark class="highlight-red"><code>Lampara_PLC</code></mark>
+									<figure id="270dc82f-49f8-8052-b2af-cbdbffb0b883" class="image"><a
+											href="images/cb/image%203.png"><img style="width:384px" src="images/cb/image%203.png" /></a>
+									</figure>
+								</li>
+							</ul>
+							<ul id="270dc82f-49f8-8016-b95c-ff4bbbdb855b" class="bulleted-list">
+								<li style="list-style-type:disc">En la sección de <code>SYSTEM &gt; Tasks</code>
+									aparecerá por defecto una nueva tarea <code>PLC Task</code> con sus parámetros por
+									defecto (ej. 10 ms de ciclo).</li>
+							</ul>
+							<ul id="270dc82f-49f8-80a8-826f-e35a44a59a60" class="toggle">
+								<li>
+									<details open="">
+										<summary>En la sección PLC aparece el proyecto con dos secciones nuevas.
+										</summary>
+										<ul id="270dc82f-49f8-8092-bef0-cbc61eea2a8c" class="toggle">
+											<li>
+												<details open="">
+													<summary><code><strong>Project</strong></code></summary>
+													<ul id="270dc82f-49f8-803f-9db5-f7c0de28dcb2" class="bulleted-list">
+														<li style="list-style-type:disc"><code>External Types</code>.
+															Almacena <strong>definiciones de tipos de datos
+																externos</strong> que provienen de <strong>fuentes
+																externas al PLC.</strong></li>
+													</ul>
+													<ul id="270dc82f-49f8-80b9-a9de-d578774d2270" class="bulleted-list">
+														<li style="list-style-type:disc"><code>References</code>.
+															Listado de referencias a las librerías utilizadas en el
+															proyecto.</li>
+													</ul>
+													<ul id="270dc82f-49f8-806a-bb0f-e5b3b11c83e6" class="bulleted-list">
+														<li style="list-style-type:disc"><code>DUTs</code>. Tipos de
+															Dato de Usuario (<em>Data User Types</em>)
+															(<code>ENUM</code>, <code>STRUCT</code>).</li>
+													</ul>
+													<ul id="270dc82f-49f8-8060-8773-c6b1d120f6b2" class="bulleted-list">
+														<li style="list-style-type:disc"><code>GVLs</code>. Listas de
+															Variables Globales<em> (Global Variables Lists).</em></li>
+													</ul>
+													<ul id="270dc82f-49f8-80d2-9b9f-ccc505de8462" class="bulleted-list">
+														<li style="list-style-type:disc"><code>POUs</code>. Unidades de
+															Organización del Programa (<em>Program Organization
+																Units</em>). Programas, bloques funcionales y funciones
+															que implementaremos.</li>
+													</ul>
+													<ul id="270dc82f-49f8-8056-81fc-cf4b899b9a2a" class="bulleted-list">
+														<li style="list-style-type:disc"><code>VISUs</code>.
+															Visualizaciones creadas.</li>
+													</ul>
+													<ul id="270dc82f-49f8-804f-8775-d54854ddfee0" class="bulleted-list">
+														<li style="list-style-type:disc">Tarea creada
+															(<code>PLCTask</code>) y programa <code>MAIN</code>.<figure
+																id="270dc82f-49f8-80e2-b116-ff87beddab31" class="image">
+																<a href="images/cb/image%204.png"><img style="width:132px"
+																		src="images/cb/image%204.png" /></a></figure>
+														</li>
+													</ul>
+												</details>
+											</li>
+										</ul>
+										<ul id="270dc82f-49f8-8039-ae73-c199405a9d0d" class="bulleted-list">
+											<li style="list-style-type:disc"><code><strong>Instance</strong></code>.
+												Aquí aparecerán las variables en las imágenes de Entrada y Salida.</li>
+										</ul>
+									</details>
+								</li>
+							</ul>
+							<ul id="270dc82f-49f8-80b6-8d5b-c2cc33019073" class="bulleted-list">
+								<li style="list-style-type:disc"><strong>A partir de aquí se puede empezar a implementar
+										el proyecto.</strong></li>
+							</ul>
+						</div>
+					</details>
+					<details open="">
+						<summary><strong>Crear un bloque funcional</strong></summary>
+						<div class="indented">
+							<ul id="270dc82f-49f8-8005-ac1c-fb3bde3d5026" class="bulleted-list">
+								<li style="list-style-type:disc">Hacer <strong>CD </strong>sobre la sección
+									<code>POUs</code></li>
+							</ul>
+							<ul id="270dc82f-49f8-8053-b442-fce7188f2ddd" class="bulleted-list">
+								<li style="list-style-type:disc">Seleccionar <code>Add → POU → Functional Block</code>
+								</li>
+							</ul>
+							<ul id="270dc82f-49f8-8046-b688-c7d87c37d989" class="bulleted-list">
+								<li style="list-style-type:disc">Darle un nombre significativo.</li>
+							</ul>
+							<ul id="270dc82f-49f8-8007-88aa-e5801219b521" class="bulleted-list">
+								<li style="list-style-type:disc">Seleccionar el lenguaje a utilizar. Normalmente
+									utilizaremos <code>ST</code> o <code>SFC</code>.</li>
+							</ul>
+							<details open="">
+								<summary style="font-weight:600;font-size:1.25em;line-height:1.3;margin:0">
+									<strong>Structured Text (ST)</strong></summary>
+								<div class="indented">
+									<ul id="270dc82f-49f8-803c-9fc3-c6582a94681e"
+										class="block-color-red_background bulleted-list">
+										<li style="list-style-type:disc">Es recomendable acceder a la ayuda y
+											documentación que ofrece Beckhoff en su portal <strong><a
+													href="https://infosys.beckhoff.com/">Infosys</a></strong>.</li>
+									</ul>
+									<ul id="270dc82f-49f8-80fb-872b-e13bfa53ed3e" class="bulleted-list">
+										<li style="list-style-type:disc">Las <strong>instrucciones </strong>deben
+											terminar con <code>;</code></li>
+									</ul>
+									<ul id="270dc82f-49f8-80b7-8015-f7ad8d6b2f83" class="bulleted-list">
+										<li style="list-style-type:disc">Los <strong>comentarios </strong>se pueden
+											realizar con <code>//</code> hasta final de línea o metiendo el texto entre
+											<code>(*</code> y <code>*)</code>.</li>
+									</ul>
+									<ul id="270dc82f-49f8-804c-a68d-f01226ee3910" class="bulleted-list">
+										<li style="list-style-type:disc">La <strong>asignación </strong>de valores entre
+											variables se realiza con el operador <code>:=</code></li>
+									</ul>
+									<ul id="270dc82f-49f8-8087-adc0-e5f4444d560c" class="bulleted-list">
+										<li style="list-style-type:disc">La <strong>comparación </strong>de valores se
+											realiza con los operadores <code>=</code>, <code>&lt;&gt;</code>,
+											<code>&lt;=</code>, <code>&gt;=</code></li>
+									</ul>
+									<ul id="270dc82f-49f8-8018-a556-d4088d339e87" class="bulleted-list">
+										<li style="list-style-type:disc">Las <strong>operaciones lógicas</strong> se
+											realizan con los operadores <code>AND</code>, <code>OR</code> y
+											<code>NOT</code></li>
+									</ul>
+									<ul id="270dc82f-49f8-8004-821f-e20c28562f28" class="bulleted-list">
+										<li style="list-style-type:disc">Las <strong>estructuras de control</strong>
+											básicas son<ul id="270dc82f-49f8-8087-b618-e6e521a42fc1" class="toggle">
+												<li>
+													<details open="">
+														<summary>Condicionales (<code>if</code>, <code>case</code>)
+														</summary>
+														<script
+															src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"
+															integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg=="
+															crossorigin="anonymous"
+															referrerPolicy="no-referrer"></script>
+														<link rel="stylesheet"
+															href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css"
+															integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ=="
+															crossorigin="anonymous" referrerPolicy="no-referrer" />
+														<pre id="270dc82f-49f8-80f3-9134-ccb50a8d3000"
+															class="code code-wrap"><code class="language-Plain Text" style="white-space:pre-wrap;word-break:break-all">IF &lt;condition&gt; THEN
+    &lt;statements&gt;
+ELSIF &lt;condition&gt; THEN
+    &lt;statements&gt;
+ELSE
+    &lt;statements&gt;
+END_IF;</code></pre>
+														<script
+															src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"
+															integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg=="
+															crossorigin="anonymous"
+															referrerPolicy="no-referrer"></script>
+														<link rel="stylesheet"
+															href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css"
+															integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ=="
+															crossorigin="anonymous" referrerPolicy="no-referrer" />
+														<pre id="270dc82f-49f8-80f4-af58-f07708d905c5"
+															class="code code-wrap"><code class="language-Plain Text" style="white-space:pre-wrap;word-break:break-all">CASE &lt;expression&gt; OF
+    &lt;value&gt;, &lt;value&gt;, …, &lt;value&gt;: &lt;statements&gt;
+ELSE
+    &lt;statements&gt;
+END_CASE;</code></pre>
+													</details>
+												</li>
+											</ul>
+											<ul id="270dc82f-49f8-80a5-a956-f05d12ee018b" class="toggle">
+												<li>
+													<details open="">
+														<summary>Bucles (<code>for</code>, <code>while</code>,
+															<code>repeat</code>)</summary>
+														<script
+															src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"
+															integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg=="
+															crossorigin="anonymous"
+															referrerPolicy="no-referrer"></script>
+														<link rel="stylesheet"
+															href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css"
+															integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ=="
+															crossorigin="anonymous" referrerPolicy="no-referrer" />
+														<pre id="270dc82f-49f8-8008-90b9-da6c0dd2ed20"
+															class="code code-wrap"><code class="language-Plain Text" style="white-space:pre-wrap;word-break:break-all">FOR &lt;variable&gt; := &lt;expression&gt; TO &lt;expression&gt; BY &lt;expression&gt; DO
+    &lt;statements&gt;
+END_FOR;</code></pre>
+														<script
+															src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"
+															integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg=="
+															crossorigin="anonymous"
+															referrerPolicy="no-referrer"></script>
+														<link rel="stylesheet"
+															href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css"
+															integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ=="
+															crossorigin="anonymous" referrerPolicy="no-referrer" />
+														<pre id="270dc82f-49f8-80f9-a282-f74c091c5ace"
+															class="code code-wrap"><code class="language-Plain Text" style="white-space:pre-wrap;word-break:break-all">WHILE &lt;condition&gt; DO
+    &lt;statements&gt;
+END_WHILE;</code></pre>
+														<script
+															src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"
+															integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg=="
+															crossorigin="anonymous"
+															referrerPolicy="no-referrer"></script>
+														<link rel="stylesheet"
+															href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css"
+															integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ=="
+															crossorigin="anonymous" referrerPolicy="no-referrer" />
+														<pre id="270dc82f-49f8-80c6-84a1-d5081a05bd5c"
+															class="code code-wrap"><code class="language-Plain Text" style="white-space:pre-wrap;word-break:break-all">REPEAT
+    &lt;statement&gt;
+UNTIL &lt;condition&gt;
+END_REPEAT;</code></pre>
+													</details>
+												</li>
+											</ul>
+										</li>
+									</ul>
+									<ul id="270dc82f-49f8-8044-bfb1-fc090b783566" class="bulleted-list">
+										<li style="list-style-type:disc">La llamada a los <strong>FB </strong>se realiza
+											escribiendo el nombre de la instancia del <strong>FB </strong>seguido de,
+											entre paréntesis, las asignaciones de los valores para las variables de
+											entrada (si las hay), separadas por comas:
+											<code>&lt;nombre_instancia&gt;(var1:=val1, var2:=val2, ...]);</code> </li>
+									</ul>
+									<ul id="270dc82f-49f8-80d8-8fe6-d7a26df4e2a3" class="bulleted-list">
+										<li style="list-style-type:disc">En caso de que no haya ninguna variable de
+											entrada que especificar, simplemente se abre y se cierra
+											paréntesis.<br /><mark
+												class="highlight-red"><strong>Ejemplos</strong></mark><mark
+												class="highlight-red">:</mark> <code>Estacion();</code>
+											<code>Lampara(TiempoEncedido:=T#2s);</code></li>
+									</ul>
+								</div>
+							</details>
+							<details open="">
+								<summary style="font-weight:600;font-size:1.25em;line-height:1.3;margin:0">
+									<strong>Sequential Function Chart (SFC)</strong></summary>
+								<div class="indented">
+									<ul id="270dc82f-49f8-8039-91d3-e35663bc07d3" class="toggle">
+										<li>
+											<details open="">
+												<summary>Reglas sintáticas básicas</summary>
+												<ul id="270dc82f-49f8-8025-b160-dd0a4da15768" class="bulleted-list">
+													<li style="list-style-type:disc">Los nombres de las etapas no pueden
+														empezar por un número. Tampoco pueden tener espacios, puntos u
+														otros caracteres especiales como eñes, interrogaciones, etc. Sí
+														permite guiones bajos.</li>
+												</ul>
+												<ul id="270dc82f-49f8-800d-bf63-d23b64f830cc" class="bulleted-list">
+													<li style="list-style-type:disc">No puede haber dos etapas
+														consecutivas ni dos transiciones consecutivas. Hay que tener
+														especial atención a esto cuando se produzcan bifurcaciones o
+														saltos. </li>
+												</ul>
+											</details>
+										</li>
+									</ul>
+									<ul id="270dc82f-49f8-8023-a5e7-e747bb134f20" class="toggle">
+										<li>
+											<details open="">
+												<summary>Añadir un etapa y una transición</summary>
+												<ul id="270dc82f-49f8-8080-bf61-e1d8c9c306ab" class="bulleted-list">
+													<li style="list-style-type:disc">Hacer <strong>CD </strong>sobre la
+														<strong>etapa </strong>donde queramos introducir una nueva y
+														seleccionar <em><strong>Add step-transition</strong></em> o
+														<em><strong>Add step-transition after</strong></em>, dependiendo
+														de si queremos añadirla antes o después, respectivamente, de la
+														etapa seleccionada.</li>
+												</ul>
+												<ul id="270dc82f-49f8-80f7-9d24-ccdeb93def13"
+													class="block-color-yellow_background bulleted-list">
+													<li style="list-style-type:disc"><strong><span
+																style="border-bottom:0.05em solid">Importante</span></strong>:
+														Comprobar que no quedan dos etapas o dos transiciones
+														consecutivas. En caso contrario, borrar aquello que no sirva
+														(<strong>CI </strong>sobre él y pulsar <em>Supr</em>).</li>
+												</ul>
+											</details>
+										</li>
+									</ul>
+									<ul id="270dc82f-49f8-8075-9b52-c3de53e4e4fc" class="toggle">
+										<li>
+											<details open="">
+												<summary>Asociar una acción a una etapa</summary>
+												<ul id="270dc82f-49f8-80cd-8766-c592b727f69a" class="toggle">
+													<li>
+														<details open="">
+															<summary>Asociar una acción no memorizada a un etapa
+															</summary>
+															<ul id="270dc82f-49f8-80dc-aa98-c74710f95645"
+																class="bulleted-list">
+																<li style="list-style-type:disc">Hacer <strong>CD
+																	</strong>sobre la <strong>etapa </strong>a la que
+																	queramos asociar una acción no memoriza (o continua)
+																	y seleccionar <em><strong>Insert action
+																			association</strong></em> o
+																	<em><strong>Insert action association
+																			after</strong></em>, dependiendo de si
+																	queremos insertarla antes o después de las ya
+																	existentes (si las hay).</li>
+															</ul>
+															<ul id="270dc82f-49f8-8073-88d8-f48e03a09271"
+																class="bulleted-list">
+																<li style="list-style-type:disc">En la caja de la acción
+																	aparece en primer lugar el <strong>modificador
+																	</strong>(por defecto <code>N</code>, que significa
+																	<strong>No memorizada</strong>) y en segundo lugar
+																	el hueco donde debemos poner la acción a realizar
+																	(una variable booleana que queramos activar o una
+																	acción más compleja definida como acción asociada al
+																	bloque funcional, ver <mark
+																		class="highlight-red">aquí</mark>).<figure
+																		id="270dc82f-49f8-80d0-8990-d72ce7b717d7"
+																		class="image"><a href="images/cb/image%205.png"><img
+																				style="width:288px"
+																				src="images/cb/image%205.png" /></a>
+																		<figcaption>Acción no memorizada en etapa S0
+																		</figcaption>
+																	</figure>
+																</li>
+															</ul>
+															<ul id="270dc82f-49f8-809b-bf10-d65da2ab229d"
+																class="toggle">
+																<li>
+																	<details open="">
+																		<summary>Tipos de modificadores de acciones
+																		</summary>
+																		<ul id="270dc82f-49f8-8073-9825-deb2f1b7133c"
+																			class="block-color-yellow_background bulleted-list">
+																			<li style="list-style-type:disc">
+																				<strong><span
+																						style="border-bottom:0.05em solid">Importante</span></strong>:
+																				Usaremos, por defecto, las acciones no
+																				memorizadas, aunque se pueden usar las
+																				otras si tiene sentido para el proyecto.
+																			</li>
+																		</ul>
+																		<ul id="270dc82f-49f8-80cd-9b6e-d5e25457326e"
+																			class="bulleted-list">
+																			<li style="list-style-type:disc">
+																				<code><strong>N</strong></code>:
+																				<strong>No memorizada (o continua): se
+																					ejecuta/activa mientras la etapa
+																					esté activa.</strong></li>
+																		</ul>
+																		<ul id="270dc82f-49f8-8009-9319-fc421e889a57"
+																			class="bulleted-list">
+																			<li style="list-style-type:disc">
+																				<code>R0</code> (Reinicio): la acción se
+																				desactiva.</li>
+																		</ul>
+																		<ul id="270dc82f-49f8-800d-af93-df1b3afde725"
+																			class="bulleted-list">
+																			<li style="list-style-type:disc">
+																				<code>S0</code> (Activación): la acción
+																				se ejecuta/activa cuando se activa la
+																				etapa y<br />continúa activa aunque la
+																				etapa se desactive.</li>
+																		</ul>
+																		<ul id="270dc82f-49f8-80cf-86b8-fe92488683de"
+																			class="bulleted-list">
+																			<li style="list-style-type:disc">
+																				<code>L</code> (Limitada): la acción se
+																				ejecuta/activa cuando se activa la etapa
+																				y se<br />desactiva caundo se desactiva
+																				la etapa o se alcanza el
+																				tiempo<br />especificado.</li>
+																		</ul>
+																		<ul id="270dc82f-49f8-8064-ad8a-d91d66b326e6"
+																			class="bulleted-list">
+																			<li style="list-style-type:disc">
+																				<code>D</code> (Retrasada): la acción se
+																				ejecuta/activa un tiempo después de que
+																				se<br />active la etapa y se desactiva
+																				cuando se desactiva la etapa.</li>
+																		</ul>
+																		<ul id="270dc82f-49f8-8069-ae4b-cd6317e2d536"
+																			class="bulleted-list">
+																			<li style="list-style-type:disc">
+																				<code>P</code> (Pulsada): la acción se
+																				ejecuta 2 veces, cuando se activa la
+																				etapa y<br />una vez más en el ciclo
+																				siguiente.</li>
+																		</ul>
+																		<ul id="270dc82f-49f8-80c1-83bd-d6f0ac79f4d6"
+																			class="bulleted-list">
+																			<li style="list-style-type:disc">
+																				<code>SD</code> (Activación con
+																				retardo): se activa aunque la etapa ya
+																				no esté activa.</li>
+																		</ul>
+																		<ul id="270dc82f-49f8-8096-838f-e95b29454423"
+																			class="bulleted-list">
+																			<li style="list-style-type:disc">
+																				<code>DS</code> (Retardo de activación):
+																				se activa solo sí la etapa permanece
+																				activa.</li>
+																		</ul>
+																		<ul id="270dc82f-49f8-80a1-a3dc-e0b9ab309d7c"
+																			class="bulleted-list">
+																			<li style="list-style-type:disc">
+																				<code>SL</code> (Activación limitada)
+																			</li>
+																		</ul>
+																	</details>
+																</li>
+															</ul>
+														</details>
+													</li>
+												</ul>
+												<ul id="270dc82f-49f8-8073-9335-dfbe9a835d94" class="toggle">
+													<li>
+														<details open="">
+															<summary>Asociar una acción de entrada o salida a un etapa
+															</summary>
+															<ul id="270dc82f-49f8-8067-9d7a-c21c344873df"
+																class="bulleted-list">
+																<li style="list-style-type:disc">Podemos crear acciones
+																	con activación <mark
+																		class="highlight-blue"><strong>a la
+																			entrada</strong></mark> o <mark
+																		class="highlight-red"><strong>a la
+																			salida</strong></mark> de una etapa.</li>
+															</ul>
+															<ul id="270dc82f-49f8-8077-99bc-fd94681ebcc4"
+																class="bulleted-list">
+																<li style="list-style-type:disc">Estas acciones se
+																	implementan en alguno de los lenguajes de la norma y
+																	permiten realizar acciones que se ejecutan
+																	<strong>solo una vez</strong> durante la etapa, en
+																	lugar de hacerse de manera continua.</li>
+															</ul>
+															<ul id="270dc82f-49f8-8009-87e7-e402f0376ebf"
+																class="block-color-blue_background toggle">
+																<li>
+																	<details open="">
+																		<summary><mark
+																				class="highlight-default"><strong>A la
+																					entrada</strong></mark></summary>
+																		<ul id="270dc82f-49f8-80e7-8a77-f779255bc737"
+																			class="bulleted-list">
+																			<li style="list-style-type:disc">Las
+																				acciones con activación <mark
+																					class="highlight-default"><strong>a
+																						la entrada</strong></mark> se
+																				ejecutan solo una vez
+																				<strong>inmediatamente después</strong>
+																				de entrar en la etapa donde se asocian.
+																				<strong>Posteriormente </strong>se
+																				comprueba si la condición de transición
+																				para pasar a la siguiente etapa es
+																				cierta o no.</li>
+																		</ul>
+																		<ul id="270dc82f-49f8-8072-ab7b-d17aafe94d21"
+																			class="bulleted-list">
+																			<li style="list-style-type:disc">Normalmente
+																				usaremos estas acciones para inicializar
+																				variables memorizadas, actualizar
+																				contadores, etc.</li>
+																		</ul>
+																		<ul id="270dc82f-49f8-8015-ab50-d2111eface06"
+																			class="bulleted-list">
+																			<li style="list-style-type:disc">Para crear
+																				una de este tipo, hacer <strong>CD
+																				</strong>sobre la etapa donde la
+																				queremos asociar y seleccionar
+																				<em><strong>Add entry
+																						action</strong></em>.</li>
+																		</ul>
+																		<ul id="270dc82f-49f8-80d1-ae1e-c866dd8ee450"
+																			class="bulleted-list">
+																			<li style="list-style-type:disc">Aparece un
+																				<em>popup </em>donde se nos pregunta por
+																				el nombre que le queremos poner y el
+																				lenguaje a utilizar. Se recomienda dejar
+																				el nombre por defecto
+																				(<code>S0_entry</code> en la figura) ya
+																				que nos indica en qué etapa está y de
+																				qué tipo es.<figure
+																					id="270dc82f-49f8-80e7-88ae-dbc887f9a0c2"
+																					class="image"><a
+																						href="images/cb/image%206.png"><img
+																							style="width:384px"
+																							src="images/cb/image%206.png" /></a>
+																				</figure>
+																			</li>
+																		</ul>
+																		<ul id="270dc82f-49f8-80dd-87b1-e22259fbf75d"
+																			class="bulleted-list">
+																			<li style="list-style-type:disc">En nuestros
+																				proyectos, <strong>estas acciones
+																					siempre serán en ST</strong>, pero
+																				podrían ser implementadas en cualquier
+																				otro lenguaje de la norma.</li>
+																		</ul>
+																		<ul id="270dc82f-49f8-805d-a71b-f2ccaacbe27b"
+																			class="bulleted-list">
+																			<li style="list-style-type:disc">Una vez
+																				creada, aparece en el SFC como un
+																				cuadrado con una <strong>E</strong> en
+																				la esquina inferior izquierda de la
+																				etapa.<figure
+																					id="270dc82f-49f8-8060-aa17-f54110ebf7b5"
+																					class="image"><a
+																						href="images/cb/image%207.png"><img
+																							style="width:288px"
+																							src="images/cb/image%207.png" /></a>
+																				</figure>
+																			</li>
+																		</ul>
+																	</details>
+																</li>
+															</ul>
+															<ul id="270dc82f-49f8-808d-83d4-e751f5f5cc78"
+																class="block-color-red_background toggle">
+																<li>
+																	<details open="">
+																		<summary><mark
+																				class="highlight-default"><strong>A la
+																					salida</strong></mark></summary>
+																		<ul id="270dc82f-49f8-80c2-9370-f9c2ef8bf7d4"
+																			class="bulleted-list">
+																			<li style="list-style-type:disc">Las
+																				acciones con activación <mark
+																					class="highlight-default"><strong>a
+																						la salida</strong></mark> se
+																				ejecutan solo una vez inmediatamente
+																				antes de pasar a la siguiente etapa.
+																				Esto implica que <strong>antes
+																				</strong>de que se ejecute esta acción,
+																				la condición de transición para pasar a
+																				la siguiente etapa <strong>debe ser
+																					cierta</strong>.</li>
+																		</ul>
+																		<ul id="270dc82f-49f8-80fe-a94a-ec1418372590"
+																			class="bulleted-list">
+																			<li style="list-style-type:disc">Normalmente
+																				usaremos estas acciones para inicializar
+																				variables memorizadas, actualizar
+																				contadores, etc.</li>
+																		</ul>
+																		<ul id="270dc82f-49f8-80bb-a4ff-d504858bfbc3"
+																			class="bulleted-list">
+																			<li style="list-style-type:disc">Para crear
+																				una de este tipo, hacer <strong>CD
+																				</strong>sobre la etapa donde la
+																				queremos asociar y seleccionar
+																				<em><strong>Add exit
+																						action</strong></em>.</li>
+																		</ul>
+																		<ul id="270dc82f-49f8-80ce-800a-eea55787c21b"
+																			class="bulleted-list">
+																			<li style="list-style-type:disc">Aparece un
+																				<em>popup </em>donde se nos pregunta por
+																				el nombre que le queremos poner y el
+																				lenguaje a utilizar. Se recomienda dejar
+																				el nombre por defecto
+																				(<code>S0_exit</code> en la figura) ya
+																				que nos indica en qué etapa está y de
+																				qué tipo es.<figure
+																					id="270dc82f-49f8-809f-8738-fe75d561cb21"
+																					class="image"><a
+																						href="images/cb/image%208.png"><img
+																							style="width:384px"
+																							src="images/cb/image%208.png" /></a>
+																				</figure>
+																			</li>
+																		</ul>
+																		<ul id="270dc82f-49f8-808d-93fd-cf89b6419a1b"
+																			class="bulleted-list">
+																			<li style="list-style-type:disc">En nuestros
+																				proyectos, <strong>estas acciones
+																					siempre serán en ST</strong>, pero
+																				podrían ser implementadas en cualquier
+																				otro lenguaje de la norma.</li>
+																		</ul>
+																		<ul id="270dc82f-49f8-8004-b585-cd44b4477b0a"
+																			class="bulleted-list">
+																			<li style="list-style-type:disc">Una vez
+																				creada, aparece en el SFC como un
+																				cuadrado con una <strong>X</strong> en
+																				la esquina inferior derecha de la etapa.
+																				<figure
+																					id="270dc82f-49f8-80e1-b014-f8df5b2e95b4"
+																					class="image"><a
+																						href="images/cb/image%209.png"><img
+																							style="width:288px"
+																							src="images/cb/image%209.png" /></a>
+																				</figure>
+																			</li>
+																		</ul>
+																	</details>
+																</li>
+															</ul>
+														</details>
+													</li>
+												</ul>
+												<ul id="270dc82f-49f8-808f-817a-c4959cb5a9fd"
+													class="block-color-yellow_background bulleted-list">
+													<li style="list-style-type:disc"><strong><span
+																style="border-bottom:0.05em solid">Importante</span></strong>:
+														Nada impide que una etapa tenga asociadas una o varias acciones
+														no memorizadas, una con activación a la entrada y otra con
+														activación a la salida.</li>
+												</ul>
+											</details>
+										</li>
+									</ul>
+									<ul id="270dc82f-49f8-8064-813e-fff29203794d" class="toggle">
+										<li>
+											<details open="">
+												<summary>Estructuras de evolución básicas</summary>
+												<ul id="270dc82f-49f8-800c-b4b4-ddcca4850ead" class="toggle">
+													<li>
+														<details open="">
+															<summary>Secuencia básica</summary>
+															<ul id="270dc82f-49f8-8003-ba82-d5601c755682"
+																class="bulleted-list">
+																<li style="list-style-type:disc">Una secuencia básica se
+																	compone de una <strong>sucesión lineal de etapas y
+																		transiciones</strong>, donde las primeras se van
+																	a ir ejecutando en secuencia conforme las
+																	condiciones asociadas a las segundas se vayan
+																	cumpliendo.</li>
+															</ul>
+															<ul id="270dc82f-49f8-80bb-afe9-ef4e8e7474b8"
+																class="bulleted-list">
+																<li style="list-style-type:disc">Normalmente, al final
+																	de la secuencia se producirá un salto hacia atrás (o
+																	el inicio) en el programa.<figure
+																		id="270dc82f-49f8-8012-9040-f3d544dfe778"
+																		class="image"><a href="images/cb/image%2010.png"><img
+																				style="width:288px"
+																				src="images/cb/image%2010.png" /></a></figure>
+																</li>
+															</ul>
+															<ul id="270dc82f-49f8-805c-a8b7-ee34fa5c336a"
+																class="bulleted-list">
+																<li style="list-style-type:disc">Para insertar un salto
+																	detrás de una transición, hay que hacer <strong>CD
+																	</strong>sobre la transición y seleccionar
+																	<em><strong>Insert jump after</strong></em>. Solo
+																	hay que indicar el nombre de la etapa a la que
+																	queremos saltar.</li>
+															</ul>
+														</details>
+													</li>
+												</ul>
+												<ul id="270dc82f-49f8-8053-a0d4-cce6b4c2ae49" class="toggle">
+													<li>
+														<details open="">
+															<summary>Bifurcación</summary>
+															<ul id="270dc82f-49f8-800f-a270-db93b333db64"
+																class="bulleted-list">
+																<li style="list-style-type:disc">Tras una etapa podemos
+																	realizar una <strong>bifurcación </strong>en
+																	distintas ramas en función de distintas condiciones.
+																	Esto nos permite dirigir la secuencia por cambio si
+																	ocurre un evento y por otros distintos si ocurren
+																	otros eventos.</li>
+															</ul>
+															<ul id="270dc82f-49f8-80c9-bfc0-f7f63e767ffa"
+																class="bulleted-list">
+																<li style="list-style-type:disc">En el ejemplo de la
+																	figura, si la etapa
+																	<code><strong>Init</strong></code><strong>
+																	</strong>está activa y se activa
+																	<code><strong>Execute</strong></code>, el programa
+																	evolucionará por la rama de la izquierda llegando a
+																	<code><strong>S0</strong></code>. Si lo que se
+																	activa es <code><strong>Restore</strong></code>, el
+																	programa evolucionará por la derecha pasando a
+																	<code><strong>Sr</strong></code><strong> </strong>y,
+																	una vez se active
+																	<code><strong>Restaurado</strong></code>, la
+																	secuencia pasará a <code><strong>S0</strong></code>.
+																	<figure id="270dc82f-49f8-80ec-bda8-f360f87da3f5"
+																		class="image"><a href="images/cb/image%2011.png"><img
+																				style="width:336px"
+																				src="images/cb/image%2011.png" /></a></figure>
+																</li>
+															</ul>
+															<ul id="270dc82f-49f8-807f-845c-e6e4252043f5"
+																class="bulleted-list">
+																<li style="list-style-type:disc">Para realizar una
+																	bifurcación, hacer <strong>CD </strong>sobre la
+																	<strong>transición </strong>donde se quiera hacer la
+																	bifurcación
+																	(<code><strong>Execute</strong></code><strong>
+																	</strong>en el ejemplo) y seleccionar
+																	<em><strong>Insert branch right.</strong></em></li>
+															</ul>
+															<ul id="270dc82f-49f8-80e5-ade4-d312345f5d73"
+																class="bulleted-list">
+																<li style="list-style-type:disc">Nada impide que se
+																	pueda hacer una bifurcación con más de dos ramas.
+																</li>
+															</ul>
+															<ul id="270dc82f-49f8-80f1-8e2a-f5d81e68988e"
+																class="bulleted-list">
+																<li style="list-style-type:disc">Es recomendable que las
+																	condiciones de la bifurcación sean excluyentes pero
+																	nada impide que no lo sean. El programa tomará el
+																	camino de la primera transición cuya condición sea
+																	verdadera.</li>
+															</ul>
+															<ul id="270dc82f-49f8-80a9-b67c-eeea26183e74"
+																class="bulleted-list">
+																<li style="list-style-type:disc">Si ocurriera que varias
+																	o todas las condiciones son verdaderas a la vez, el
+																	programa evolucionará por la rama de la izquierda.
+																	<strong>No obstante, esto suele indicar que hay un
+																		mal diseño en el programa.</strong></li>
+															</ul>
+														</details>
+													</li>
+												</ul>
+												<ul id="270dc82f-49f8-8014-8813-d5567d929cee" class="toggle">
+													<li>
+														<details open="">
+															<summary>Paralelismo</summary>
+															<ul id="270dc82f-49f8-803f-bc95-e63222420972"
+																class="bulleted-list">
+																<li style="list-style-type:disc">Si queremos que el
+																	programa evolucione por dos secuencias en paralelo
+																	(se ejecutan simultáneamente) podemos incluir un
+																	paralelismo en el código.</li>
+															</ul>
+															<ul id="270dc82f-49f8-806d-9581-ca5ded6e7905"
+																class="bulleted-list">
+																<li style="list-style-type:disc">En el ejemplo de la
+																	figura, si la etapa
+																	<code><strong>Init</strong></code><strong>
+																	</strong>está activa y se activa
+																	<code><strong>Execute</strong></code>, el programa
+																	evolucionará por ambas ramas a la vez, activando los
+																	estados <code><strong>S0</strong></code> y
+																	<code><strong>Sr</strong></code> de manera
+																	simultánea (y por tanto,
+																	<code><strong>LuzRoja</strong></code> y
+																	<code><strong>Restaura</strong></code>).<figure
+																		id="270dc82f-49f8-80d1-aac6-dbfd0dc3951e"
+																		class="image"><a href="images/cb/image%2012.png"><img
+																				style="width:480px"
+																				src="images/cb/image%2012.png" /></a></figure>
+																</li>
+															</ul>
+															<ul id="270dc82f-49f8-8068-8b88-cce5c07f2a42"
+																class="bulleted-list">
+																<li style="list-style-type:disc">En la transición con
+																	condición
+																	<code><strong>NOT Pulsador OR S0.t&gt;T#5s</strong></code><strong>
+																	</strong>se produce un punto de sincronización ya
+																	que, para que el programa evolucione a
+																	<code><strong>S1</strong></code> debe ocurrir que
+																	<code><strong>S0</strong></code> y
+																	<code><strong>Sr2</strong></code> estén activas y,
+																	además, que la condición
+																	<code><strong>NOT Pulsador OR S0.t&gt;T#5s</strong></code><strong>
+																	</strong>sea cierta. Por tanto, podemos decir que el
+																	programa <em>esperará </em>hasta que termine la rama
+																	de la derecha antes de evolucionar.</li>
+															</ul>
+														</details>
+													</li>
+												</ul>
+											</details>
+										</li>
+									</ul>
+									<p id="270dc82f-49f8-803a-b9f7-f9e30369970f" class="">
+									</p>
+								</div>
+							</details>
+						</div>
+					</details>
+					<details open="">
+						<summary><strong>Crear una visualización</strong></summary>
+						<div class="indented">
+							<figure class="block-color-teal_background callout"
+								style="white-space:normal;display:flex" id="270dc82f-49f8-8001-9898-c83b99fb139c">
+								<div style="font-size:1.5em"><img class="icon"
+										src="https://www.notion.so/icons/playback-play_orange.svg" /></div>
+								<div style="width:100%">
+									<p id="270dc82f-49f8-80a6-96b8-d6da7346931b" class="">Hay un video de ejemplo en el
+										<strong>CV </strong>en <em><strong>Automatización &gt; Videos &gt;
+												TC3</strong></em> con nombre
+										<code><strong>6_Visualizacion_*.mkv</strong></code></p>
+								</div>
+							</figure>
+							<ul id="270dc82f-49f8-80fb-8700-c37980807187" class="bulleted-list">
+								<li style="list-style-type:disc">Hacer <strong>CD </strong>sobre la sección
+									<code>VISUs</code></li>
+							</ul>
+							<ul id="270dc82f-49f8-800f-bc24-eb3d3a3c7002" class="bulleted-list">
+								<li style="list-style-type:disc">Seleccionar
+									<code>Add → Visualization</code><em><strong> </strong></em>y pulsar en
+									<em><strong>Open</strong></em> en la ventana <em>popup</em>.<figure
+										id="270dc82f-49f8-808c-9484-f7c37ed57c2b" class="image"><a
+											href="images/cb/image%2013.png"><img style="width:240px" src="images/cb/image%2013.png" /></a>
+									</figure>
+								</li>
+							</ul>
+							<ul id="270dc82f-49f8-8055-a9e9-ea8548feb72c" class="bulleted-list">
+								<li style="list-style-type:disc">En la parte derecha de la pantalla aparecerá la sección
+									<code>Toolbox</code> donde, en la sección <code>Basic</code> aparecen las formas
+									básicas. Arrastrar a la visualización los elementos que se quieran.</li>
+							</ul>
+							<ul id="270dc82f-49f8-8016-9e05-ceb73590a1eb"
+								class="block-color-yellow_background bulleted-list">
+								<li style="list-style-type:disc"><strong><span
+											style="border-bottom:0.05em solid">Importante</span></strong>: Si no aparece
+									la sección, mostrarlo entrando en el <strong>Menú
+									</strong><code>View → Toolbox</code>.</li>
+							</ul>
+							<ul id="270dc82f-49f8-80d7-ab9c-cd376089faa1" class="bulleted-list">
+								<li style="list-style-type:disc">Se recomienda utilizar <strong>rectángulos</strong>
+									para crear botones tanto para las entradas como para las salidas.</li>
+							</ul>
+							<ul id="270dc82f-49f8-803c-af42-c1f030120156" class="toggle">
+								<li>
+									<details open="">
+										<summary>Procedimiento para crear botones que permitan cambiar el valor de una
+											variable:</summary>
+										<ul id="270dc82f-49f8-8059-9814-cf04721e0b4e" class="bulleted-list">
+											<li style="list-style-type:disc">Dibujar un rectángulo con el tamaño deseado
+											</li>
+										</ul>
+										<ul id="270dc82f-49f8-8076-8a82-ea59ae3854d4" class="bulleted-list">
+											<li style="list-style-type:disc">Escribir dentro la etiqueta que queramos
+												que aparezca en el botón</li>
+										</ul>
+										<ul id="270dc82f-49f8-80ab-ae70-f3565c49df55" class="bulleted-list">
+											<li style="list-style-type:disc">Introducir la variable de tipo
+												<code>BOOL</code> que queremos asociar a dicho botón. Dependiendo del
+												comportamiento que queramos que tenga el botón, esta variable se
+												introduce en una sección distinta dentro de
+												<code>Properties → Input Configuration</code> (la pestaña
+												<code>Properties</code> aparece a la derecha, normalmente combinada con
+												<code>Toolbox</code>).<ul id="270dc82f-49f8-808c-b178-c66557c2e260"
+													class="bulleted-list">
+													<li style="list-style-type:circle">Si queremos que la variable
+														cambie de valor <strong>mientras</strong> se pulsa el botón con
+														el ratón pero vuelva a su valor anterior una vez soltado el
+														ratón, introduciremos la variable en la sección
+														<code>Tap</code>:<figure
+															id="270dc82f-49f8-80c9-8f03-f805cb64f27e" class="image"><a
+																href="images/cb/image%2014.png"><img style="width:240px"
+																	src="images/cb/image%2014.png" /></a></figure>
+													</li>
+												</ul>
+												<ul id="270dc82f-49f8-80ed-9a51-c0f267b2aa14" class="bulleted-list">
+													<li style="list-style-type:circle">Si queremos que la variable
+														cambie de valor cada vez que pulsemos el botón (el valor
+														conmutará entre <code>TRUE</code> y <code>FALSE</code>) lo
+														introduciremos en la sección <code>Toggle</code>:<figure
+															id="270dc82f-49f8-8018-899e-c3430ad00397" class="image"><a
+																href="images/cb/image%2015.png"><img style="width:240px"
+																	src="images/cb/image%2015.png" /></a></figure>
+													</li>
+												</ul>
+											</li>
+										</ul>
+									</details>
+								</li>
+							</ul>
+						</div>
+					</details>
+				</div>
+			</details>
+			<details open="" id="declaracion_de_variables">
+				<summary style="font-weight:600;font-size:1.25em;line-height:1.3;margin:0">Declaración de variables en
+					TwinCAT3</summary>
+				<div class="indented">
+					<ul id="270dc82f-49f8-80e9-bf32-e75de41b8329" class="bulleted-list">
+						<li style="list-style-type:disc">Se recomienda utilizar la convención <a
+								href="https://es.wikipedia.org/wiki/Camel_case#:~:text=Camel%20case%20(estilizado%20como%20camelCase,las%20jorobas%20de%20un%20camello.">CamelCase</a>
+							para declarar las variables. </li>
+					</ul>
+					<ul id="270dc82f-49f8-80a9-940f-c66abdc8b5be" class="bulleted-list">
+						<li style="list-style-type:disc">La sintaxis para la declaración de variables es la siguiente
+							<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"
+								integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg=="
+								crossorigin="anonymous" referrerPolicy="no-referrer"></script>
+							<link rel="stylesheet"
+								href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css"
+								integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ=="
+								crossorigin="anonymous" referrerPolicy="no-referrer" />
+							<pre id="270dc82f-49f8-807a-a77e-e7e60ca259cc"
+								class="code code-wrap"><code class="language-Plain Text" style="white-space:pre-wrap;word-break:break-all">&lt;NombreVariable&gt; : &lt;tipo&gt; [:=&lt;ValorInicial&gt;]</code></pre>
+						</li>
+					</ul>
+					<ul id="270dc82f-49f8-801a-859b-eaf702ca748a" class="toggle">
+						<li>
+							<details open="">
+								<summary><strong>Ejemplos</strong></summary>
+								<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"
+									integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg=="
+									crossorigin="anonymous" referrerPolicy="no-referrer"></script>
+								<link rel="stylesheet"
+									href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css"
+									integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ=="
+									crossorigin="anonymous" referrerPolicy="no-referrer" />
+								<pre id="270dc82f-49f8-807f-a5c0-c552552ddf83" class="code code-wrap"><code class="language-Plain Text" style="white-space:pre-wrap;word-break:break-all">// bool
+Pulsador: BOOL;
+LuzAmarilla: BOOL; := TRUE;
+
+// enteros con y sin signo
+Altura: INT;
+Contador: UINT;
+UnidadesSolicitadas: UINT := 10;
+
+// números reales
+TpoSegundos: FLOAT := 1.2;
+
+// tiempo
+TiempoEspera: TIME := T#2s;
+TiempoRestante: TIME;
+
+// bloques funcionales
+Flanco_Pulsador: R_TRIG; // detector de flanco (estándar)
+Coordinador: FB_Coordinador; // bloque funcional definido por el usuario
+
+// arrays
+Ocupado: ARRAY[0..3] OF BOOL; // array de cuatro elementos de tipo BOOL; acceso con []</code></pre>
+							</details>
+						</li>
+					</ul>
+					<ul id="270dc82f-49f8-8021-a1a1-dd2ac7db40e2" class="toggle">
+						<li>
+							<details open="">
+								<summary>La sintaxis de los valores posibles es la siguiente</summary>
+								<ul id="270dc82f-49f8-8094-9971-f9e9650d9c49" class="bulleted-list">
+									<li style="list-style-type:disc">Variables booleanas: <code>TRUE</code>,
+										<code>FALSE</code>.</li>
+								</ul>
+								<ul id="270dc82f-49f8-80fc-8102-c998050e578d" class="bulleted-list">
+									<li style="list-style-type:disc">Variables entereas: <code>0</code>, <code>1</code>,
+										etc.</li>
+								</ul>
+								<ul id="270dc82f-49f8-80c9-9c45-f975169e59d4" class="bulleted-list">
+									<li style="list-style-type:disc">Variables reales: <code>0.1</code>,
+										<code>2.3</code>, etc.</li>
+								</ul>
+								<ul id="270dc82f-49f8-8043-8139-f755897bd40b" class="bulleted-list">
+									<li style="list-style-type:disc">Variables de tiempo: <code>T#&lt;tiempo&gt;</code>
+										donde <code>&lt;tiempo&gt;</code> debe ser del estilo
+										<code>&lt;numero&gt;&lt;unidad&gt;</code>, siendo <code>&lt;unidad&gt;</code>
+										escogido de {<code>s</code>,<code>ms</code>}. <br /><mark
+											class="highlight-red"><strong>Ejemplo</strong></mark><mark
+											class="highlight-red">: </mark><mark
+											class="highlight-red"><code>T#2s</code></mark><mark class="highlight-red">
+											(dos segundos), </mark><mark
+											class="highlight-red"><code>T#500ms</code></mark><mark
+											class="highlight-red"> (quinientos milisegundos). </mark></li>
+								</ul>
+								<ul id="270dc82f-49f8-8061-8449-c19f0ed18b89" class="bulleted-list">
+									<li style="list-style-type:disc">El acceso a los <em>arrays</em> se hace con el
+										índice entre paréntesis. <strong>Ejemplo</strong>:
+										<code>Ocupado[1] := TRUE;</code></li>
+								</ul>
+							</details>
+						</li>
+					</ul>
+					<ul id="270dc82f-49f8-80f5-813b-f1dd9b1554e3" class="toggle">
+						<li>
+							<details open="">
+								<summary>Las variables en TC3 se declaran dentro de los ámbitos existentes en el POU
+									correspondiente: <strong>local</strong>, <strong>entrada </strong>y
+									<strong>salida</strong>.</summary>
+								<ul id="270dc82f-49f8-80d4-8f5e-d60b6b21bcaf" class="toggle">
+									<li>
+										<details open="">
+											<summary><strong>Variables locales</strong></summary>
+											<script
+												src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"
+												integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg=="
+												crossorigin="anonymous" referrerPolicy="no-referrer"></script>
+											<link rel="stylesheet"
+												href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css"
+												integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ=="
+												crossorigin="anonymous" referrerPolicy="no-referrer" />
+											<pre id="270dc82f-49f8-80ac-8d9f-d13cf807ba0a" class="code code-wrap"><code class="language-Plain Text" style="white-space:pre-wrap;word-break:break-all">FUNCTIONAL_BLOCK FB_Estacion
+VAR
+	Contador: UINT;
+END_VAR</code></pre>
+											<ul id="270dc82f-49f8-80f7-b762-f8ee69422501" class="bulleted-list">
+												<li style="list-style-type:disc">Las variables declaradas aquí se pueden
+													utilizar dentro del POU pero <strong>no </strong>pueden tomar
+													valores de fuera del POU ni se pueden acceder desde fuera del POU.
+												</li>
+											</ul>
+										</details>
+									</li>
+								</ul>
+								<ul id="270dc82f-49f8-80f8-a752-cfc2baf9a1e6" class="toggle">
+									<li>
+										<details open="">
+											<summary><strong>Variables de entrada</strong></summary>
+											<script
+												src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"
+												integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg=="
+												crossorigin="anonymous" referrerPolicy="no-referrer"></script>
+											<link rel="stylesheet"
+												href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css"
+												integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ=="
+												crossorigin="anonymous" referrerPolicy="no-referrer" />
+											<pre id="270dc82f-49f8-8045-bf95-c52a71e4598d" class="code code-wrap"><code class="language-Plain Text" style="white-space:pre-wrap;word-break:break-all">FUNCTIONAL_BLOCK FB_Estacion
+VAR_INPUT
+	TiempoEntrada: TIME;
+	TiempoSalida: TIME := T#2s;
+END_VAR</code></pre>
+											<ul id="270dc82f-49f8-8085-885c-fc6c27a6416c" class="bulleted-list">
+												<li style="list-style-type:disc">Las variables declaradas aquí
+													<strong>deben </strong>ser especificadas al llamar al <strong>FB
+													</strong>(a no ser que se les de un valor por defecto). </li>
+											</ul>
+											<ul id="270dc82f-49f8-80fc-81e0-e716f05cbcc3"
+												class="block-color-yellow_background bulleted-list">
+												<li style="list-style-type:disc"><strong><span
+															style="border-bottom:0.05em solid">Importante</span></strong>:
+													No especificarlas en la llamada produce un error de compilación.
+												</li>
+											</ul>
+										</details>
+									</li>
+								</ul>
+								<ul id="270dc82f-49f8-80fe-8230-ea1dec84a6d2" class="toggle">
+									<li>
+										<details open="">
+											<summary><strong>Variables de salida</strong> </summary>
+											<script
+												src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"
+												integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg=="
+												crossorigin="anonymous" referrerPolicy="no-referrer"></script>
+											<link rel="stylesheet"
+												href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css"
+												integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ=="
+												crossorigin="anonymous" referrerPolicy="no-referrer" />
+											<pre id="270dc82f-49f8-803b-9a74-dd5d3a4896a9" class="code code-wrap"><code class="language-Plain Text" style="white-space:pre-wrap;word-break:break-all">FUNCTIONAL_BLOCK FB_Estacion
+VAR_OUTPUT
+	LuzAmarilla: BOOL;
+	LuzVerde: BOOL;
+END_VAR</code></pre>
+											<ul id="270dc82f-49f8-8087-b79d-c3813b02359f" class="bulleted-list">
+												<li style="list-style-type:disc">Las variables declaradas aquí pueden
+													ser accedidas desde fuera del <strong>FB </strong>(por ejemplo,
+													desde otro <strong>FB </strong>que llama a este, o desde el
+													<code>MAIN</code>).</li>
+											</ul>
+											<script
+												src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"
+												integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg=="
+												crossorigin="anonymous" referrerPolicy="no-referrer"></script>
+											<link rel="stylesheet"
+												href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css"
+												integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ=="
+												crossorigin="anonymous" referrerPolicy="no-referrer" />
+											<pre id="270dc82f-49f8-8029-a752-c82e5f82fc26" class="code code-wrap"><code class="language-Plain Text" style="white-space:pre-wrap;word-break:break-all">PROGRAM MAIN
+VAR
+	Estacion: FB_Estacion
+	LuzAmarillaEstacion: BOOL;
+END_VAR
+------------------
+LuzAmarillaEstacion := Estacion.LuzAmarilla; // esto es válido</code></pre>
+											<ul id="270dc82f-49f8-8014-8a46-c0d93465e268"
+												class="block-color-yellow_background bulleted-list">
+												<li style="list-style-type:disc"><strong><span
+															style="border-bottom:0.05em solid">Importante</span></strong>:
+													Querer acceder a una variable de un <strong>FB </strong>que no ha
+													sido declarada como salida produce un error de compilación.</li>
+											</ul>
+										</details>
+									</li>
+								</ul>
+								<ul id="270dc82f-49f8-80c8-9a21-fb858fbc9f74" class="toggle">
+									<li>
+										<details open="">
+											<summary><strong>Variables de entrada y salida</strong> </summary>
+											<script
+												src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"
+												integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg=="
+												crossorigin="anonymous" referrerPolicy="no-referrer"></script>
+											<link rel="stylesheet"
+												href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css"
+												integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ=="
+												crossorigin="anonymous" referrerPolicy="no-referrer" />
+											<pre id="270dc82f-49f8-8083-a5f1-c2712116c44c" class="code code-wrap"><code class="language-Plain Text" style="white-space:pre-wrap;word-break:break-all">FUNCTIONAL_BLOCK FB_Estacion
+VAR_IN_OUT
+	Contador: UINT;
+END_VAR</code></pre>
+											<ul id="270dc82f-49f8-8072-8f53-d6cbf2f561b5" class="bulleted-list">
+												<li style="list-style-type:disc">Este ámbito no aparece por defecto al
+													crear un <strong>FB </strong>pero puede ser añadido simplemente
+													escribiendo la sección <code>VAR_IN_OUT </code>…
+													<code>END_VAR</code>.</li>
+											</ul>
+											<ul id="270dc82f-49f8-805a-a323-d83960811a56" class="bulleted-list">
+												<li style="list-style-type:disc">Las variables declaradas aquí deben
+													tomar un valor como entrada al <strong>FB </strong>y su valor final
+													tras cada ciclo puede ser accedido desde fuera del
+													<strong>FB</strong>.</li>
+											</ul>
+											<ul id="270dc82f-49f8-80fb-bfdd-d50f16cfce43" class="bulleted-list">
+												<li style="list-style-type:disc">Combina las condiciones de los ámbitos
+													de entrada y salida.</li>
+											</ul>
+										</details>
+									</li>
+								</ul>
+								<ul id="270dc82f-49f8-8027-b2e8-d307440844cf" class="bulleted-list">
+									<li style="list-style-type:disc">En un programa (ej. <code>MAIN</code>) sólo
+										disponemos del ámbito <code>VAR</code>.</li>
+								</ul>
+								<ul id="270dc82f-49f8-808b-9704-faadac3f7c94" class="bulleted-list">
+									<li style="list-style-type:disc">En un <strong>FB</strong>, además del ámbito
+										<code>VAR</code>, disponemos de los ámbitos <code>VAR_INPUT</code> y
+										<code>VAR_OUTPUT</code>.</li>
+								</ul>
+							</details>
+						</li>
+					</ul>
+					<ul id="270dc82f-49f8-80df-b7a4-e43520b75745" class="toggle">
+						<li>
+							<details open="">
+								<summary><strong>Declaración de variables que van a ser vinculadas a terminales de
+										E/S</strong></summary>
+								<ul id="270dc82f-49f8-8095-84f8-e3d52d7555f0" class="bulleted-list">
+									<li style="list-style-type:disc">Recuerda que la memoria del PLC está estructurada
+										en tres secciones: la <mark class="highlight-yellow"><strong>imagen de
+												entrada</strong></mark>, la <mark class="highlight-red"><strong>imagen
+												de salida</strong></mark> y la <strong>zona de marcas</strong>.<ul
+											id="270dc82f-49f8-80e7-ba8a-d53c9ca2aa13" class="toggle">
+											<li>
+												<details open="">
+													<summary><strong>Zona de marcas</strong></summary>
+													<ul id="270dc82f-49f8-808f-88c0-e92919f0811e" class="bulleted-list">
+														<li style="list-style-type:disc">Aquí se guardarán aquellas
+															variables que son internas al programa y no van a ser
+															vinculadas con terminales de entrada y salida.</li>
+													</ul>
+													<ul id="270dc82f-49f8-8011-9725-f915bd47740a" class="bulleted-list">
+														<li style="list-style-type:disc">Las variables declaradas con la
+															siguiente sintaxis se guardan en la zona de marcas.
+															<script
+																src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"
+																integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg=="
+																crossorigin="anonymous"
+																referrerPolicy="no-referrer"></script>
+															<link rel="stylesheet"
+																href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css"
+																integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ=="
+																crossorigin="anonymous" referrerPolicy="no-referrer" />
+															<pre id="270dc82f-49f8-8057-a98e-dfd06ce66d6b"
+																class="code code-wrap"><code class="language-Plain Text" style="white-space:pre-wrap;word-break:break-all">VAR
+	Pulsador: BOOL;
+	Contador: UINT;
+	Lampara: BOOL;
+END_VAR</code></pre>
+														</li>
+													</ul>
+												</details>
+											</li>
+										</ul>
+										<ul id="270dc82f-49f8-804c-89f2-e1f1c2d95f91" class="toggle">
+											<li>
+												<details open="">
+													<summary><strong>Imagen de entrada</strong></summary>
+													<ul id="270dc82f-49f8-8080-aede-e7e68df103b1" class="bulleted-list">
+														<li style="list-style-type:disc">Aquí se guardarán las variables
+															que queremos vincular a las <strong>entradas
+																físicas</strong> del sistema.</li>
+													</ul>
+													<ul id="270dc82f-49f8-8085-b49c-d08b8cb32704" class="bulleted-list">
+														<li style="list-style-type:disc">Su sintaxis añade
+															<code>AT %I*</code> antes de la definición del tipo.
+															<script
+																src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"
+																integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg=="
+																crossorigin="anonymous"
+																referrerPolicy="no-referrer"></script>
+															<link rel="stylesheet"
+																href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css"
+																integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ=="
+																crossorigin="anonymous" referrerPolicy="no-referrer" />
+															<pre id="270dc82f-49f8-8068-9d84-ca812504c2a1"
+																class="code code-wrap"><code class="language-Plain Text" style="white-space:pre-wrap;word-break:break-all">VAR
+	Pulsador AT %I*: BOOL;
+END_VAR</code></pre>
+														</li>
+													</ul>
+												</details>
+											</li>
+										</ul>
+										<ul id="270dc82f-49f8-808e-b426-d60cd5420347" class="toggle">
+											<li>
+												<details open="">
+													<summary><strong>Imagen de salida</strong></summary>
+													<ul id="270dc82f-49f8-803c-a961-f624a5876a47" class="bulleted-list">
+														<li style="list-style-type:disc">Aquí se guardarán las variables
+															que queremos vincular a las <strong>salidas físicas</strong>
+															del sistema.</li>
+													</ul>
+													<ul id="270dc82f-49f8-802c-88ff-e658f31bafc9" class="bulleted-list">
+														<li style="list-style-type:disc">Su sintaxis añade
+															<code>AT %Q*</code> antes de la definición del tipo.
+															<script
+																src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"
+																integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg=="
+																crossorigin="anonymous"
+																referrerPolicy="no-referrer"></script>
+															<link rel="stylesheet"
+																href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css"
+																integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ=="
+																crossorigin="anonymous" referrerPolicy="no-referrer" />
+															<pre id="270dc82f-49f8-8006-b70c-db1d2423456c"
+																class="code code-wrap"><code class="language-Plain Text" style="white-space:pre-wrap;word-break:break-all">VAR
+	Lampara AT %Q*: BOOL;
+END_VAR</code></pre>
+														</li>
+													</ul>
+												</details>
+											</li>
+										</ul>
+										<ul id="270dc82f-49f8-80ad-8c89-f392df4f3bad"
+											class="block-color-yellow_background bulleted-list">
+											<li style="list-style-type:circle"><strong><span
+														style="border-bottom:0.05em solid">Importante</span></strong>:
+												Declarar una variable en la imagen de entrada o salida es
+												<strong>independiente </strong>de que sean entradas o salidas del bloque
+												funcional. Estas declaraciones son completamente correctas.
+												<script
+													src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"
+													integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg=="
+													crossorigin="anonymous" referrerPolicy="no-referrer"></script>
+												<link rel="stylesheet"
+													href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css"
+													integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ=="
+													crossorigin="anonymous" referrerPolicy="no-referrer" />
+												<pre id="270dc82f-49f8-80ef-946d-e99cf51ae4e5" class="code code-wrap"><code class="language-Plain Text" style="white-space:pre-wrap;word-break:break-all">VAR_INPUT
+	Pulsador AT %I*: BOOL;
+	LamparaAmarilla AT %Q*: BOOL;
+	TiempoEspera: TIME;
+END_VAR
+VAR
+	LamparaMarcha AT %Q*: BOOL;
+END_VAR
+VAR_OUTPUT
+	PresenciaPale AT %I*: BOOL;
+END_VAR
+</code></pre>
+											</li>
+										</ul>
+									</li>
+								</ul>
+							</details>
+						</li>
+					</ul>
+					<ul id="270dc82f-49f8-8083-8f19-ffb4369f74d7" class="toggle">
+						<li>
+							<details open="">
+								<summary><strong>BONUS: Crear un tipo de unidad de datos</strong></summary>
+								<ul id="270dc82f-49f8-800e-9f64-d9dd73ca5dfc" class="bulleted-list">
+									<li style="list-style-type:disc">Además de los tipos de datos simples
+										(<code>BOOL</code>, <code>INT</code>, etc) y los bloques funcionales ya
+										existentes (<code>R_TRIG</code>) o creados por nosotros
+										(<code>FB_Coordinador_ST</code>), en ocasiones podemos necesitar crear tipos de
+										dato que están compuestos por otros tipos de dato. A estos tipos de datos se les
+										denomina <strong>tipos de unidad de datos</strong> (<em>Data Unit Type</em>,
+										DUT).</li>
+								</ul>
+								<ul id="270dc82f-49f8-8037-923f-efc86b3dbae3" class="bulleted-list">
+									<li style="list-style-type:disc">En nuestros proyectos vamos a poder hacer uso de
+										dos de ellos: <strong>Estructuras </strong>(<code>STRUCT</code>) y
+										<strong>Enumeraciones </strong>(<code>ENUM</code>)</li>
+								</ul>
+								<ul id="270dc82f-49f8-80f2-b463-eb121853b715" class="toggle">
+									<li>
+										<details open="">
+											<summary><strong>Estructuras</strong></summary>
+											<ul id="270dc82f-49f8-80dc-8c2a-f28dcfcf91ab" class="bulleted-list">
+												<li style="list-style-type:disc">Aglutinan en su interior otros tipos de
+													dato</li>
+											</ul>
+											<ul id="270dc82f-49f8-80f4-8af1-ea3769d6b4ff" class="bulleted-list">
+												<li style="list-style-type:disc">Se definen haciendo <strong>CD</strong>
+													sobre la carpeta DUTs y escogiendo <code>Add → DUT</code>
+													<figure id="270dc82f-49f8-804e-9f81-efcfd553a5ad" class="image"><a
+															href="images/cb/image%2016.png"><img style="width:240px"
+																src="images/cb/image%2016.png" /></a></figure>
+												</li>
+											</ul>
+											<ul id="270dc82f-49f8-80b0-950e-dad74f52f004" class="bulleted-list">
+												<li style="list-style-type:disc">Se le da un nombre significativo (se
+													recomienda comenzar con <code>ST</code>, ejemplo:
+													<code>ST_PIEZA</code>), se deja marcado <strong>Structure</strong> y
+													se pulsa en <strong>Open</strong>.</li>
+											</ul>
+											<ul id="270dc82f-49f8-80a1-ad98-dcf32c7e86e0" class="bulleted-list">
+												<li style="list-style-type:disc">Se abrirá una ventana de texto para
+													definir los componentes del tipo de dato:
+													<script
+														src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"
+														integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg=="
+														crossorigin="anonymous" referrerPolicy="no-referrer"></script>
+													<link rel="stylesheet"
+														href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css"
+														integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ=="
+														crossorigin="anonymous" referrerPolicy="no-referrer" />
+													<pre id="270dc82f-49f8-8039-8102-e35b7f4ab491"
+														class="code code-wrap"><code class="language-Plain Text" style="white-space:pre-wrap;word-break:break-all">TYPE ST_PIEZA :
+STRUCT
+	Blanca: BOOL;
+	Baja: BOOL;
+	Tamano: INT;
+	Tiempo: TIME;
+END_STRUCT
+END_TYPE</code></pre>
+												</li>
+											</ul>
+											<ul id="270dc82f-49f8-80df-9b1c-e344da7b0486" class="bulleted-list">
+												<li style="list-style-type:disc">Para usarlo, se define una variable de
+													ese tipo y se accede a sus componentes mediante el operador
+													<code>.</code> (punto)
+													<script
+														src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"
+														integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg=="
+														crossorigin="anonymous" referrerPolicy="no-referrer"></script>
+													<link rel="stylesheet"
+														href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css"
+														integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ=="
+														crossorigin="anonymous" referrerPolicy="no-referrer" />
+													<pre id="270dc82f-49f8-80a8-8d52-ebe17af66c30"
+														class="code code-wrap"><code class="language-Plain Text" style="white-space:pre-wrap;word-break:break-all">// Definicion de variables
+VAR
+	Pieza: ST_PIEZA;
+	Baja: BOOL;
+END_VAR
+--------------------------------
+// Implementacion
+Pieza.Blanca := TRUE;
+Baja := (Pieza.Tamano &lt; 12);
+Pieza.Tiempo := T#1s;</code></pre>
+												</li>
+											</ul>
+										</details>
+									</li>
+								</ul>
+								<ul id="270dc82f-49f8-801c-ae42-e9932d037457" class="toggle">
+									<li>
+										<details open="">
+											<summary><strong>Enumeraciones</strong></summary>
+											<ul id="270dc82f-49f8-8079-8599-d0683a90bf4e" class="bulleted-list">
+												<li style="list-style-type:disc">Una enumeración es un tipo de datos
+													definido por el usuario compuesto por una serie de componentes
+													separados por comas, también llamados valores de enumeración, que se
+													utiliza para declarar variables definidas por el usuario.</li>
+											</ul>
+											<ul id="270dc82f-49f8-802a-b27a-eb95feb2053b" class="bulleted-list">
+												<li style="list-style-type:disc">Se definen haciendo <strong>CD</strong>
+													sobre la carpeta DUTs y escogiendo <code>Add → DUT</code>
+													<figure id="270dc82f-49f8-805b-8f9e-f493fe157117" class="image"><a
+															href="images/cb/image%2016.png"><img style="width:240px"
+																src="images/cb/image%2016.png" /></a></figure>
+												</li>
+											</ul>
+											<ul id="270dc82f-49f8-8088-ba6b-fc9f851c3c06" class="bulleted-list">
+												<li style="list-style-type:disc">Se le da un nombre significativo (se
+													recomienda comenzar con <code>E</code>, ejemplo:
+													<code>E_ColorBasic</code>), se deja marcado
+													<strong>Enumeration</strong> y se pulsa en <strong>Open</strong>.
+												</li>
+											</ul>
+											<ul id="270dc82f-49f8-80e8-a855-e82d7642fd15" class="bulleted-list">
+												<li style="list-style-type:disc">Se abrirá una ventana de texto para
+													definir los componentes del tipo de dato:
+													<script
+														src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"
+														integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg=="
+														crossorigin="anonymous" referrerPolicy="no-referrer"></script>
+													<link rel="stylesheet"
+														href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css"
+														integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ=="
+														crossorigin="anonymous" referrerPolicy="no-referrer" />
+													<pre id="270dc82f-49f8-80fb-a053-da758d01e97a"
+														class="code code-wrap"><code class="language-Plain Text" style="white-space:pre-wrap;word-break:break-all">{attribute &#x27;qualified_only&#x27;}
+{attribute &#x27;strict&#x27;}
+TYPE E_ColorBasic :
+(
+    eRed, 
+    eYellow,
+    eGreen,
+    eBlue,
+    eBlack
+) // Basic data type is INT, default initialization is eRed
+;
+END_TYPE</code></pre>
+												</li>
+											</ul>
+											<ul id="270dc82f-49f8-802c-a5a9-de30fe381678" class="bulleted-list">
+												<li style="list-style-type:disc">Una variable definida con el tipo
+													<code>E_ColorBasic</code> es, en realidad, de tipo <code>INT</code>
+													y solo puede tomar los valores definidos en
+													<code>E_ColorBasic</code>: <code>eRed</code>, <code>eYellow</code>,
+													etc. </li>
+											</ul>
+											<ul id="270dc82f-49f8-80aa-865d-f5bcc11895f5" class="bulleted-list">
+												<li style="list-style-type:disc">Cada uno de esos valores tiene un valor
+													<code>INT</code> asociado, comenzando por el cero:
+													<code>eRed = 0</code>, <code>eYellow = 1</code>, etc. </li>
+											</ul>
+											<ul id="270dc82f-49f8-8068-ac91-efc0e878d783" class="bulleted-list">
+												<li style="list-style-type:disc">Para usarlo, se define una variable de
+													ese tipo y se le asigna el valor deseado usando el nombre del tipo
+													de dato <strong>Enumeration</strong>.
+													<script
+														src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"
+														integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg=="
+														crossorigin="anonymous" referrerPolicy="no-referrer"></script>
+													<link rel="stylesheet"
+														href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css"
+														integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ=="
+														crossorigin="anonymous" referrerPolicy="no-referrer" />
+													<pre id="270dc82f-49f8-80f3-a0fa-e7861a87b6e9"
+														class="code code-wrap"><code class="language-Plain Text" style="white-space:pre-wrap;word-break:break-all">// Definicion de variables
+VAR
+	Color: E_ColorBasic;
+END_VAR
+--------------------------------
+// Implementacion
+Color := E_ColorBasic.eYellow; // asignacion de valor
+IF Color &lt;&gt; E_ColorBasic.eRed THEN // comprobacion de valor
+	[...]
+END_IF</code></pre>
+												</li>
+											</ul>
+										</details>
+									</li>
+								</ul>
+							</details>
+						</li>
+					</ul>
+				</div>
+			</details>
+			<details open="" id="exportar_importar">
+				<summary style="font-weight:600;font-size:1.25em;line-height:1.3;margin:0">Exportar e importar POUs y
+					VISUs entre proyectos</summary>
+				<div class="indented">
+					<ul id="270dc82f-49f8-8004-8766-cd46a06d199a" class="bulleted-list">
+						<li style="list-style-type:disc">Podemos exportar <code>POUs</code> y <code>VISUs</code> desde
+							una solución de <strong>TC3 </strong>e importarla de nuevo en otra distinta. De esta manera
+							podemos reutilizar código de distintas proyectos.</li>
+					</ul>
+					<ul id="270dc82f-49f8-803a-8b68-c818950753da" class="bulleted-list">
+						<li style="list-style-type:disc">Para realizar esto, en la solución origen, simplemente hay que
+							hacer <strong>CD </strong>sobre el <code>POU</code> o <code>VISU</code> a exportar y
+							seleccionar <em><strong>Export to ZIP</strong></em>. Se selecciona donde guardar el archivo
+							exportado y se pulsa <em><strong>Save</strong></em>.</li>
+					</ul>
+					<ul id="270dc82f-49f8-8065-a623-f55a07d8b4ca" class="bulleted-list">
+						<li style="list-style-type:disc">Posteriormente, en la solución destino, hacer <strong>CD
+							</strong>sobre la carpeta <code>POU</code> o <code>VISU</code> y seleccionar
+							<em><strong>Import from ZIP</strong></em>. Se busca el archivo correspondiente y se pulsa
+							<em><strong>OK</strong></em>.</li>
+					</ul>
+				</div>
+			</details>
+			<details open="" id="guardar_llevar">
+				<summary style="font-weight:600;font-size:1.25em;line-height:1.3;margin:0">Guardar y llevar el proyecto
+					a otro equipo</summary>
+				<div class="indented">
+					<ul id="270dc82f-49f8-80f7-8d36-c0f39aa812b7" class="bulleted-list">
+						<li style="list-style-type:disc"><strong><span
+									style="border-bottom:0.05em solid">Importante</span></strong>: Se ha detectado que
+							el sincronizar la carpeta del proyecto usando servicios como <strong>Google Drive</strong>
+							está produciendo problemas a la hora de poder abrir los proyectos. Posiblemente esto se deba
+							a que algunos ficheros no son sincronizados correctamente por Drive (por motivos
+							desconocidos), lo que lleva a que, a la hora de abrir el proyecto, no se carguen los
+							ficheros necesarios. <strong>Se recomienda, por tanto, no usar este método sino alguno de
+								los otros.</strong></li>
+					</ul>
+					<details open="">
+						<summary style="font-weight:600;font-size:1.5em;line-height:1.3;margin:0">Usando la carpeta
+							completa</summary>
+						<div class="indented">
+							<ul id="270dc82f-49f8-80e7-af08-e098b9c65e2b" class="bulleted-list">
+								<li style="list-style-type:disc">Es la manera más sencilla de llevarse un proyecto desde
+									un equipo a otro. </li>
+							</ul>
+							<ul id="270dc82f-49f8-8095-b988-e1eb155303b0" class="bulleted-list">
+								<li style="list-style-type:disc">Solo hay que copiar la carpeta raíz (ver figura) en un
+									<em>pendrive</em> y pegar la carpeta en el equipo destino. <figure
+										id="270dc82f-49f8-8041-a10c-fb5cc78f0818" class="image"><a
+											href="images/cb/image%2017.png"><img style="width:132px" src="images/cb/image%2017.png" /></a>
+									</figure>
+								</li>
+							</ul>
+							<ul id="270dc82f-49f8-809b-b54e-ce1e6bf6ece6" class="bulleted-list">
+								<li style="list-style-type:disc">Posteriormente, hacer <strong>DCI </strong>sobre el
+									fichero de <em>Solution </em>(<code>.sln</code>) para que se abra de nuevo en TC3.
+								</li>
+							</ul>
+							<ul id="270dc82f-49f8-807c-92a6-c3279c437fac" class="bulleted-list">
+								<li style="list-style-type:disc"><strong><span
+											style="border-bottom:0.05em solid">Importante</span></strong><strong>: Si la
+										carpeta ha sido comprimida para ser trasladada, hay que asegurarse de haber
+										descomprimido la carpeta completa en el destino antes de abrir el
+										proyecto.</strong></li>
+							</ul>
+						</div>
+					</details>
+					<details open="">
+						<summary style="font-weight:600;font-size:1.5em;line-height:1.3;margin:0">Exportando como .tnzip
+						</summary>
+						<div class="indented">
+							<ul id="270dc82f-49f8-8068-8766-c88c29fd997a" class="bulleted-list">
+								<li style="list-style-type:disc"><strong><span
+											style="border-bottom:0.05em solid">Importante</span></strong><strong>: La
+										entrega final del proyecto deberá seguir este procedimiento</strong></li>
+							</ul>
+							<ul id="270dc82f-49f8-80e3-82cb-e8d760f8ccca" class="bulleted-list">
+								<li style="list-style-type:disc">Este proceso genera el mínimo tamaño posible para
+									trasladar un proyecto</li>
+							</ul>
+							<ul id="270dc82f-49f8-803f-a4bd-d32cae66d48b" class="bulleted-list">
+								<li style="list-style-type:disc">Seleccionar
+									<code>File → Save [nombre_del_proyecto] as Archive…</code></li>
+							</ul>
+							<ul id="270dc82f-49f8-8058-bb31-ff5947b9f4d7" class="bulleted-list">
+								<li style="list-style-type:disc">Seleccionar dónde guardar el proyecto, darle un nombre
+									y asegurarse de que el formato es de tipo <code>.tnzip</code></li>
+							</ul>
+							<ul id="270dc82f-49f8-80ee-bbb4-f8c93bf3b750" class="bulleted-list">
+								<li style="list-style-type:disc">Para volver a abrir el proyecto:<ul
+										id="270dc82f-49f8-80dd-9b32-f8ef50a21d91" class="bulleted-list">
+										<li style="list-style-type:circle">Abrir TC3</li>
+									</ul>
+									<ul id="270dc82f-49f8-80a9-80e8-f61fdd5f8aca" class="bulleted-list">
+										<li style="list-style-type:circle">Seleccionar
+											<code>File → Open → Solution from Archive…</code></li>
+									</ul>
+									<ul id="270dc82f-49f8-80ae-bebf-eff2fdcef4ab" class="bulleted-list">
+										<li style="list-style-type:circle">Buscar el archivo <code>.tnzip</code></li>
+									</ul>
+									<ul id="270dc82f-49f8-8071-aff3-e8c0c838eeea" class="bulleted-list">
+										<li style="list-style-type:circle">Seleccionar (o crear si no existe) una
+											carpeta donde se va a generar la <em>Solution</em></li>
+									</ul>
+									<ul id="270dc82f-49f8-807d-a156-ca890f97b2b7" class="bulleted-list">
+										<li style="list-style-type:circle">En principio, se puede seleccionar siempre la
+											misma carpeta cada vez que se repita este procedimiento.</li>
+									</ul>
+								</li>
+							</ul>
+							<ul id="270dc82f-49f8-804d-93fc-fb1e5615249a" class="toggle">
+								<li>
+									<details open="">
+										<summary><strong><span
+													style="border-bottom:0.05em solid">Problema</span></strong>: Si al
+											abrir el proyecto de nuevo y compilar obtienes errores no relacionados con
+											el código que antes no tenías.</summary>
+										<ul id="270dc82f-49f8-8012-af4a-d73fff79f987" class="toggle">
+											<li>
+												<details open="">
+													<summary>Solución</summary>
+													<ul id="270dc82f-49f8-8035-81e1-d95228e3eb6a" class="bulleted-list">
+														<li style="list-style-type:disc">Cambiar el tipo de proyecto a
+															TwinCAT RT (x86)</li>
+													</ul>
+													<ul id="270dc82f-49f8-809d-a676-e4a7baba1d23" class="bulleted-list">
+														<li style="list-style-type:disc">Recompilar</li>
+													</ul>
+													<ul id="270dc82f-49f8-803d-8d1b-f1372dbf13f8" class="bulleted-list">
+														<li style="list-style-type:disc">Volver a cambiar a TwinCAT RT
+															(x64)</li>
+													</ul>
+													<ul id="270dc82f-49f8-80af-adf2-e1972bb11f38" class="bulleted-list">
+														<li style="list-style-type:disc">Volver a recompilar</li>
+													</ul>
+												</details>
+											</li>
+										</ul>
+									</details>
+								</li>
+							</ul>
+						</div>
+					</details>
+					<details open="">
+						<summary style="font-weight:600;font-size:1.5em;line-height:1.3;margin:0">Usando control de
+							versiones con GitHub</summary>
+						<div class="indented">
+							<ul id="270dc82f-49f8-80b1-be52-d3aa5c4e3291" class="bulleted-list">
+								<li style="list-style-type:disc">TwinCAT3, al estar basado en Visual Studio, tiene
+									compatibilidad directa con GitHub</li>
+							</ul>
+							<ul id="270dc82f-49f8-80d5-8631-eeb63b5d5115" class="bulleted-list">
+								<li style="list-style-type:disc">Se recomienda seguir el tutorial en este video:<figure
+										id="270dc82f-49f8-8076-8bec-c9990d8c6b0c"><a
+											href="https://www.youtube.com/watch?v=1g6eYnlzKtA" class="bookmark source">
+											<div class="bookmark-info">
+												<div class="bookmark-text">
+													<div class="bookmark-title">PLC programming using TwinCAT 3 -
+														Version control (Part 13/18)</div>
+													<div class="bookmark-description">Proper version control is
+														traditionally not done in the world of automation, which is a
+														big shame. The question should not be whether version control
+														should be used or not. The question should instead be what
+														version control system should be used. In this part we will get
+														an introduction to version control in general, and Git in
+														particular. We will start with an introduction to some basic
+														concepts of version control and then show you how you can put
+														your automation projects under version control using Git, using
+														free and open-source tools that are traditionally used in the
+														software industry. You&#x27;ll learn how to do proper 100% free
+														and Git-based version control using TwinCAT 3! Let&#x27;s start
+														demanding more from our automation vendors and demand that the
+														tooling for version control should be included by default, and
+														get out of the dark ages!
+
+														The complete playlist of all the parts of this tutorial →
+														https://www.youtube.com/playlist?list=PLimaF0nZKYHz3I3kFP4myaAYjmYk1SowO
+
+														You like the content on this channel? Please support this
+														channel by either:
+														- A donation by using the &quot;Thanks&quot; button under the
+														video
+														- A donation through PayPal →
+														https://www.paypal.com/donate/?hosted_button_id=7FBED5B26KT7S
+														- Becoming a Patron → https://www.patreon.com/sagatowski
+
+														Need help with your automation project? I&#x27;m offering
+														consultancy and programming services through my company →
+														https://www.sagatowski.com
+
+														Subscribe so you don&#x27;t miss new videos →
+														https://www.youtube.com/jakobsagatowski?sub_confirmation=1
+
+														Visit my blog → https://www.alltwincat.com
+
+														Automation vendors, please store structured text code as plain
+														text:
+														https://www.youtube.com/watch?v=dgEsib42WaA
+
+														Roald Ruiter&#x27;s &quot;Source control tips for TwinCAT&quot;:
+														https://cookncode.com/twincat/2021/06/07/tc-source-control-tips.html
+
+														Roald Ruiter&#x27;s &quot;Reduce formatting fights with
+														pre-commits for TwinCAT&quot;:
+														https://cookncode.com/twincat/2022/04/14/pre-commit.html
+
+														Chris Chung&#x27;s &quot;Let’s try Source-Control with
+														Git&quot;:
+														http://soup01.com/en/2022/03/13/beckhofflets-try-source-control-with-git-2/
+
+														TwinCAT 3 .gitignore:
+														https://github.com/github/gitignore/blob/main/TwinCAT3.gitignore
+
+														Attributions →
+														https://alltwincat.com/Misc/PLC_Programming_using_TwinCAT3_YouTube_Tutorial_Attributions.txt
+
+														0:00 Intro
+														1:28 Version control
+														6:46 Me ranting
+														11:25 Git
+														15:25 Gitignore
+														16:21 Installation of Git
+														24:41 Git hosting
+														27:56 Git clone
+														30:21 Git integration in VS
+
+														#TwinCAT3 #TwinCAT #PLC #Beckhoff</div>
+												</div>
+												<div class="bookmark-href"><img
+														src="https://www.youtube.com/s/desktop/97ece783/img/favicon_144x144.png"
+														class="icon bookmark-icon" />https://www.youtube.com/watch?v=1g6eYnlzKtA
+												</div>
+											</div><img src="https://i.ytimg.com/vi/1g6eYnlzKtA/maxresdefault.jpg"
+												class="bookmark-image" />
+										</a></figure>
+								</li>
+							</ul>
+						</div>
+					</details>
+				</div>
+			</details>
+			<details open="" id="convenciones">
+				<summary style="font-weight:600;font-size:1.25em;line-height:1.3;margin:0">Convenciones para nombrar (y
+					renombrar) elementos</summary>
+				<div class="indented">
+					<ul id="270dc82f-49f8-8051-a9d1-e547b173a302" class="bulleted-list">
+						<li style="list-style-type:disc">Se recomienda llamar a todos los elementos del proyecto con el
+							nombre adecuado <strong>desde el principio</strong>, ya que renombrar <em>a posteriori</em>
+							puede acarrear problemas derivados del acceso a elementos cuya ruta ha cambiado. No
+							obstante, si es necesario renombrar los elementos, el procedimiento es como sigue. </li>
+					</ul>
+					<details open="">
+						<summary style="font-weight:600;font-size:1.5em;line-height:1.3;margin:0">Soluciones</summary>
+						<div class="indented">
+							<ul id="270dc82f-49f8-8073-89ce-ea4dce0fe51b" class="bulleted-list">
+								<li style="list-style-type:disc">Se recomienda llamar a las soluciones de TC3 de la
+									misma forma que los Proyectos de TC3 (ver <a
+										href="https://www.notion.so/AI-Tutoriales-1b9dc82f49f880d1a6d4e1f0ec817b8f?pvs=21">aquí</a>).
+								</li>
+							</ul>
+							<ul id="270dc82f-49f8-80aa-b7ab-e1a164f2e6f0" class="bulleted-list">
+								<li style="list-style-type:disc">Para renombrarlo una vez creado:<ul
+										id="270dc82f-49f8-807c-b226-e36d0c9d6464" class="bulleted-list">
+										<li style="list-style-type:circle"><strong>CD </strong>sobre el nombre de la
+											solución y seleccionar <em>Rename</em>.<figure
+												id="270dc82f-49f8-806c-8198-e82901195cad" class="image"><a
+													href="images/cb/image%2018.png"><img style="width:240px"
+														src="images/cb/image%2018.png" /></a></figure>
+										</li>
+									</ul>
+									<ul id="270dc82f-49f8-8048-8b0d-e2d0d2cabaad" class="bulleted-list">
+										<li style="list-style-type:circle">Escribir el nuevo nombre.</li>
+									</ul>
+								</li>
+							</ul>
+						</div>
+					</details>
+					<details open="">
+						<summary style="font-weight:600;font-size:1.5em;line-height:1.3;margin:0">Proyectos TwinCAT3
+						</summary>
+						<div class="indented">
+							<ul id="270dc82f-49f8-803b-8406-de4ce50a3b7c" class="bulleted-list">
+								<li style="list-style-type:disc">Se recomienda llamar a los proyectos TwinCAT3 de la
+									siguiente forma:<ul id="270dc82f-49f8-80ff-8983-ca8e59f2770c" class="bulleted-list">
+										<li style="list-style-type:circle"><strong>Para los ejemplos</strong>:
+											<code>TC3_[nombre]</code><br />donde el nombre debe ser algo
+											significativo.<br /><strong>Ejemplos</strong>: <code>TC3_Lampara</code>,
+											<code>TC3_Carro</code>, etc.</li>
+									</ul>
+									<ul id="270dc82f-49f8-80c2-8772-dd8857879786" class="bulleted-list">
+										<li style="list-style-type:circle"><strong>Para los trabajos finales</strong>:
+											<code>[codigo]_TC3_G[grupo]</code> <br />donde <code>codigo</code><em>
+											</em>debe escogerse según la asignatura (<code>AIM</code>, <code>AIE</code>,
+											<code>SR</code>, etc.) y <code>grupo</code> debe ser el número del grupo con
+											dos dígitos (<code>01</code>, <code>02</code>,
+											…).<br /><strong>Ejemplos</strong>: <code>AIM_TC3_G01</code>,
+											<code>SR_TC3_G12</code>, etc.</li>
+									</ul>
+									<ul id="270dc82f-49f8-80b9-b0bb-f0da0273d270" class="toggle">
+										<li>
+											<details open="">
+												<summary>Códigos de las asignaturas</summary>
+												<ul id="270dc82f-49f8-8011-a341-c6d94044a33c" class="bulleted-list">
+													<li style="list-style-type:disc"><code>AIM</code>: Automatización
+														Industrial de GIERM</li>
+												</ul>
+												<ul id="270dc82f-49f8-80c9-ab46-ffc5cf36d0c8" class="bulleted-list">
+													<li style="list-style-type:disc"><code>AIE</code>: Automatización
+														Industrial de GIEI o GIEI+IEL</li>
+												</ul>
+												<ul id="270dc82f-49f8-80ff-a063-f264713b8648" class="bulleted-list">
+													<li style="list-style-type:disc"><code>SR</code>: Sistemas
+														Robotizados de GITI</li>
+												</ul>
+											</details>
+										</li>
+									</ul>
+								</li>
+							</ul>
+							<ul id="270dc82f-49f8-8049-b574-cbfc094d2f1f" class="bulleted-list">
+								<li style="list-style-type:disc">Para renombrarlo una vez creado:<ul
+										id="270dc82f-49f8-80d2-8b44-edf9762a3e58" class="bulleted-list">
+										<li style="list-style-type:circle"><strong>CD </strong>sobre el nombre del
+											proyecto TC3 y seleccionar <em>Rename</em>.<figure
+												id="270dc82f-49f8-80a9-b972-d8589f250b38" class="image"><a
+													href="images/cb/image%2019.png"><img style="width:240px"
+														src="images/cb/image%2019.png" /></a></figure>
+										</li>
+									</ul>
+									<ul id="270dc82f-49f8-8053-9b76-d3a8cf5b0c66" class="bulleted-list">
+										<li style="list-style-type:circle">Escribir el nuevo nombre.</li>
+									</ul>
+								</li>
+							</ul>
+						</div>
+					</details>
+					<details open="">
+						<summary style="font-weight:600;font-size:1.5em;line-height:1.3;margin:0">Proyectos PLC
+						</summary>
+						<div class="indented">
+							<ul id="270dc82f-49f8-80af-9c8d-d0781d1d5a93" class="bulleted-list">
+								<li style="list-style-type:disc">Se recomienda llamar a los proyectos PLC de la forma
+									<code>[nombre]_PLC</code> para los ejemplos o <code>[estacion]_[nivel]_PLC</code>
+									para los trabajos, donde el nombre debe ser algo
+									significativo.<br /><strong>Ejemplos</strong>: <code>Lampara_PLC</code>,
+									<code>FMS201_Monolitico_PLC</code>, etc.</li>
+							</ul>
+							<ul id="270dc82f-49f8-80ed-9a16-f629b30c05d5" class="bulleted-list">
+								<li style="list-style-type:disc">Para renombrarlo una vez creado:<ul
+										id="270dc82f-49f8-8011-a8c8-f52d934e223c" class="bulleted-list">
+										<li style="list-style-type:circle"><strong>CD </strong>sobre el nombre del
+											proyecto PLC y seleccionar <em>Rename</em>.<figure
+												id="270dc82f-49f8-806e-8029-f6c2b7c00a80" class="image"><a
+													href="images/cb/image%2020.png"><img style="width:240px"
+														src="images/cb/image%2020.png" /></a></figure>
+										</li>
+									</ul>
+									<ul id="270dc82f-49f8-80ed-8802-d1a15a458916" class="bulleted-list">
+										<li style="list-style-type:circle">Escribir el nuevo nombre.</li>
+									</ul>
+									<ul id="270dc82f-49f8-80b4-8088-c88593c04b0a" class="bulleted-list">
+										<li style="list-style-type:circle">Aparecerá un aviso indicando que si se cambia
+											el nombre del proyecto no se van a poder hacer cambios online (en caso de
+											que se esté ejecutando). <strong>CI </strong>en Sí.<figure
+												id="270dc82f-49f8-8049-8075-c30330115aee" class="image"><a
+													href="images/cb/image%2021.png"><img style="width:432px"
+														src="images/cb/image%2021.png" /></a></figure>
+										</li>
+									</ul>
+									<ul id="270dc82f-49f8-80bd-a8b5-c8c0babab6cc" class="bulleted-list">
+										<li style="list-style-type:circle">Tras unos segundos, el proyecto PLC habrá
+											cambiado de nombre.</li>
+									</ul>
+									<ul id="270dc82f-49f8-80cb-960c-e37fb3653a55" class="bulleted-list">
+										<li style="list-style-type:circle"><strong><span
+													style="border-bottom:0.05em solid">Importante</span></strong>: Puede
+											ocurrir que, tras el cambio de nombre, al hacer <strong>CI </strong>sobre el
+											proyecto, salga un aviso de error por no encontrar el nombre anterior. Esto
+											se debe solucionar haciendo <strong>CI </strong>sobre <em><strong>Build &gt;
+													Rebuild Solution</strong></em></li>
+									</ul>
+								</li>
+							</ul>
+						</div>
+					</details>
+					<details open="">
+						<summary style="font-weight:600;font-size:1.5em;line-height:1.3;margin:0">Bloques Funcionales
+						</summary>
+						<div class="indented">
+							<ul id="270dc82f-49f8-803d-8416-faf5d77c5cc6" class="bulleted-list">
+								<li style="list-style-type:disc">Se recomienda llamar a los bloques funcionales de la
+									forma <code>FB_[nombre]_[lenguaje]</code>, donde el nombre debe ser algo
+									significativo.</li>
+							</ul>
+							<ul id="270dc82f-49f8-80d6-8298-e242c9c3f101" class="bulleted-list">
+								<li style="list-style-type:disc">Los lenguajes suele ser<ul
+										id="270dc82f-49f8-8042-91ad-ced610283f83" class="bulleted-list">
+										<li style="list-style-type:circle"><code>ST</code> (<em>Structured Text</em>)
+										</li>
+									</ul>
+									<ul id="270dc82f-49f8-80e3-a8ed-c38beee4ab6d" class="bulleted-list">
+										<li style="list-style-type:circle"><code>SFC</code> (<em>Sequential Function
+												Chart</em>)</li>
+									</ul>
+								</li>
+							</ul>
+							<ul id="270dc82f-49f8-80f6-b171-fb45d08a15e1" class="bulleted-list">
+								<li style="list-style-type:disc"><strong>Ejemplos</strong>: <code>FB_Estacion_ST</code>,
+									<code>FB_Coordinador_ST</code>, <code>FB_Alimentador_SFC</code>, etc.</li>
+							</ul>
+							<ul id="270dc82f-49f8-80a5-a860-ef9b2419f598" class="bulleted-list">
+								<li style="list-style-type:disc">Para renombrarlo una vez creado:<ul
+										id="270dc82f-49f8-809e-8e87-d215e06977ea" class="bulleted-list">
+										<li style="list-style-type:circle"><strong>CD </strong>sobre el nombre del
+											<strong>FB</strong> y seleccionar <em><strong>Rename</strong></em>.</li>
+									</ul>
+									<ul id="270dc82f-49f8-80d3-a8dd-ef70501f4c68" class="bulleted-list">
+										<li style="list-style-type:circle">Escribir el nuevo nombre.</li>
+									</ul>
+									<ul id="270dc82f-49f8-8038-9dc9-de766160a614" class="bulleted-list">
+										<li style="list-style-type:circle">Aparecerá un aviso indicando que se van a
+											adaptar todas las referencias en el proyecto. Pulsar en
+											<em><strong>Yes</strong></em>.<figure
+												id="270dc82f-49f8-8029-a334-ef462f06b065" class="image"><a
+													href="images/cb/image%2022.png"><img style="width:384px"
+														src="images/cb/image%2022.png" /></a></figure>
+										</li>
+									</ul>
+									<ul id="270dc82f-49f8-800a-b65d-c64b9237e5c7" class="bulleted-list">
+										<li style="list-style-type:circle">Aparecerá una ventana mostrando todos los
+											cambios que se van a realizar. Pulsar en <em><strong>OK</strong></em>.
+											<figure id="270dc82f-49f8-80fc-ba75-df458c222aff" class="image"><a
+													href="images/cb/image%2023.png"><img style="width:598.0256958007812px"
+														src="images/cb/image%2023.png" /></a></figure>
+										</li>
+									</ul>
+								</li>
+							</ul>
+							<p id="270dc82f-49f8-802f-a90a-df99e971cae3" class="">
+							</p>
+						</div>
+					</details>
+					<details open="">
+						<summary style="font-weight:600;font-size:1.5em;line-height:1.3;margin:0">Variables</summary>
+						<div class="indented">
+							<ul id="270dc82f-49f8-80a0-ba0b-eab99c09e4ee" class="bulleted-list">
+								<li style="list-style-type:disc">Se recomienda llamar a las variables con nombres
+									significativos.</li>
+							</ul>
+							<ul id="270dc82f-49f8-80d2-a05e-d0c4cf53c741" class="bulleted-list">
+								<li style="list-style-type:disc">Si las variables se van a asociar con los terminales de
+									entrada y salida, es <strong><span
+											style="border-bottom:0.05em solid">obligatorio</span></strong><strong>
+									</strong>llamarlas con el nombre indicado en la columna <strong>Variable </strong>de
+									la tabla de E/S.</li>
+							</ul>
+							<ul id="270dc82f-49f8-802e-ae5d-e4b6ef83bb42" class="bulleted-list">
+								<li style="list-style-type:disc">Para renombrar una variable y que ese cambio se corrija
+									en todas las referencias que se hagan a la misma en el proyecto, hay que hacer
+									<strong>CD </strong>sobre el nombre de la variable y seleccionar
+									<code>Refactoring → Rename</code>.</li>
+							</ul>
+							<ul id="270dc82f-49f8-8076-a743-df63494f7b28" class="bulleted-list">
+								<li style="list-style-type:disc">Aparecerá un <em>popup </em>donde se debe indicar el
+									nuevo nombre.<figure id="270dc82f-49f8-801c-902a-e270e886d853" class="image"><a
+											href="images/cb/image%2024.png"><img style="width:240px" src="images/cb/image%2024.png" /></a>
+									</figure>
+								</li>
+							</ul>
+							<ul id="270dc82f-49f8-80ed-9596-ec75d5822e8a" class="bulleted-list">
+								<li style="list-style-type:disc">Aparecerá una ventana mostrando todos los cambios que
+									se van a realizar. Pulsar en <em><strong>OK</strong></em>.<figure
+										id="270dc82f-49f8-802a-ba15-c5628f921fee" class="image"><a
+											href="images/cb/image%2025.png"><img style="width:626.0213012695312px"
+												src="images/cb/image%2025.png" /></a></figure>
+								</li>
+							</ul>
+						</div>
+					</details>
+				</div>
+			</details>
+			<details open="" id="ejecutar_programa">
+				<summary style="font-weight:600;font-size:1.25em;line-height:1.3;margin:0">Ejecutar un programa en
+					TwinCAT3</summary>
+				<div class="indented">
+					<figure class="block-color-teal_background callout" style="white-space:normal;display:flex"
+						id="270dc82f-49f8-8013-8b11-ed526aebefd6">
+						<div style="font-size:1.5em"><img class="icon"
+								src="https://www.notion.so/icons/playback-play_orange.svg" /></div>
+						<div style="width:100%">
+							<p id="270dc82f-49f8-80af-a089-df14d07ad745" class="">Hay un video de ejemplo en el Campus
+								Virtual en <em><strong>Automatización &gt; Videos &gt; TC3</strong></em> con nombre
+								<code><strong>7_Runtime_Local_*.mkv</strong></code></p>
+						</div>
+					</figure>
+					<ul id="270dc82f-49f8-800f-86ef-e2f9809a5405" class="bulleted-list">
+						<li style="list-style-type:disc">Una vez el programa está implementado (independientemente del
+							lenguaje utilizado):<ul id="270dc82f-49f8-8067-9d95-fdf1570c0536" class="bulleted-list">
+								<li style="list-style-type:circle">Compilar el proyecto: Menú
+									<code>Build → Build [nombre del proyecto]</code><em><strong>.</strong></em></li>
+							</ul>
+							<ul id="270dc82f-49f8-8001-b3dd-e16061109ae2" class="bulleted-list">
+								<li style="list-style-type:circle">Asegurarse de que no hay errores.</li>
+							</ul>
+							<ul id="270dc82f-49f8-8036-bde2-fb1a4d55c189" class="toggle">
+								<li>
+									<details open="">
+										<summary>Si has declarado variables en las imágenes de entrada y/o salida.
+										</summary>
+										<ul id="270dc82f-49f8-8034-be99-f8bd37093fbf" class="bulleted-list">
+											<li style="list-style-type:disc">Comprobar que las variables aparecen en la
+												zona de la instancia.<figure id="270dc82f-49f8-8000-b008-c0c8e735ca39"
+													class="image"><a href="images/cb/image%2026.png"><img style="width:192px"
+															src="images/cb/image%2026.png" /></a></figure>
+											</li>
+										</ul>
+									</details>
+								</li>
+							</ul>
+							<ul id="270dc82f-49f8-80dd-ade8-d01522d43a08" class="toggle">
+								<li>
+									<details open="">
+										<summary>Si quieres utilizar el <strong>Equipo Remoto</strong></summary>
+										<ul id="270dc82f-49f8-8025-a212-c4bb8d370d35" class="toggle">
+											<li>
+												<details open="">
+													<summary>Vincular las variables con los terminales correspondientes
+														según la tabla de E/S</summary>
+													<ul id="270dc82f-49f8-8034-a447-cd750896fbec" class="bulleted-list">
+														<li style="list-style-type:disc">DCI sobre la variable a
+															vincular</li>
+													</ul>
+													<ul id="270dc82f-49f8-80eb-a6f2-db860df054ba" class="bulleted-list">
+														<li style="list-style-type:disc">Seleccionar el terminal/canal
+															deseado del listado que aparece</li>
+													</ul>
+												</details>
+											</li>
+										</ul>
+										<ul id="270dc82f-49f8-8016-bf9f-decc5a8b5bfa" class="bulleted-list">
+											<li style="list-style-type:disc">Buscar el equipo remoto (<a
+													href="https://www.notion.so/AI-Tutoriales-1b9dc82f49f880d1a6d4e1f0ec817b8f?pvs=21">guía</a>)
+											</li>
+										</ul>
+									</details>
+								</li>
+							</ul>
+							<ul id="270dc82f-49f8-807a-8827-f59e86cf46a2" class="toggle">
+								<li>
+									<details open="">
+										<summary>Si quieres usar el <strong>Runtime Local</strong></summary>
+										<ul id="270dc82f-49f8-8041-a183-cc6f8f3a738f" class="bulleted-list">
+											<li style="list-style-type:disc">Asegurarte de que seleccionar
+												<strong>Local</strong> en el desplegable del <code>Target</code> (u
+												otras alternativas, ver aquí).</li>
+										</ul>
+										<figure id="270dc82f-49f8-8028-9e56-d367f0a4a5a7" class="image"><a
+												href="images/cb/image%2027.png"><img style="width:162.96487426757812px"
+													src="images/cb/image%2027.png" /></a></figure>
+									</details>
+								</li>
+							</ul>
+							<ul id="270dc82f-49f8-806c-95f5-dae58128b525" class="bulleted-list">
+								<li style="list-style-type:circle">Activar la configuración en el <code>Target</code>
+									(<em><strong>Activate Configuration</strong></em>) y activar el modo de ejecución
+									(<em><strong>Run Mode</strong></em>). Esto último te lo pregunta TwinCAT3 en una
+									ventana <em>popup</em>.<figure id="270dc82f-49f8-80bd-b8a1-ea1dc9c2bcdd"
+										class="image"><a href="images/cb/image%2028.png"><img style="width:60px"
+												src="images/cb/image%2028.png" /></a>
+										<figcaption>Icono de Activar Conf.</figcaption>
+									</figure>
+								</li>
+							</ul>
+							<ul id="270dc82f-49f8-8025-a5c0-e33c36ddff1d" class="bulleted-list">
+								<li style="list-style-type:circle">Descargar el programa en el <code>Target</code>
+									(<em><strong>Login</strong></em>), donde se preguntará, en un <em>popup</em>, si
+									quieres crear un puerto de comunicación con el <code>Target</code> y descargar el
+									programa. Pulsar en <em><strong>Yes</strong></em>.<figure
+										id="270dc82f-49f8-80a9-aa66-eeb42e73b2ea" class="image"><a
+											href="images/cb/image%2029.png"><img style="width:384px" src="images/cb/image%2029.png" /></a>
+									</figure>
+								</li>
+							</ul>
+							<ul id="270dc82f-49f8-808e-bc05-eba5fd05c372" class="bulleted-list">
+								<li style="list-style-type:circle">Ejecutar el programa
+									(<em><strong>Start</strong></em>)<figure id="270dc82f-49f8-803c-a920-d7feda05df60"
+										class="image"><a href="images/cb/image%2030.png"><img style="width:96px"
+												src="images/cb/image%2030.png" /></a>
+										<figcaption>Iconos de Login y Start</figcaption>
+									</figure>
+								</li>
+							</ul>
+							<ul id="270dc82f-49f8-8060-b75d-c60308ed82d7" class="bulleted-list">
+								<li style="list-style-type:circle"><strong><span
+											style="border-bottom:0.05em solid">Importante</span></strong>: Para poder
+									modificar de nuevo el programa, primero hay que parar el programa
+									(<em><strong>Stop</strong></em>) [<strong>recomendado</strong>] y posteriormente
+									hacer <em><strong>Logout</strong></em>.<figure
+										id="270dc82f-49f8-8025-84ea-c93314a9cf57" class="image"><a
+											href="images/cb/image%2031.png"><img style="width:96px" src="images/cb/image%2031.png" /></a>
+										<figcaption>Iconos de Stop y Logout</figcaption>
+									</figure>
+								</li>
+							</ul>
+						</li>
+					</ul>
+				</div>
+			</details>
+			<details open="" id="activar_desactivar">
+				<summary style="font-weight:600;font-size:1.25em;line-height:1.3;margin:0">Activar/desactivar el
+					<em>hardware</em></summary>
+				<div class="indented">
+					<ul id="270dc82f-49f8-80d7-8c32-c60ef9e587ed" class="bulleted-list">
+						<li style="list-style-type:disc">Si has vinculado las variables de tu programa con el
+							<strong>equipo remoto</strong> (hiciste la búsqueda del equipo remoto y la exploración de
+							los módulos de E/S), cuando quieras probar tu programa en el <strong>Runtime Local</strong>,
+							aparecerá una ventana <em>popup</em> indicando un error.</li>
+					</ul>
+					<ul id="270dc82f-49f8-809c-bf76-df4a8aad9a1e" class="block-color-red_background bulleted-list">
+						<li style="list-style-type:disc">TODO: Imagen del error</li>
+					</ul>
+					<ul id="270dc82f-49f8-8034-88dc-f333f8c9c93a" class="bulleted-list">
+						<li style="list-style-type:disc">Esto se debe a que TC3 quiere establecer conexión con el
+							<em>hardware </em>al que estuviste conectado pero no puede, ya que el <code>Target</code> es
+							el local.</li>
+					</ul>
+					<ul id="270dc82f-49f8-808e-9a4e-f3a99db2807d" class="bulleted-list">
+						<li style="list-style-type:disc">Para evitar esto, solo tienes que deshabilitar el <em>hardware
+							</em>haciendo <strong>CD </strong>sobre el dispositivo buscado y seleccionar
+							<em><strong>Disable</strong></em>.</li>
+					</ul>
+					<ul id="270dc82f-49f8-802e-86e4-daa0d0b73ca5" class="bulleted-list">
+						<li style="list-style-type:disc"><strong><span
+									style="border-bottom:0.05em solid">Importante</span></strong>: Recuerda volver a
+							habilitarlo cuando quieras volver a usar el equipo remoto.</li>
+					</ul>
+				</div>
+			</details>
+			<details open="" id="buscar_equipos_remotos">
+				<summary style="font-weight:600;font-size:1.25em;line-height:1.3;margin:0">Búsqueda de equipos remotos
+				</summary>
+				<div class="indented">
+					<figure class="block-color-teal_background callout" style="white-space:normal;display:flex"
+						id="270dc82f-49f8-80f3-a6b7-f5b06bfa5b4f">
+						<div style="font-size:1.5em"><img class="icon"
+								src="https://www.notion.so/icons/playback-play_orange.svg" /></div>
+						<div style="width:100%">
+							<p id="270dc82f-49f8-809c-91ee-d9970594f910" class="">Hay un video de ejemplo en el Campus
+								Virtual en <em><strong>Automatización &gt; Videos &gt; TC3</strong></em> con nombre
+								<code><strong>9_Runtime_Target_*.mkv</strong></code></p>
+						</div>
+					</figure>
+					<p id="270dc82f-49f8-80d2-935b-efc351748ad8" class="">
+					</p>
+				</div>
+			</details>
+			<details open="" id="enlace_variables">
+				<summary style="font-weight:600;font-size:1.25em;line-height:1.3;margin:0">Enlace de variables y
+					terminales de E/S</summary>
+				<div class="indented">
+					<figure class="block-color-teal_background callout" style="white-space:normal;display:flex"
+						id="270dc82f-49f8-8044-b5db-e88bd0228a38">
+						<div style="font-size:1.5em"><img class="icon"
+								src="https://www.notion.so/icons/playback-play_orange.svg" /></div>
+						<div style="width:100%">
+							<p id="270dc82f-49f8-800b-9a2b-efb8c8748a4e" class="">Hay un video de ejemplo en el Campus
+								Virtual en <em><strong>Automatización &gt; Videos &gt; TC3</strong></em> con nombre
+								<code><strong>9_Runtime_Target_*.mkv</strong></code></p>
+						</div>
+					</figure>
+				</div>
+			</details>
+			<p id="270dc82f-49f8-80d6-9192-f26f04be94ec" class="">
+			</p>
+		</div>
+	</article><span class="sans" style="font-size:14px;padding-top:2em"></span>
+</body>
+
+</html>
