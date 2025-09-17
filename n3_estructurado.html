@@ -63,30 +63,30 @@
 											<summary>Si bien esto puede parecer directo al principio, presenta
 												desventajas a medida que el proyecto crece:</summary>
 											<ul id="203dc82f-49f8-804a-adc0-ce81a7596fc3" class="bulleted-list">
-												<li style="list-style-type:disc"><strong>Baja Legibilidad:</strong> Un
+												<li style="list-style-type:disc"><strong>Baja Legibilidad:</strong> Un
 													FB grande con muchas responsabilidades se vuelve difícil de entender
 													y seguir.</li>
 											</ul>
 											<ul id="203dc82f-49f8-8067-b50b-c268c7366bf1" class="bulleted-list">
 												<li style="list-style-type:disc"><strong>Difícil
-														Mantenimiento:</strong> Modificar una parte puede afectar
+														Mantenimiento:</strong> Modificar una parte puede afectar
 													inesperadamente a otras. La depuración es compleja.</li>
 											</ul>
 											<ul id="203dc82f-49f8-802c-977b-eaefd5ef18a8" class="bulleted-list">
-												<li style="list-style-type:disc"><strong>Poca Reutilización:</strong> Es
+												<li style="list-style-type:disc"><strong>Poca Reutilización:</strong> Es
 													complicado extraer partes específicas para usarlas en otros
 													proyectos o estaciones.</li>
 											</ul>
 											<ul id="203dc82f-49f8-807f-89d0-eb8524320fda" class="bulleted-list">
 												<li style="list-style-type:disc"><strong>Complejidad en
-														Pruebas:</strong> Probar funcionalidades específicas de forma
+														Pruebas:</strong> Probar funcionalidades específicas de forma
 													aislada es casi imposible.</li>
 											</ul>
 										</details>
 									</li>
 								</ul>
 								<ul id="203dc82f-49f8-8009-9cbf-e4220dece6ec" class="bulleted-list">
-									<li style="list-style-type:disc">La <strong>estructuración modular</strong>, como la
+									<li style="list-style-type:disc">La <strong>estructuración modular</strong>, como la
 										implementada en los FBs proporcionados, aborda estos problemas dividiendo la
 										funcionalidad en bloques más pequeños y manejables, cada uno con una
 										responsabilidad clara.</li>
@@ -96,27 +96,27 @@
 										<details open="">
 											<summary><strong>Beneficios del Enfoque Modular:</strong></summary>
 											<ul id="203dc82f-49f8-8060-babd-e4321c982e34" class="bulleted-list">
-												<li style="list-style-type:disc"><strong>Claridad:</strong> Cada FB
+												<li style="list-style-type:disc"><strong>Claridad:</strong> Cada FB
 													realiza una tarea específica (ej. Cargar Base, Prensar Rodamiento).
 												</li>
 											</ul>
 											<ul id="203dc82f-49f8-8048-b2c4-cdadb17ae1c7" class="bulleted-list">
-												<li style="list-style-type:disc"><strong>Reutilización:</strong> Los FBs
+												<li style="list-style-type:disc"><strong>Reutilización:</strong> Los FBs
 													de tareas pueden ser reutilizados en otras estaciones o proyectos
 													con lógica similar.</li>
 											</ul>
 											<ul id="203dc82f-49f8-807b-ad5d-de07e266ddf0" class="bulleted-list">
-												<li style="list-style-type:disc"><strong>Mantenimiento:</strong> Los
+												<li style="list-style-type:disc"><strong>Mantenimiento:</strong> Los
 													cambios se localizan en FBs específicos, reduciendo el riesgo de
 													efectos secundarios.</li>
 											</ul>
 											<ul id="203dc82f-49f8-8092-b0cc-caec14677f87" class="bulleted-list">
-												<li style="list-style-type:disc"><strong>Testabilidad:</strong> Cada FB
+												<li style="list-style-type:disc"><strong>Testabilidad:</strong> Cada FB
 													puede probarse individualmente (si se diseña adecuadamente).</li>
 											</ul>
 											<ul id="203dc82f-49f8-80ff-bcbb-c992b8c0713f" class="bulleted-list">
 												<li style="list-style-type:disc">
-													<strong>Colaboración:</strong> Diferentes desarrolladores pueden
+													<strong>Colaboración:</strong> Diferentes desarrolladores pueden
 													trabajar en distintos FBs simultáneamente.</li>
 											</ul>
 										</details>
@@ -359,7 +359,7 @@
 					Estructurado</summary>
 				<div class="indented">
 					<ol type="1" id="203dc82f-49f8-80bc-ba27-e26e8007f160" class="numbered-list" start="1">
-						<li><code><strong>MAIN</strong></code><strong> (Programa Principal):</strong> <ul
+						<li><code><strong>MAIN</strong></code><strong> (Programa Principal):</strong> <ul
 								id="203dc82f-49f8-8043-a69e-e305325ae237" class="bulleted-list">
 								<li style="list-style-type:disc">Es el punto de entrada. </li>
 							</ul>
@@ -370,13 +370,13 @@
 						</li>
 					</ol>
 					<ol type="1" id="203dc82f-49f8-8014-bbed-cc7d0a0928e9" class="numbered-list" start="2">
-						<li><code><strong>FB_Estacion</strong></code><strong> (FB principal):</strong> <ul
+						<li><code><strong>FB_Estacion</strong></code><strong> (FB principal):</strong> <ul
 								id="203dc82f-49f8-80d5-89dc-f4b3d5345a93" class="bulleted-list">
 								<li style="list-style-type:disc">Actúa como el centro neurálgico de la estación.</li>
 							</ul>
 							<ul id="203dc82f-49f8-80d9-8376-f1dcbe479094" class="bulleted-list">
-								<li style="list-style-type:disc">Declara <strong>todas</strong> las variables de
-									Entrada/Salida (E/S) físicas (<code>AT %I*</code>, <code>AT %Q*</code>).</li>
+								<li style="list-style-type:disc">Declara <strong>todas</strong> las variables de
+									Entrada/Salida (E/S) físicas (<code>AT %I*</code>, <code>AT %Q*</code>).</li>
 							</ul>
 							<ul id="203dc82f-49f8-802d-b72c-d3b374d146c1"
 								class="block-color-yellow_background bulleted-list">
@@ -388,7 +388,7 @@
 									</ul>
 									<ul id="241dc82f-49f8-8026-9251-fd7f013be771" class="bulleted-list">
 										<li style="list-style-type:circle">Todos los FBs de tareas:
-											<code>FB_SituarPale_SFC</code>, <code>FB_CargarBase_SFC</code>, etc.</li>
+											<code>FB_SituarPale_SFC</code>, <code>FB_CargarBase_SFC</code>, etc.</li>
 									</ul>
 								</li>
 							</ul>
@@ -415,8 +415,8 @@
 					<ol type="1" id="203dc82f-49f8-80d0-9e20-d25160600d84"
 						class="block-color-yellow_background numbered-list" start="3">
 						<li><mark class="highlight-red"><mark class="highlight-yellow_background"><strong>[NUEVO]
-									</strong></mark></mark><code><strong>FB_Coordinador_SFC</strong></code><strong> (FB
-								Coordinador):</strong> <ul id="203dc82f-49f8-8089-b828-f3b23f7c14a5"
+									</strong></mark></mark><code><strong>FB_Coordinador_SFC</strong></code><strong> (FB
+								Coordinador):</strong> <ul id="203dc82f-49f8-8089-b828-f3b23f7c14a5"
 								class="bulleted-list">
 								<li style="list-style-type:disc">Orquesta la secuencia general de operación.</li>
 							</ul>
@@ -426,11 +426,11 @@
 							</ul>
 							<ul id="203dc82f-49f8-8095-a85b-ebfa0eb2b821" class="bulleted-list">
 								<li style="list-style-type:disc">Activa los FBs de tareas en el orden correcto usando
-									sus señales <code>Execute</code>.</li>
+									sus señales <code>Execute</code>.</li>
 							</ul>
 							<ul id="203dc82f-49f8-80b9-85fb-cfc81634f6ff" class="bulleted-list">
 								<li style="list-style-type:disc">Espera la finalización de cada tarea monitorizando sus
-									señales <code>Done</code>.</li>
+									señales <code>Done</code>.</li>
 							</ul>
 							<ul id="203dc82f-49f8-809d-a191-c9d6bd3a1bfe" class="bulleted-list">
 								<li style="list-style-type:disc">Gestiona la lógica de producción (ej. contar unidades,
@@ -443,7 +443,7 @@
 						<li><mark class="highlight-red"><mark class="highlight-yellow_background"><strong>[NUEVO]
 									</strong></mark></mark><code><strong>FB*_xxx_SFC</strong></code><strong> (FBs de
 								Tareas)
-								(ej. </strong><code><strong>FB_CargarBase_SFC</strong></code><strong>):</strong> <ul
+								(ej. </strong><code><strong>FB_CargarBase_SFC</strong></code><strong>):</strong> <ul
 								id="203dc82f-49f8-80b1-98ad-e052c0f7ef77"
 								class="block-color-red_background bulleted-list">
 								<li style="list-style-type:disc">Cada grupo deberá decidir cómo divide el funcionamiento
@@ -459,21 +459,21 @@
 									para completar su tarea.</li>
 							</ul>
 							<ul id="203dc82f-49f8-8095-a186-e7dfc41c6d76" class="bulleted-list">
-								<li style="list-style-type:disc">Reciben una señal <code>Execute</code> para iniciar su
+								<li style="list-style-type:disc">Reciben una señal <code>Execute</code> para iniciar su
 									secuencia.</li>
 							</ul>
 							<ul id="203dc82f-49f8-800a-816f-de71d3316d5a" class="bulleted-list">
 								<li style="list-style-type:disc">Señalan su finalización con una
-									señal <code>Done</code>.</li>
+									señal <code>Done</code>.</li>
 							</ul>
 							<ul id="203dc82f-49f8-80c8-8332-e400d22e7d6a" class="bulleted-list">
 								<li style="list-style-type:disc">Utilizan un patrón de
-									<em>handshake</em> <code>Ready/Execute</code> y <code>Done/Ack</code> para
+									<em>handshake</em> <code>Ready/Execute</code> y <code>Done/Ack</code> para
 									sincronizarse con el coordinador.</li>
 							</ul>
 							<ul id="203dc82f-49f8-8070-8d07-d9e27143d104" class="bulleted-list">
 								<li style="list-style-type:disc">Leen sensores y activan actuadores necesarios para su
-									tarea (a través de variables conectadas en <code>FB_Estacion</code>).</li>
+									tarea (a través de variables conectadas en <code>FB_Estacion</code>).</li>
 							</ul>
 						</li>
 					</ol>
@@ -509,7 +509,7 @@ CLK();</code></pre> <small>En este código, la <strong>LamparaMarcha</strong> se
 				<div class="indented">
 					<ul id="203dc82f-49f8-800f-8f9d-f372293bc6df" class="block-color-default bulleted-list">
 						<li style="list-style-type:disc">Tanto el FB <strong>Coordinador </strong>como los FBs de tareas
-							(<code>FB_CargarBase_SFC</code>,  <code>FB_SituarPale_SFC</code>, etc.) siguen una
+							(<code>FB_CargarBase_SFC</code>,  <code>FB_SituarPale_SFC</code>, etc.) siguen una
 							estructura <code>SFC</code> común diseñada para la sincronización:<figure
 								id="203dc82f-49f8-80ee-bd4a-fb7874a94d9c" class="image" style="text-align:center"><a
 									href="images/n3/image 3.png"><img style="width:240px" src="images/n3/image 3.png" /></a>
@@ -524,18 +524,18 @@ CLK();</code></pre> <small>En este código, la <strong>LamparaMarcha</strong> se
 								<li style="list-style-type:circle">Es el estado de reposo del FB.</li>
 							</ul>
 							<ul id="203dc82f-49f8-80ad-9ffd-e5b4406e9b4b" class="bulleted-list">
-								<li style="list-style-type:circle">Se activa la salida <code>Ready</code>, que indica
+								<li style="list-style-type:circle">Se activa la salida <code>Ready</code>, que indica
 									que el FB está listo para recibir una orden.</li>
 							</ul>
 							<ul id="203dc82f-49f8-804b-bbc7-fa51a99425cd" class="bulleted-list">
-								<li style="list-style-type:circle">La primera transición espera la señal de
-									entrada <code>Execute</code>, que será activada por otro bloque funcional.</li>
+								<li style="list-style-type:circle">La primera transición espera la señal de
+									entrada <code>Execute</code>, que será activada por otro bloque funcional.</li>
 							</ul>
 						</li>
 					</ul>
 					<ul id="203dc82f-49f8-805a-b40c-dbc294843c7c" class="bulleted-list">
 						<li style="list-style-type:disc"><strong>Etapas Intermedias
-								(</strong><code><strong>S1</strong></code><strong>, </strong><code><strong>S2</strong></code><strong>,
+								(</strong><code><strong>S1</strong></code><strong>, </strong><code><strong>S2</strong></code><strong>,
 								...):</strong>
 							<ul id="203dc82f-49f8-805a-b83a-c6bd66901231" class="bulleted-list">
 								<li style="list-style-type:circle">Implementan la <strong>lógica de control</strong>
@@ -547,8 +547,8 @@ CLK();</code></pre> <small>En este código, la <strong>LamparaMarcha</strong> se
 							</ul>
 							<ul id="203dc82f-49f8-80b3-bfc7-e5d5b35184c3" class="bulleted-list">
 								<li style="list-style-type:circle">Las transiciones entre pasos esperan condiciones de
-									proceso (sensores, temporizadores, o señales de sincronización como las señales
-									<code>Done</code> de otros FBs en el caso del <code>FB_Coordinador_SFC</code>).</li>
+									proceso (sensores, temporizadores, o señales de sincronización como las señales
+									<code>Done</code> de otros FBs en el caso del <code>FB_Coordinador_SFC</code>).</li>
 							</ul>
 						</li>
 					</ul>
@@ -559,22 +559,22 @@ CLK();</code></pre> <small>En este código, la <strong>LamparaMarcha</strong> se
 								<li style="list-style-type:circle">Es el estado final de la secuencia de la tarea.</li>
 							</ul>
 							<ul id="203dc82f-49f8-8030-971f-c92e7627efc5" class="bulleted-list">
-								<li style="list-style-type:circle">Se activa la salida <code>Done</code> para indicar
+								<li style="list-style-type:circle">Se activa la salida <code>Done</code> para indicar
 									que la lógica de control del FB ha finalizado.</li>
 							</ul>
 							<ul id="203dc82f-49f8-804d-ae12-d7bb5dfc81e6" class="toggle">
 								<li>
 									<details open="">
-										<summary>La última transición espera la señal de entrada <code>Ack</code> (acuse
+										<summary>La última transición espera la señal de entrada <code>Ack</code> (acuse
 											de recibo del FB que lo llama):</summary>
 										<ul id="203dc82f-49f8-80b5-84d3-c3f737305991" class="bulleted-list">
 											<li style="list-style-type:disc">Para los FBs de tareas, esta señal
 												normalmente se gestiona en el nivel superior (<code>FB_Estacion</code>)
-												poniéndola a <code>TRUE</code> cuando su correspondiente
-												<code>Execute</code> es <code>FALSE</code>. Esto asegura que el FB de
-												tarea vuelve a <code>Initial</code> sólo después de que el coordinador
-												haya visto la señal <code>Done</code> y haya retirado la
-												orden <code>Execute</code> (ha pasado a la siguiente etapa).</li>
+												poniéndola a <code>TRUE</code> cuando su correspondiente
+												<code>Execute</code> es <code>FALSE</code>. Esto asegura que el FB de
+												tarea vuelve a <code>Initial</code> sólo después de que el coordinador
+												haya visto la señal <code>Done</code> y haya retirado la
+												orden <code>Execute</code> (ha pasado a la siguiente etapa).</li>
 										</ul>
 										<ul id="203dc82f-49f8-80c6-8fbe-d6346c04563d" class="bulleted-list">
 											<li style="list-style-type:disc">Para el <code>FB_Coordinador</code>, no hay
@@ -601,9 +601,9 @@ CLK();</code></pre> <small>En este código, la <strong>LamparaMarcha</strong> se
 					</ul>
 					<ul id="203dc82f-49f8-8046-bde1-d0337233642b" class="bulleted-list">
 						<li style="list-style-type:disc">Un punto clave es cómo un FB de un tarea
-							(ej. <code>FB_CargarBase_SFC</code>) puede acceder al <em>hardware</em> de la estación si la
+							(ej. <code>FB_CargarBase_SFC</code>) puede acceder al <em>hardware</em> de la estación si la
 							declaración de las variables que tienen dicho acceso está situada
-							en <code>FB_Estacion</code>. </li>
+							en <code>FB_Estacion</code>. </li>
 					</ul>
 					<ul id="203dc82f-49f8-805f-a70b-fcf3fc05cc7b" class="toggle">
 						<li>
@@ -611,13 +611,13 @@ CLK();</code></pre> <small>En este código, la <strong>LamparaMarcha</strong> se
 								<summary>Para las <strong>salidas </strong>(actuadores), </summary>
 								<ul id="203dc82f-49f8-8026-9198-ce4862079d0e" class="bulleted-list">
 									<li style="list-style-type:disc">La conexión entre las señales de la tarea y las que
-										tienen acceso al <em>hardware </em>(ej. <code>ManipuladorSucciona AT %Q*</code>,
+										tienen acceso al <em>hardware </em>(ej. <code>ManipuladorSucciona AT %Q*</code>,
 										declarada en <code>FB_Estacion</code>) se realiza en el
-										propio <code>FB_Estacion</code>.</li>
+										propio <code>FB_Estacion</code>.</li>
 								</ul>
 								<ul id="203dc82f-49f8-8056-853d-d913105c1234" class="bulleted-list">
 									<li style="list-style-type:disc"><strong>Declaración de variable de
-											salida:</strong> <code>FB_Estacion</code> declara la variable que va a estar
+											salida:</strong> <code>FB_Estacion</code> declara la variable que va a estar
 										conectada a la salida física utilizando la especificación <code>AT %Q*</code>.
 										También declara una <strong>instancia del FB de la tarea</strong>:
 										<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"
@@ -636,7 +636,7 @@ END_VAR</code></pre>
 								</ul>
 								<ul id="203dc82f-49f8-8062-87a7-d3f3a5235ae2" class="bulleted-list">
 									<li style="list-style-type:disc"><strong>Declaración en la
-											tarea:</strong> <code>FB_CargarBase_SFC</code> declara una salida lógica con
+											tarea:</strong> <code>FB_CargarBase_SFC</code> declara una salida lógica con
 										el mismo propósito (nótese que esto es solo una variable <em>booleana</em>,
 										<strong>sin </strong>acceso directo al <em>hardware </em>ya que no está
 										declarada con <code>AT %Q*</code>):
@@ -655,8 +655,8 @@ END_VAR</code></pre> <small><strong>IMPORTANTE</strong>: Nótese que debemos dec
 								</ul>
 								<ul id="203dc82f-49f8-803c-8f51-dad66249f82e" class="bulleted-list">
 									<li style="list-style-type:disc"><strong>Conexión
-											en </strong><code><strong>FB_Estacion</strong></code><strong>:</strong> En
-										la implementación <code>ST</code> de <code>FB_Estacion</code>, se conectan
+											en </strong><code><strong>FB_Estacion</strong></code><strong>:</strong> En
+										la implementación <code>ST</code> de <code>FB_Estacion</code>, se conectan
 										ambas:
 										<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"
 											integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg=="
@@ -679,7 +679,7 @@ ManipuladorSucciona := CargarBase.ManipuladorSucciona;</code></pre> <small>En es
 									análogo:</summary>
 								<ul id="203dc82f-49f8-808b-b7d9-f6f09fddf74d" class="bulleted-list">
 									<li style="list-style-type:disc">Declaración física
-										en <code>FB_Estacion</code> (<code>AT %I*</code>) e instancia del FB de la
+										en <code>FB_Estacion</code> (<code>AT %I*</code>) e instancia del FB de la
 										tarea.
 										<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"
 											integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg=="
@@ -713,7 +713,7 @@ END_VAR</code></pre> <small><strong>IMPORTANTE</strong>: Nótese que hay que dec
 									</li>
 								</ul>
 								<ul id="203dc82f-49f8-8075-a3c7-d08d41912e41" class="bulleted-list">
-									<li style="list-style-type:disc">Conexión en <code>FB_Estacion</code> pasando la
+									<li style="list-style-type:disc">Conexión en <code>FB_Estacion</code> pasando la
 										entrada física a la entrada del FB de la tarea en la llamada a la instancia de
 										éste último:
 										<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"
@@ -738,10 +738,10 @@ CargarBase(
 			</details>
 			<details open="" id="gestion-sfcreset-sfcpause">
 				<summary style="font-weight:600;font-size:1.25em;line-height:1.3;margin:0">Gestión
-					de <code>SFCReset</code> y <code>SFCPause</code></summary>
+					de <code>SFCReset</code> y <code>SFCPause</code></summary>
 				<div class="indented">
 					<ul id="203dc82f-49f8-8024-be62-ddf47077d756" class="bulleted-list">
-						<li style="list-style-type:disc">Estas son <strong>entradas especiales </strong>proporcionadas
+						<li style="list-style-type:disc">Estas son <strong>entradas especiales </strong>proporcionadas
 							por TwinCAT para FBs basados en <code>SFC</code> (se les denomina <code>SFC-Flags</code>).
 							Permiten un control externo sobre la ejecución del código <code>SFC</code>.</li>
 					</ul>
@@ -749,11 +749,11 @@ CargarBase(
 						<li>
 							<details open="">
 								<summary>
-									<code><strong>SFCPause</strong></code><strong> (</strong><code><strong>BOOL</strong></code><strong>):</strong>
+									<code><strong>SFCPause</strong></code><strong> (</strong><code><strong>BOOL</strong></code><strong>):</strong>
 								</summary>
 								<ul id="203dc82f-49f8-808a-ac54-fb94bcfaa770" class="bulleted-list">
-									<li style="list-style-type:disc">Si se pone a <code>TRUE</code>, el
-										SFC <strong>congela</strong> su estado actual.</li>
+									<li style="list-style-type:disc">Si se pone a <code>TRUE</code>, el
+										SFC <strong>congela</strong> su estado actual.</li>
 								</ul>
 								<ul id="203dc82f-49f8-80ac-8f96-f6841f0ced04" class="bulleted-list">
 									<li style="list-style-type:disc">Los temporizadores de los pasos activos
@@ -761,23 +761,23 @@ CargarBase(
 								</ul>
 								<ul id="203dc82f-49f8-80cb-9e04-c0a62c833e9c" class="bulleted-list">
 									<li style="list-style-type:disc">Las acciones
-										activas <strong>continúan</strong> ejecutándose.</li>
+										activas <strong>continúan</strong> ejecutándose.</li>
 								</ul>
 								<ul id="203dc82f-49f8-8060-ac0a-e72b7b25903c" class="bulleted-list">
-									<li style="list-style-type:disc">Las transiciones <strong>no</strong> se evalúan, es
+									<li style="list-style-type:disc">Las transiciones <strong>no</strong> se evalúan, es
 										decir, el SFC no avanzará a pasos siguientes.</li>
 								</ul>
 								<ul id="203dc82f-49f8-800f-9197-db1fab87cd63" class="bulleted-list">
-									<li style="list-style-type:disc">Cuando <code>SFCPause</code> vuelve
-										a <code>FALSE</code>, el SFC reanuda la ejecución desde donde se quedó (los
+									<li style="list-style-type:disc">Cuando <code>SFCPause</code> vuelve
+										a <code>FALSE</code>, el SFC reanuda la ejecución desde donde se quedó (los
 										temporizadores continúan, las transiciones se evalúan).</li>
 								</ul>
 								<ul id="203dc82f-49f8-80e0-8495-d7f8dace4e3f" class="bulleted-list">
 									<li style="list-style-type:disc">En el ejemplo de la estación
-										203, <code>FB_Estacion</code> recibe una señal <code>PausaEstado</code> y la
-										pasa a la entrada <code>SFCPause</code> de todos los FBs SFC relevantes
-										(<code>Coordinador</code>, <code>SituarPale</code>, etc.), <strong>siempre que
-											no esté activo </strong><code><strong>ReiniciaEstado</strong></code>.</li>
+										203, <code>FB_Estacion</code> recibe una señal <code>PausaEstado</code> y la
+										pasa a la entrada <code>SFCPause</code> de todos los FBs SFC relevantes
+										(<code>Coordinador</code>, <code>SituarPale</code>, etc.), <strong>siempre que
+											no esté activo </strong><code><strong>ReiniciaEstado</strong></code>.</li>
 								</ul>
 							</details>
 						</li>
@@ -786,11 +786,11 @@ CargarBase(
 						<li>
 							<details open="">
 								<summary>
-									<code><strong>SFCReset</strong></code><strong> (</strong><code><strong>BOOL</strong></code><strong>):</strong>
+									<code><strong>SFCReset</strong></code><strong> (</strong><code><strong>BOOL</strong></code><strong>):</strong>
 								</summary>
 								<ul id="203dc82f-49f8-8011-9ddf-ce90163cf49e" class="bulleted-list">
-									<li style="list-style-type:disc">Si se pone a <code>TRUE</code>, el
-										SFC <strong>fuerza</strong> el retorno al paso inicial (<code>Initial</code>).
+									<li style="list-style-type:disc">Si se pone a <code>TRUE</code>, el
+										SFC <strong>fuerza</strong> el retorno al paso inicial (<code>Initial</code>).
 									</li>
 								</ul>
 								<ul id="203dc82f-49f8-804f-9179-f3f51606218c" class="bulleted-list">
@@ -799,21 +799,21 @@ CargarBase(
 								</ul>
 								<ul id="203dc82f-49f8-8069-9fd7-e9339eaddf76" class="bulleted-list">
 									<li style="list-style-type:disc">Las variables internas del SFC
-										(como <code>S1.x</code> o <code>S1.t</code>) se reinician.</li>
+										(como <code>S1.x</code> o <code>S1.t</code>) se reinician.</li>
 								</ul>
 								<ul id="203dc82f-49f8-8017-9593-f76479cd6f13" class="bulleted-list">
 									<li style="list-style-type:disc">El SFC permanecerá en el
-										paso <code>Initial</code> mientras <code>SFCReset</code> esté
-										a <code>TRUE</code>.</li>
+										paso <code>Initial</code> mientras <code>SFCReset</code> esté
+										a <code>TRUE</code>.</li>
 								</ul>
 								<ul id="203dc82f-49f8-80d9-9498-cdf0820c7bc5" class="bulleted-list">
-									<li style="list-style-type:disc">Normalmente, <code>SFCReset</code> se activa con un
+									<li style="list-style-type:disc">Normalmente, <code>SFCReset</code> se activa con un
 										pulso (<em>tap</em>) o se mantiene activo durante la condición de reinicio.</li>
 								</ul>
 								<ul id="203dc82f-49f8-80d5-a456-f521f00318d9" class="bulleted-list">
 									<li style="list-style-type:disc">En el ejemplo de la estación
-										203, <code>FB_Estacion</code> recibe <code>ReiniciaEstado</code> y lo pasa a la
-										entrada <code>SFCReset</code> de todos los FBs SFC.</li>
+										203, <code>FB_Estacion</code> recibe <code>ReiniciaEstado</code> y lo pasa a la
+										entrada <code>SFCReset</code> de todos los FBs SFC.</li>
 								</ul>
 							</details>
 						</li>
@@ -828,8 +828,8 @@ CargarBase(
 							<details open="">
 								<summary><strong>Implementación Típica:</strong></summary>
 								<ul id="203dc82f-49f8-8090-b5fa-f42a72a954f1" class="bulleted-list">
-									<li style="list-style-type:disc">Como se ve en <code>FB_Estacion</code>, estas
-										señales (<code>PausaEstado</code>, <code>ReiniciaEstado</code>) suelen venir de
+									<li style="list-style-type:disc">Como se ve en <code>FB_Estacion</code>, estas
+										señales (<code>PausaEstado</code>, <code>ReiniciaEstado</code>) suelen venir de
 										la lógica de control general de la máquina (HMI, pulsadores de control) y se
 										distribuyen a todos los FBs <code>SFC</code> que necesiten ser pausados o
 										reiniciados conjuntamente.</li>

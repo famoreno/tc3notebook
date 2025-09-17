@@ -20,8 +20,7 @@
 				<strong>Índice de Contenidos</strong>
 				<ol style="margin-top: 0.5em;">
 					<li><a href="#introduccion-objetivos">Introducción y objetivos</a></li>
-					<li><a href="#requisitos">Requisitos</a></li>
-					<li><a href="#guia-resolucion">Guía de resolución</a></li>
+					<li><a href="#guia_resolucion">Guía de resolución</a></li>
 					<li><a href="#gestion-sfcreset-sfcpause">Gestión de SFCReset y SFCPause</a></li>
 					<li><a href="#produccion-lotes">Producción por lotes</a></li>
 				</ol>
@@ -284,7 +283,7 @@
 					</ul>
 				</div>
 			</details>
-			<details open="">
+			<details open="" id="guia_resolucion">
 				<summary style="font-weight:600;font-size:1.25em;line-height:1.3;margin:0">Guía de resolución</summary>
 				<div class="indented">
 					<figure id="206dc82f-49f8-802e-8b58-f60c2f07c1d5" class="image"><a href="images/n2/image 3.png"><img
@@ -461,13 +460,13 @@ END_IF</code></pre>
 					</ul>
 				</div>
 			</details>
-			<details open="">
-				<summary style="font-weight:600;font-size:1.25em;line-height:1.3;margin:0"><strong>Gestión
-						de </strong><code><strong>SFCReset</strong></code><strong> y </strong><code><strong>SFCPause</strong></code>
+			<details open="" id="gestion-sfcreset-sfcpause">
+				<summary style="font-weight:600;font-size:1.25em;line-height:1.3;margin:0">Gestión
+						de <strong><code><strong>SFCReset</strong></code></strong> y <strong><code><strong>SFCPause</strong></code></strong>
 				</summary>
 				<div class="indented">
 					<ul id="203dc82f-49f8-8000-8bb4-d1860a398139" class="bulleted-list">
-						<li style="list-style-type:disc">Estas son <strong>entradas especiales </strong>proporcionadas
+						<li style="list-style-type:disc">Estas son <strong>entradas especiales </strong>proporcionadas
 							por TwinCAT para FBs basados en SFC (se les denomina <code>SFC-Flags</code>). Permiten un
 							control externo sobre la ejecución del código SFC.</li>
 					</ul>
@@ -475,11 +474,11 @@ END_IF</code></pre>
 						<li>
 							<details open="">
 								<summary>
-									<code><strong>SFCPause</strong></code><strong> (</strong><code><strong>BOOL</strong></code><strong>):</strong>
+									<code><strong>SFCPause</strong></code><strong> (</strong><code><strong>BOOL</strong></code><strong>):</strong>
 								</summary>
 								<ul id="203dc82f-49f8-8028-9c32-da48ee20ebac" class="bulleted-list">
-									<li style="list-style-type:disc">Si se pone a <code>TRUE</code>, el
-										SFC <strong>congela</strong> su estado actual.</li>
+									<li style="list-style-type:disc">Si se pone a <code>TRUE</code>, el
+										SFC <strong>congela</strong> su estado actual.</li>
 								</ul>
 								<ul id="203dc82f-49f8-8090-b90c-f3013350216a" class="bulleted-list">
 									<li style="list-style-type:disc">Los temporizadores de los pasos activos
@@ -487,15 +486,15 @@ END_IF</code></pre>
 								</ul>
 								<ul id="203dc82f-49f8-80e0-af89-d7012386cfcf" class="bulleted-list">
 									<li style="list-style-type:disc">Las acciones
-										activas <strong>continúan</strong> ejecutándose.</li>
+										activas <strong>continúan</strong> ejecutándose.</li>
 								</ul>
 								<ul id="203dc82f-49f8-80ca-854f-e0cbdda55c05" class="bulleted-list">
-									<li style="list-style-type:disc">Las transiciones <strong>no</strong> se evalúan. El
+									<li style="list-style-type:disc">Las transiciones <strong>no</strong> se evalúan. El
 										SFC no avanzará a pasos siguientes.</li>
 								</ul>
 								<ul id="203dc82f-49f8-807e-9ed5-f19778909c19" class="bulleted-list">
-									<li style="list-style-type:disc">Cuando <code>SFCPause</code> vuelve
-										a <code>FALSE</code>, el SFC reanuda la ejecución desde donde se quedó (los
+									<li style="list-style-type:disc">Cuando <code>SFCPause</code> vuelve
+										a <code>FALSE</code>, el SFC reanuda la ejecución desde donde se quedó (los
 										temporizadores continúan, las transiciones se evalúan).</li>
 								</ul>
 							</details>
@@ -505,11 +504,11 @@ END_IF</code></pre>
 						<li>
 							<details open="">
 								<summary>
-									<code><strong>SFCReset</strong></code><strong> (</strong><code><strong>BOOL</strong></code><strong>):</strong>
+									<code><strong>SFCReset</strong></code><strong> (</strong><code><strong>BOOL</strong></code><strong>):</strong>
 								</summary>
 								<ul id="203dc82f-49f8-808d-ab6e-dc68d93fb523" class="bulleted-list">
-									<li style="list-style-type:disc">Si se pone a <code>TRUE</code>, el
-										SFC <strong>fuerza</strong> el retorno al paso inicial (<code>Initial</code>).
+									<li style="list-style-type:disc">Si se pone a <code>TRUE</code>, el
+										SFC <strong>fuerza</strong> el retorno al paso inicial (<code>Initial</code>).
 									</li>
 								</ul>
 								<ul id="203dc82f-49f8-8036-b5ee-fc8c74377d32" class="bulleted-list">
@@ -518,15 +517,15 @@ END_IF</code></pre>
 								</ul>
 								<ul id="203dc82f-49f8-80f8-aa63-c3d033bcd214" class="bulleted-list">
 									<li style="list-style-type:disc">Las variables internas del SFC
-										(como <code>S1.x</code> o <code>S1.t</code>) se reinician.</li>
+										(como <code>S1.x</code> o <code>S1.t</code>) se reinician.</li>
 								</ul>
 								<ul id="203dc82f-49f8-80a0-9fbe-c45f300c26ca" class="bulleted-list">
 									<li style="list-style-type:disc">El SFC permanecerá en el
-										paso <code>Initial</code> mientras <code>SFCReset</code> esté
-										a <code>TRUE</code>.</li>
+										paso <code>Initial</code> mientras <code>SFCReset</code> esté
+										a <code>TRUE</code>.</li>
 								</ul>
 								<ul id="203dc82f-49f8-809d-8a98-fa1f0b1c6579" class="bulleted-list">
-									<li style="list-style-type:disc">Normalmente, <code>SFCReset</code> se activa con un
+									<li style="list-style-type:disc">Normalmente, <code>SFCReset</code> se activa con un
 										pulso (<em>tap</em>) o se mantiene activo durante la condición de reinicio.</li>
 								</ul>
 							</details>
@@ -580,7 +579,7 @@ END_IF</code></pre>
 					</ul>
 				</div>
 			</details>
-			<details open="">
+			<details open="" id="produccion-lotes">
 				<summary style="font-weight:600;font-size:1.25em;line-height:1.3;margin:0">Producción por lotes
 				</summary>
 				<div class="indented">
